@@ -12,11 +12,11 @@ Atualizações para o Futuro
 --> 
 
 
-Bem-vindo ao repositório do projeto Kolekto! Este é um aplicativo desenvolvido como parte da disciplina de Fundamentos de Software (FDS). O objetivo do Kolekto é facilitar a compra e venda de produtos colecionáveis, proporcionando uma plataforma intuitiva e amigável para colecionadores e entusiastas.
+Introdução ao Repositórios
 
 ## 🗪 Visão Geral
 
-LLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Descrição do Projeto.
 
 ## 🔧 Funcionalidades Principais
 
