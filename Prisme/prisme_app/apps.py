@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AljavaConfig(AppConfig):
+class PrismeAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "Aljava"
+    name = "prisme_app"
