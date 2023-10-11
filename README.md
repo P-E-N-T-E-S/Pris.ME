@@ -1,4 +1,4 @@
-# Projetos
+# Pris.ME - Organização de ONGs
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/P-E-N-T-E-S/Projeto?style=flat)
 ![GitHub language count](https://img.shields.io/github/languages/count/P-E-N-T-E-S/Projeto?style=flat&logo=python)
@@ -11,26 +11,37 @@ Atualizações para o Futuro
 ![Site Online](https://img.shields.io/website)
 --> 
 
+## Descrição do Projeto
 
-Introdução ao Repositórios
+Pris.ME é uma plataforma web white label projetada para auxiliar as Organizações Não Governamentais (ONGs) a gerenciar suas operações e atividades de forma mais eficiente. O Pris.ME foi pensado para atender às suas necessidades específicas de organização, permitindo que foquem em suas missões e causas sem se preocupar com a complexidade da gestão.
 
-## 🗪 Visão Geral
+## Funcionalidades Principais
 
-Descrição do Projeto.
+- **Gestão de Membros:** As ONGs podem gerenciar e acompanhar os voluntários, funcionários e membros da equipe, simplificando o recrutamento e a comunicação.
 
-## 🔧 Funcionalidades Principais
+- **Gestão de Projetos:** Pris.ME oferece ferramentas para criar, atribuir e monitorar projetos, garantindo que as atividades estejam alinhadas com os objetivos da ONG, e tento uma visão melhor do andamento geral dos mesmos.
 
-- **Função** Descrição da Função.
+- **Controle de Caixa:** A plataforma facilita a gestão dos recursos da ONG, permitindo que ela adicione doações e os gastos que ela obteve no mês.
 
-## ⚙ Tecnologias Utilizadas
+- **Relatórios e Análises:** A geração de relatórios personalizados no dashboard ajuda as ONGs a avaliar o progresso, o impacto e a eficácia de suas operações.
 
-- **Linguagem de Programação:** 
-- **Banco de Dados:** 
-- **Framework de Desenvolvimento:** 
-- **Frontend:** 
-- **Organização:**
+## Entregas
 
-## 🤝 Membros de CC
+1. Diagrama de atividades:
+
+
+2. Protótipo de Baixa:
+
+   2.1 Screencast:
+
+   
+4. Relato da Programação em par:
+   https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing
+
+5. Link do Jira (Histórias):
+
+
+## 👩‍💻 Membros de CC
 
 - Thomaz R. Lima
 - Evaldo G. Filho
@@ -38,6 +49,14 @@ Descrição do Projeto.
 - Luiz Eduardo Brayner
 - André Fonseca
 - Sofia Saraiva
+
+## 👨‍🎨 Membros de Design
+
+- Clara Sobral
+- Emilly São Bento
+- Dylan Vieira
+- João Almeida
+- Lucas Souto
   
 <table>
   <tr>
@@ -94,7 +113,7 @@ Descrição do Projeto.
 
 ## License
 
-[MIT](https://github.com/P-E-N-T-E-S/Kolekto/blob/master/LICENSE.md)
+[MIT](https://github.com/P-E-N-T-E-S/Pris.ME/blob/master/LICENSE.md)
 
 <!--
 Atualizações para o Futuro
