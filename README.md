@@ -11,11 +11,11 @@ Atualizações para o Futuro
 ![Site Online](https://img.shields.io/website)
 --> 
 
-## Descrição do Projeto
+## 📄 Descrição do Projeto
 
 Pris.ME é uma plataforma web white label projetada para auxiliar as Organizações Não Governamentais (ONGs) a gerenciar suas operações e atividades de forma mais eficiente. O Pris.ME foi pensado para atender às suas necessidades específicas de organização, permitindo que foquem em suas missões e causas sem se preocupar com a complexidade da gestão.
 
-## Funcionalidades Principais
+## 🔧 Funcionalidades Principais
 
 - **Gestão de Membros:** As ONGs podem gerenciar e acompanhar os voluntários, funcionários e membros da equipe, simplificando o recrutamento e a comunicação.
 
@@ -25,7 +25,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 - **Relatórios e Análises:** A geração de relatórios personalizados no dashboard ajuda as ONGs a avaliar o progresso, o impacto e a eficácia de suas operações.
 
-## Entregas
+## 📪 Entregas
 
 1. Diagrama de atividades:
 
