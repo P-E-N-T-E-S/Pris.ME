@@ -5,11 +5,9 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Projeto?style=flat&logo=github)
 ![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Projeto?style=flat&logo=github)
 [![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Projeto)](LICENSE.md)
-<!--
-Atualizações para o Futuro
 [![CI](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml/badge.svg)](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml)
 ![Site Online](https://img.shields.io/website)
---> 
+
 
 ## 📄 Descrição do Projeto
 
@@ -31,6 +29,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 
 2. Protótipo de Baixa:
+   https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0
 
    2.1 Screencast:
 
@@ -39,6 +38,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
    https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing
 
 5. Link do Jira (Histórias):
+   https://pentes.atlassian.net/jira/software/projects/CPB/boards/5
 
 
 ## 👩‍💻 Membros de CC
