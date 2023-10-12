@@ -26,9 +26,10 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 ## 📪 Entregas
 
 1. Diagrama de atividades:
+   ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
+   link: https://i.imgur.com/L7d3RYt.png
 
-
-2. Protótipo de Baixa:
+3. Protótipo de Baixa:
    https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0
 
    2.1 Screencast:
