@@ -1,0 +1,13 @@
+{% extends "layout.html" %} {% block title %} Home {% endblock %} 
+{% block main %} 
+
+{% if erro %}
+<div class="alert alert-primary" role="alert">{{ erro }}</div>
+{% endif %}
+
+
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %} 
+{% endblock %}
