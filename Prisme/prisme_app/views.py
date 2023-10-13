@@ -6,20 +6,20 @@ from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
 
-@login_required
+#@login_required
 def home(request):
     contexto = {
     }
     return render(request, "home.html", context=contexto)
 
-@login_required
+#@login_required
 def add_di(request):
     contexto = {
 
     }
     return render(request, "dados.html", context=contexto)
 
-@login_required
+#@login_required
 def teste(request):
     contexto={
         "grafico": linhas([1,2,3], [20,30,40], "penis", "penisX", "penisY")
