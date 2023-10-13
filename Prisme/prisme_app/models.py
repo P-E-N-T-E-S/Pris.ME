@@ -49,7 +49,7 @@ class DadosImpactos(models.Model):
      titulo = models.CharField(max_length=200)
      descricao = models.CharField(max_length=500)
      valor1 = models.DecimalField(max_digits=10, decimal_places=2)
-     valor2 = models.DecimalField(max_digits=10, decimal_places=2)
+     valor2 = models.DecimalField(max_digits=10, decimal_places=2) #o valor 2 sempre é CATEGORICO
      tipo = models.CharField(choices=tipo,default=tipo[0],max_length=50)
 
      def __str__(self):
