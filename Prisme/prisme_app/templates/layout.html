@@ -1,50 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta htpp-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+
     <link rel="stylesheet" href="static/style.css"/>
 
-    <title>Pris.ME</title>
+    <title>Pris.ME {% block title %}{% endblock %}</title>
 </head>
 <body>
 
   <aside class="sidebar">
+    <header class="sidebar-header">
+      <img class="logo-img" scr="https://i.imgur.com/FWUCFTF.jpeg"  alt="Foto da ONG"/>
+    </header>
 
     <nav>
       <button>
         <span>
-          <i><img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" width="30" height="30"></i>
+          <i class="material-symbols-outlined"> person </i>
           <span>Perfil</span>
         </span>
       </button>
 
       <button>
         <span>
-          <i><img src="https://prints.ultracoloringpages.com/8cb11361419c3534ad96e19e278758d1.png" width="30" height="30"></i>
+          <i class="material-symbols-outlined"> home </i>
           <span>Home</span>
         </span>
       </button>
 
       <button>
         <span>
-          <i><img src="https://prints.ultracoloringpages.com/8cb11361419c3534ad96e19e278758d1.png" width="30" height="30"></i>
+          <i class="material-symbols-outlined"> email </i>
           <span>Caixa</span>
         </span>
       </button>
-    </nav>
 
     <button>
       <span>
-        <i><img src="https://prints.ultracoloringpages.com/8cb11361419c3534ad96e19e278758d1.png" width="30" height="30"></i>
+        <i class="material-symbols-outlined"> tag </i>
         <span>D.I</span>
       </span>
     </button>
   </nav>
 
+  <main class="main">
+    {% block main %} {% endblock %}
+  </main>
+
   </aside>
 
+  <button class="button-mobile" onclick="toggleMenu()">
+    <i class="material-symbols-outlined"> menu </i>
+    <span>Menu</span>
+  </button>
+
+  <nav class="menu-mobile" id="menu-mobile">
+    <button onclick="toggleMenu()">
+      <span>
+        <i class="material-symbols-outlined"> close </i>
+      </span>
+    </button>
+
+    <button>
+      <span>
+        <i class="material-symbols-outlined"> person </i>
+        <span class="mobile-text">Perfil</span>
+      </span>
+    </button>
+
+    <button>
+      <span>
+        <i class="material-symbols-outlined"> home </i>
+        <span class="mobile-text">Home</span>
+      </span>
+    </button>
+
+    <button>
+      <span>
+        <i class="material-symbols-outlined"> email </i>
+        <span class="mobile-text">Caixa</span>
+      </span>
+    </button>
+
+    <button>
+      <span>
+        <i class="material-symbols-outlined"> tag </i>
+        <span class="mobile-text">D.I</span>
+      </span>
+    </button>
+  </nav>
+
+  <script src="static/script.js"></script>
 </body>
 </html>
