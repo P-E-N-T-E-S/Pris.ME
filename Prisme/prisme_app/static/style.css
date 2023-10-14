@@ -6,6 +6,7 @@
 body{
     margin: 0;
     font-family: sans-serif;
+    background-color: #ebeaea;
 }
 
 .border{
@@ -21,8 +22,8 @@ body{
     width: 240px;
     height: 100%;
     padding: 40px 10px 30px 10px;
-    border-right: 2px solid #000000;
     transition: all 0.35s;
+    background-color: #6b1bc0;
 }
 
 .sidebar-header{
@@ -48,7 +49,7 @@ body{
     background: transparent;
     border: 0;
     font-family: inherit;
-    color: inherit;
+    color: #FFF;
     cursor: pointer;
     text-align: left;
     padding: 0;
@@ -96,8 +97,8 @@ body{
     height: 80px;
     width: 100%;
     padding: 15px 10px 20px 10px;
-    border-bottom: 2px solid #000000;
     transition: all 0.35s;
+    background-color: #cfcfcf;
 }
 
 .navbar-entrar{
@@ -109,7 +110,7 @@ body{
     height: 80px;
     width: 100%;
     padding: 15px 10px 20px 10px;
-    border-bottom: 2px solid #000000;
+    background-color: #cfcfcf;
     transition: all 0.35s;
 }
 

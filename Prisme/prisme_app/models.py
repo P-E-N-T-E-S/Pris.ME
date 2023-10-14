@@ -17,6 +17,10 @@ class Ong(models.Model):
         ("Ajuda Humanitária","Ajuda Humanitária"),
         ("Empreendedorismo Social","Empreendedorismo Social"),
         ("Alívio da Pobreza","Alívio da Pobreza"),
+        ("Alimentação e segurança alimentar","Alimentação e segurança alimentar"),
+        ("Causa animal","Causa animal"),
+        ("Desenvolvimento internacional","Desenvolvimento internacional"),
+        ("Outro","Outro"),
             ]
      nome = models.CharField(max_length=100)
      email = models.EmailField(max_length=100)
