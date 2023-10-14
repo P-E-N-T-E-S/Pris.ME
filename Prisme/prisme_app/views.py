@@ -62,7 +62,7 @@ def Logout(request):
 def add_projeto(request):
     erros = {}
     usuario = request.user
-    ong_logada = Ong.objects.get(nome=usuario.first_name) 
+    #ong_logada = Ong.objects.get(nome=usuario.first_name) 
     
     nome_projeto = ""
     descricao = ""

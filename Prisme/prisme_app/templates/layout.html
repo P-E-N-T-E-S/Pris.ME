@@ -69,9 +69,6 @@
     </button>
   </nav>
 
-  <main class="main">
-    {% block main %} {% endblock %}
-  </main>
   </aside>
   <script src="static/script.js"></script>
   <button class="button-mobile" onclick="toggleMenu()">
@@ -114,5 +111,9 @@
       </span>
     </button>
   </nav>
+
+  <main class="main">
+    {% block main %} {% endblock %}
+  </main>
 </body>
 </html>
