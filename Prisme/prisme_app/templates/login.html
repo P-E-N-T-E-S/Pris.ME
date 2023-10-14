@@ -4,8 +4,10 @@
     Login
 {% endblock %}
 
-{% block main %}
-    <h1>Login</h1>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 100%;">
+      <div class="col-md-6">
+        <h1> Login </h1>
         {%if erro %}
         <div class="alert alert-primary" role="alert">
         {{ erro }}
@@ -19,7 +21,11 @@
         <label for="password">Senha:</label>
         <input type="password" id="password" name="senha" required><br><br>
 
-        <button type="submit">Entrar</button>
-    </form>
-
-{% endblock%}
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </form>
+      <p style="margin-top: 10px;">
+        Ainda não possui uma conta?
+        <a href="{% url 'registro' %}">Registre-se aqui</a>
+      </p>
+    </div>
+</div>

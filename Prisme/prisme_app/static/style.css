@@ -88,6 +88,16 @@ body{
 
 .navbar{
     margin-left: 240px;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 80px;
+    width: 100%;
+    padding: 15px 10px 20px 10px;
+    border-bottom: 2px solid #000000;
+    transition: all 0.35s;
 }
 
 .main{
@@ -99,6 +109,10 @@ body{
 @media (width < 920px){
     .sidebar{
         width: 72px
+    }
+
+    .navbar{
+        margin-left: 72px;
     }
 
     .sidebar button > span{
