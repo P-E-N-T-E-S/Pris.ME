@@ -19,6 +19,8 @@
 </head>
 <body>
 
+  {% if user.is_authenticated %}
+
   <aside class="navbar">
     <nav>
       <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
@@ -111,6 +113,18 @@
       </span>
     </button>
   </nav>
+  {% endif %}
+
+  {% if not user.is_authenticated %}
+  <aside class="navbar-entrar">
+    <nav>
+      <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
+      <a class="nav-item">
+        <a href="{% url 'login' %}"> Entrar </a>
+      </a>
+    </nav>
+  </aside>
+  {% endif %}
 
   <main class="main">
     {% block main %} {% endblock %}

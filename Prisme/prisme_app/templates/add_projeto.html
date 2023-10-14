@@ -2,9 +2,8 @@
 {% block title %} Adicionar Projeto {% endblock %} 
 {% block main %} 
 
-<br />
-<br />
-<br />
+<link rel="stylesheet" href="static/style.css"/>
+
 <div class="container">
   <h1>Adicionar Projeto</h1>
     <form
@@ -19,6 +18,7 @@
             <fieldset disabled>
             <input type="text" class="form-control" id="ong" placeholder="{{ ong }}">
           </div>
+
           <div class="mb-3">
             <label for="nome_projeto" class="form-label">Nome do Projeto</label>
             <input
@@ -28,6 +28,7 @@
               name="nome_projeto"
               value="{{ nome_projeto }}"
             />
+
           </div>
           <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
@@ -42,7 +43,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="metodologia" class="form-label">Metodologia Utilizada</label>
+            <label for="metodologia" class="form-label">Descreva a Metodologia Utilizada</label>
             <input
               type="text"
               class="form-control"
@@ -50,19 +51,17 @@
               name="metodologia"
               value="{{ metodologia }}"
             />
-            <div id="metodologia" class="form-text">
-              Descreva a Metodologia Utilizada
-            </div>
           </div>
-          <div class="mb-3">
-            <label for="publico" class "form-label">Público Alvo</label>
-            <input
-              type="text"
-              class="form-control"
-              id="publico"
-              name="publico"
-              value="{{ publico }}"
-            />
+            <div class="mb-3">
+              <label for="publico" class="form-label">Público Alvo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="publico"
+                name="publico"
+                value="{{ publico }}"
+              />
+            </div>
           <div class="mb-3">
             <label for="criacao" class="form-label"
               >Selecione a data de criação do Projeto</label

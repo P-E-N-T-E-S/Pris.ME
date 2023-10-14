@@ -100,10 +100,27 @@ body{
     transition: all 0.35s;
 }
 
+.navbar-entrar{
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 80px;
+    width: 100%;
+    padding: 15px 10px 20px 10px;
+    border-bottom: 2px solid #000000;
+    transition: all 0.35s;
+}
+
 .main{
     margin-left: 250px;
     margin-right: 6px;
     overflow: hidden;
+}
+
+.container{
+    margin-top: 90px;
 }
 
 @media (width < 920px){
