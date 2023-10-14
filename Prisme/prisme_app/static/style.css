@@ -66,7 +66,7 @@ body{
 }
 
 .sidebar button:hover > span {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(0, 0, 0, 0.10);
 }
 
 .sidebar button{
@@ -97,11 +97,11 @@ body{
         width: 72px
     }
 
-    .sidebar buton > span{
+    .sidebar button > span{
         width: 50px
     }
 
-    .sidebar buton > span > span{
+    .sidebar button > span > span{
         opacity: 0;
         visibility: hidden;
     }
@@ -132,7 +132,7 @@ body{
     display: none;
 }
 
-.menu-mobile-actvie{
+.menu-mobile-active{
     width: 100vw;
     height: 100vh;
     background-color: #000;
@@ -147,14 +147,14 @@ body{
     overflow: hidden;
 }
 
-.menu-mobile-actvie button{
+.menu-mobile-active button{
     background-color: transparent;
     border: 0;
     color: inherit;
     margin-bottom: 16px;
 }
 
-.menu-mobile-actvie button > span{
+.menu-mobile-active button > span{
     display: flex;
     align-items: center;
 }
@@ -162,18 +162,4 @@ body{
 .mobile-text{
     font-size: 22px;
     margin-left: 8px;
-}
-
-@media (max-width: 480px){
-    .sidebar{
-        display: none;
-    }
-
-    .button-mobile{
-        display: flex;
-    }
-
-    .main{
-        margin-left: 6px;
-    }
 }
