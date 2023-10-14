@@ -3,7 +3,7 @@ from .utils import linhas, barras
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Projeto, Ong, DadosImpactos
+from .models import Projeto, Ong, DadosImpactos, Dados
 
 # Create your views here.
 
@@ -70,7 +70,7 @@ def Logout(request):
 def add_projeto(request):
     erros = {}
     usuario = request.user
-    #ong_logada = Ong.objects.get(nome=usuario.first_name) 
+    ong_logada = Ong.objects.get(nome=usuario.first_name) 
     
     nome_projeto = ""
     descricao = ""
@@ -155,9 +155,14 @@ def add_dados(request):
         if DadosImpactos.objects.filter(titulo=titulo).exists():
             return render(request, 'add_projeto.html', {"erro": "Esse Dado já existe"})
         if Projeto.objects.filter(nome_projeto=projeto).exists():
-            DadosImpactos.objects.create(projeto=Projeto.objects.filter(nome_projeto=projeto).first(),titulo=titulo,descricao=descricao,valor1=valor1,valor2=valor2,tipo1=tipo1,tipo2=tipo2)
+            DadosImpactos.objects.create(projeto=Projeto.objects.filter(nome_projeto=projeto).first(),titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
             return redirect(home)
         else:
             return render(request, 'add_dados.html', {"erro": "Essa Projeto Não existe"})
 
     return render(request,'add_dados.html',{"tipos1":tipos1, "tipos2":tipos2})
+
+
+@login_required
+def add_valores(request):
+    usuario = request.user
