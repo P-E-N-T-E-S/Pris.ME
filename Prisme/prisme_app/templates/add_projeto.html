@@ -1,4 +1,5 @@
-{% extends "layout.html" %} {% block title %} Adicionar Projeto {% endblock %} 
+{% extends "layout.html" %}
+{% block title %} Adicionar Projeto {% endblock %} 
 {% block main %} 
 <h1>Adicionar Projeto</h1>
 <br />
@@ -13,13 +14,8 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="ong" class="form-label">Nome da ONG</label>
-            <input
-              type="text"
-              class="form-control"
-              id="ong"
-              name="ong"
-              value="{{ ong }}"
-            />
+            <fieldset disabled>
+            <input type="text" class="form-control" id="ong" placeholder="{{ ong }}">
           </div>
           <div class="mb-3">
             <label for="nome_projeto" class="form-label">Nome do Projeto</label>
@@ -57,7 +53,7 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="publico" class="form-label">Publico Alvo</label>
+            <label for="publico" class "form-label">Público Alvo</label>
             <input
               type="text"
               class="form-control"
@@ -65,11 +61,7 @@
               name="publico"
               value="{{ publico }}"
             />
-            <div id="publico" class="form-text">
-              Descreva o Publico Alvo do Projeto
-            </div>
-          </div>
-          <div class="col-md-6">
+          <div class="mb-3">
             <label for="criacao" class="form-label"
               >Selecione a data de criação do Projeto</label
             >
@@ -78,15 +70,12 @@
               class="form-control"
               id="criacao"
               name="criacao"
-              ,
               value="{{ criacao }}"
             />
           </div>
         </div>
       </div>
       <p class="text-danger">{{ erros.campos }}</p>
-      <p class="text-danger">{{ erros.url }}</p>
-      <p class="text-danger">{{ erros. }}</p>
       <div class="d-flex justify-content-end w-100">
         <button type="submit" class="btn btn-primary">Criar Projeto</button>
         <a href="{% url 'home' %}" class="btn btn-danger mx-3">Cancelar</a>
@@ -94,7 +83,7 @@
     </form>
   </div>
 
-{% if error_message %}
-<p>{{ error_message }}</p>
-{% endif %} 
+{% if erro %}
+<p class="text-danger">{{ erro }}</p>
+{% endif %}
 {% endblock %}

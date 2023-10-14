@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-# Create your models here.
 
 class Ong(models.Model):
      areaAtuação = [
@@ -17,6 +19,7 @@ class Ong(models.Model):
         ("Alívio da Pobreza","Alívio da Pobreza"),
             ]
      nome = models.CharField(max_length=100)
+     email = models.EmailField(max_length=100)
      areaAtuação = models.CharField(choices=areaAtuação,default=areaAtuação[0],max_length=50)
      descricao = models.TextField(max_length=500, default="Descrição da Ong.")
      CEP = models.CharField(max_length=9)
@@ -25,7 +28,17 @@ class Ong(models.Model):
      numeroDeVoluntarios = models.PositiveSmallIntegerField()
      def __str__(self):
         return (self.nome)
-
+ 
+ 
+@receiver(post_save, sender=Ong)
+def create_user_for_ong(sender, instance, created, **kwargs):
+    if created:
+        # Crie um novo usuário associado à Ong
+        user = User.objects.create_user(username=instance.email, password='senha_inicial', first_name=instance.nome)
+        instance.user = user
+        instance.save()       
+        
+        
 class Projeto(models.Model):
     ong = models.ForeignKey(Ong, on_delete=models.CASCADE)
     nome_projeto = models.CharField(max_length=100)
