@@ -99,7 +99,7 @@ def add_projeto(request):
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
         finally:
-            redirect(home)
+            return render(request, 'add_dados.html')
 
     contexto = {
         "erros": erros,
