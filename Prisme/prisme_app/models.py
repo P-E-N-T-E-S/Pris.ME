@@ -66,12 +66,16 @@ class DadosImpactos(models.Model):
      ]
      titulo = models.CharField(max_length=200)
      descricao = models.CharField(max_length=500)
-     valor1 = models.DecimalField(max_digits=10, decimal_places=2)
-     valor2 = models.CharField(max_length=20) #o valor 2 sempre é CATEGORICO
      tipo1 = models.CharField(choices=tipo1,default=tipo1[0],max_length=50)
      tipo2 = models.CharField(choices=tipo2, default=tipo2[0], max_length=50)
      def __str__(self):
         return (self.titulo)
 
-     
-     
+
+class Dados(models.Model):
+    dado_impacto = models.ForeignKey(DadosImpactos, on_delete=models.CASCADE)
+    valor1 = models.DecimalField(max_digits=10, decimal_places=2)
+    valor2 = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return (self.titulo)    
