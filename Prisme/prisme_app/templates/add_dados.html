@@ -1,0 +1,99 @@
+{% extends "layout.html" %} {% block title %} Adicionar Dados de Impacto {% endblock %} 
+{% block main %} 
+<h1>Adicionar Dados de Impacto</h1>
+<br />
+<br />
+<div class="container">
+    <form
+      action="{% url 'add_dados' %}"
+      method="post"
+      enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="projeto" class="form-label">Nome do Projeto</label>
+            <input
+              type="text"
+              class="form-control"
+              id="projeto"
+              name="projeto"
+              value="{{ projeto }}"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Titulo do Dado</label>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              name="titulo"
+              value="{{ titulo }}"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input
+              type="text"
+              class="form-control"
+              id="descricao"
+              name="descricao"
+              value="{{ descricao }}"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="valor1" class="form-label">Primeiro Valor</label>
+            <input
+              type="text"
+              class="form-label"
+              id="valor1"
+              name="valor1"
+              value="{{ valor1 }}"
+            />
+            <div id="metodologia" class="form-text">
+              Digite o primeiro valor
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="valor2" class="form-label">Segundo Valor</label>
+            <input
+              type="text"
+              class="form-label"
+              id="valor2"
+              name="valor2"
+              value="{{ valor2 }}"
+            />
+            <div id="valor2" class="form-text">
+              Digite o segundo valor
+            </div>
+          </div>
+        <div class="mb-3">
+          <label for="tipo" class="form-label">Selecione o Tipo de dado de Impacto</label>
+          <select
+            class="form-select"
+            id="tipo"
+            name="tipo",
+            value="{{ tipo }}">
+            {% for tipo in tipos %}
+            <option value="{{ tipo }}">{{ tipo }}</option>
+            {% endfor %}
+        </select>
+        </div>
+        </div>
+      </div>
+      <p class="text-danger">{{ erros.campos }}</p>
+      <p class="text-danger">{{ erros.url }}</p>
+      <p class="text-danger">{{ erros. }}</p>
+      <div class="d-flex justify-content-end w-100">
+        <button type="submit" class="btn btn-primary">Criar Projeto</button>
+        <a href="{% url 'home' %}" class="btn btn-danger mx-3">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %} 
+{% endblock %}

@@ -23,19 +23,18 @@ class Ong(models.Model):
      CNPJ = models.CharField(max_length=14)
      dataDeCriacao = models.DateField()
      numeroDeVoluntarios = models.PositiveSmallIntegerField()
-
      def __str__(self):
-        return (self.Ong)
+        return (self.nome)
 
 class Projeto(models.Model):
     ong = models.ForeignKey(Ong, on_delete=models.CASCADE)
-    nome = models.CharField(max_length=100)
+    nome_projeto = models.CharField(max_length=100)
     descricao = models.TextField(max_length=500, default="Descrição do Projeto.")
     metodologiasUtilizadas = models.TextField(max_length=500, default="Descreva as metodologias utilizadas.")
     publicoAlvo = models.CharField(max_length=200)
     dataDeCriacao = models.DateField()
     def __str__(self):
-        return (self.Projeto)
+        return (self.nome_projeto)
 
 class DadosImpactos(models.Model):
      projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
@@ -51,8 +50,8 @@ class DadosImpactos(models.Model):
      valor1 = models.DecimalField(max_digits=10, decimal_places=2)
      valor2 = models.DecimalField(max_digits=10, decimal_places=2) #o valor 2 sempre é CATEGORICO
      tipo = models.CharField(choices=tipo,default=tipo[0],max_length=50)
-
      def __str__(self):
-        return (self.DadosImpactos)
+        return (self.titulo)
+
      
      
