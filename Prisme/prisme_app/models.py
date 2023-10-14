@@ -17,7 +17,7 @@ class Ong(models.Model):
         ("Ajuda Humanitária","Ajuda Humanitária"),
         ("Empreendedorismo Social","Empreendedorismo Social"),
         ("Alívio da Pobreza","Alívio da Pobreza"),
-        ("AAlimentação e segurança alimentar","Alimentação e segurança alimentar"),
+        ("Alimentação e segurança alimentar","Alimentação e segurança alimentar"),
         ("Causa animal","Causa animal"),
         ("Desenvolvimento internacional","Desenvolvimento internacional"),
         ("Outro","Outro"),
