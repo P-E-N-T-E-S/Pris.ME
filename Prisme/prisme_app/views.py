@@ -22,17 +22,16 @@ tipos2 = [
 ]
 
 
-#@login_required
+
 def home(request):
+    usuario = request.user
     graficos = []
-    indice = 0
     contexto = {
     }
-    usuario = request.user
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
     except:
-        redirect(login)
+        return redirect(Login)
     else:
         projetos = ong.projeto_set.all()
         for projeto in list(projetos):
@@ -42,7 +41,6 @@ def home(request):
                 if linha is not None:
                     base = pd.DataFrame(linha)
                     grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
-                    indice += 1
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         return render(request, "home.html", context=contexto)
