@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block title %} Adicionar Projeto {% endblock %} 
 {% block main %} 
-<h1>Adicionar Projeto</h1>
+
+<br />
 <br />
 <br />
 <div class="container">
+  <h1>Adicionar Projeto</h1>
     <form
       action="{% url 'add_projeto' %}"
       method="post"
