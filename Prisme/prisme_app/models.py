@@ -51,18 +51,25 @@ class Projeto(models.Model):
 
 class DadosImpactos(models.Model):
      projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
-     tipo = [
+     tipo2 = [
         (None, "Selecione o tipo de dado"),
-        ("Pessoas Impactadas por tempo","Pessoas Impactadas por tempo"),
-        ("Casas Construidas por tempo","Casas Construidas por tempo"),
-        ("Números de Impacto","Números de Impacto"),
-        ("Valor por Pessoa","Valor por Pessoa"),
+        ("Tempo","Tempo"),
+        ("Categorico","Categorico"),
+        ("Pessoa","Pessoa"),
             ]
+     tipo1 = [
+         (None, "Selecione o tipo de dado"),
+         ("Pessoas Impactadas", "Pessoas Impactadas"),
+         ("Casas Contruidas", "Casas Contruidas"),
+         ("Numérica", "Numérica"),
+         ("Valor", "Valor")
+     ]
      titulo = models.CharField(max_length=200)
      descricao = models.CharField(max_length=500)
      valor1 = models.DecimalField(max_digits=10, decimal_places=2)
-     valor2 = models.DecimalField(max_digits=10, decimal_places=2) #o valor 2 sempre é CATEGORICO
-     tipo = models.CharField(choices=tipo,default=tipo[0],max_length=50)
+     valor2 = models.CharField(max_length=20) #o valor 2 sempre é CATEGORICO
+     tipo1 = models.CharField(choices=tipo1,default=tipo1[0],max_length=50)
+     tipo2 = models.CharField(choices=tipo2, default=tipo2[0], max_length=50)
      def __str__(self):
         return (self.titulo)
 

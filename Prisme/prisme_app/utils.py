@@ -38,7 +38,6 @@ def barras(base, categorica, numerica, titulo, tit_x, tit_y):
     grafico = salvagrafico()
     return grafico
 
-#def barras_compostas()
 
 
 

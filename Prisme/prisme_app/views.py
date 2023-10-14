@@ -7,12 +7,18 @@ from .models import Projeto, Ong, DadosImpactos
 
 # Create your views here.
 
-tipos = ["Selecione o tipo de dado",
-        "Pessoas Impactadas por tempo",
-        "Casas Construidas por tempo",
-        "Números de Impacto",
-        "Valor por Pessoa"
-        ]
+tipos1 = [
+         "Selecione o tipo de dado Numérico",
+         "Pessoas Impactadas",
+         "Casas Contruidas",
+         "Valor"
+     ]
+
+tipos2 = [
+    "Selecione o tipo de dado Categorico",
+    "Tempo",
+    "Pessoas",
+]
 
 
 #@login_required
@@ -30,6 +36,8 @@ def add_di(request):
 
 #@login_required
 def teste(request):
+    usuario = request.user
+
     contexto={
         "grafico": linhas([1,2,3], [20,30,40], "p", "pX", "pY")
     }
@@ -122,9 +130,10 @@ def add_dados(request):
         descricao = request.POST['descricao']
         valor1 = request.POST['valor1']
         valor2 = request.POST['valor2']
-        tipo = request.POST['tipo']
+        tipo1 = request.POST['tipo1']
+        tipo2 = request.POST['tipo2']
 
-        if not projeto or not descricao or not titulo or not valor1 or not valor2  or tipo == "Selecione o tipo de dado":
+        if not projeto or not descricao or not titulo or not valor1 or not valor2 or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
             erros["campos"] = "Preencha todos os campos necessários"
             errado = True
         
@@ -136,17 +145,19 @@ def add_dados(request):
                     "titulo": titulo,
                     "valor1": valor1,
                     "valor2":valor1,
-                    "tipo":tipo,
-                    "tipos":tipos
+                    "tipo1":tipo1,
+                    "tipo2": tipo2,
+                    "tipos1":tipos1,
+                    "tipos2": tipos2
                 }
                 return render(request, "add_dados.html", contexto)
         
         if DadosImpactos.objects.filter(titulo=titulo).exists():
             return render(request, 'add_projeto.html', {"erro": "Esse Dado já existe"})
         if Projeto.objects.filter(nome_projeto=projeto).exists():
-            DadosImpactos.objects.create(projeto=Projeto.objects.filter(nome_projeto=projeto).first(),titulo=titulo,descricao=descricao,valor1=valor1,valor2=valor2)
+            DadosImpactos.objects.create(projeto=Projeto.objects.filter(nome_projeto=projeto).first(),titulo=titulo,descricao=descricao,valor1=valor1,valor2=valor2,tipo1=tipo1,tipo2=tipo2)
             return redirect(home)
         else:
             return render(request, 'add_dados.html', {"erro": "Essa Projeto Não existe"})
 
-    return render(request,'add_dados.html',{"tipos":tipos})
+    return render(request,'add_dados.html',{"tipos1":tipos1, "tipos2":tipos2})

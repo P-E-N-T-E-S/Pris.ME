@@ -1,5 +1,5 @@
-{% extends "layout.html" %} {% block title %} Adicionar Dados de Impacto {% endblock %} 
-{% block main %} 
+<!--{% extends "layout.html" %} {% block title %} Adicionar Dados de Impacto {% endblock %}
+{% block main %} -->
 <h1>Adicionar Dados de Impacto</h1>
 <br />
 <br />
@@ -70,13 +70,23 @@
             </div>
           </div>
         <div class="mb-3">
-          <label for="tipo" class="form-label">Selecione o Tipo de dado de Impacto</label>
+          <label for="tipo1" class="form-label">Selecione o eixo Y</label>
           <select
             class="form-select"
-            id="tipo"
-            name="tipo",
-            value="{{ tipo }}">
-            {% for tipo in tipos %}
+            id="tipo1"
+            name="tipo1"
+            value="{{ tipo1 }}">
+            {% for tipo in tipos1 %}
+            <option value="{{ tipo }}">{{ tipo }}</option>
+            {% endfor %}
+        </select>
+          <label for="tipo2" class="form-label">Selecione o eixo Y</label>
+          <select
+            class="form-select"
+            id="tipo2"
+            name="tipo2"
+            value="{{ tipo2 }}">
+            {% for tipo in tipos2 %}
             <option value="{{ tipo }}">{{ tipo }}</option>
             {% endfor %}
         </select>
@@ -96,4 +106,4 @@
 {% if error_message %}
 <p>{{ error_message }}</p>
 {% endif %} 
-{% endblock %}
+<!--{% endblock %}-->
