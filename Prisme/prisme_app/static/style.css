@@ -86,6 +86,10 @@ body{
     width: 100%;
 }
 
+.navbar{
+    margin-left: 240px;
+}
+
 .main{
     margin-left: 250px;
     margin-right: 6px;
@@ -177,3 +181,4 @@ body{
         margin-left: 6px;
     }
 }/*/
+
