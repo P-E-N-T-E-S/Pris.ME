@@ -72,10 +72,7 @@ class DadosImpactos(models.Model):
         return (self.titulo)
 
 
-class Dados(models.Model):
+class LinhasImpacto(models.Model):
     dado_impacto = models.ForeignKey(DadosImpactos, on_delete=models.CASCADE)
     valor1 = models.DecimalField(max_digits=10, decimal_places=2)
     valor2 = models.CharField(max_length=20)
-    
-    def __str__(self):
-        return (self.titulo)    

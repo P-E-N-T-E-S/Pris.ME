@@ -1,9 +1,10 @@
+import pandas as pd
 from django.shortcuts import render, redirect
 from .utils import linhas, barras
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Projeto, Ong, DadosImpactos, Dados
+from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
 
 # Create your views here.
 
@@ -23,9 +24,28 @@ tipos2 = [
 
 #@login_required
 def home(request):
+    graficos = []
+    indice = 0
     contexto = {
     }
-    return render(request, "home.html", context=contexto)
+    usuario = request.user
+    try:
+        ong = Ong.objects.get(nome=usuario.first_name)
+    except:
+        redirect(login)
+    else:
+        projetos = ong.projeto_set.all()
+        for projeto in list(projetos):
+            dados = projeto.dadosimpactos_set.all()
+            for dado in list(dados):
+                linha = dado.linhasimpacto_set.all().values()
+                if linha is not None:
+                    base = pd.DataFrame(linha)
+                    grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    indice += 1
+                    graficos.append(grafico)
+        contexto["grafico"] = graficos
+        return render(request, "home.html", context=contexto)
 
 #@login_required
 def add_di(request):
