@@ -28,15 +28,9 @@
     <nav>
       <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
       
-      {% if user.is_authenticated %}
       <a class="nav-item">
         <a href="{% url 'logout' %}"> Sair </a>
       </a>
-      {% else %}
-      <a class="nav-item">
-        <a href="{% url 'login' %}"> Entrar </a>
-      </a>
-      {% endif %}
     </nav>
   </aside>
 
@@ -60,7 +54,7 @@
 
       <button>
         <span>
-          <i class="material-symbols-outlined"> home </i>
+          <i href="" class="material-symbols-outlined"> home </i>
           <span>Home</span>
         </span>
       </button>
@@ -73,7 +67,7 @@
       </button>
     <button>
       <span>
-        <i class="material-symbols-outlined"> timeline </i>
+        <i href="/add_projeto" class="material-symbols-outlined"> timeline </i>
         <span>D.I</span>
       </span>
     </button>

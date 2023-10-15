@@ -1,25 +1,87 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta htpp-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css"/>
+    {% block title %}
+    <title>Landing page</title>
+    {% endblock %} 
+  </head>
+  <body>
+    <header style=
+    "display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-right: 30px;
+    align-items: center;
+    ">
+      <div id="title">
+        <h1 style="
+        font-weight: 200;">
+        Capibyte<h1>
+      </div>
 
-{% block title %}
-    Login
-{% endblock %}
+      <ul>
+        <a href="https://doe.cacadoresdebonsexemplos.com.br/"><li>"A ONG</li></a>
+        <a href="https://sites.google.com/cesar.school/capibyte/home"><li>Nosso Site</li></a>
+      <ul>
+    </header>
+ 
+    {% block main %}
+    <main style="
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+    ">
+      <aside>
+        <h2 class="h2" style="font-size: 56px; line-height: 10px; font-family: poppinsmedium;">Junte-se a</h2>
+        <h2 style="font-size: 56px; line-height: 10px; font-family: poppinsmedium;"><span style="color: blueviolet">Pris</span><span style="color: black;">.ME</span></h2>
+        <p style="line-height: 20px; max-width: 800px; font-family: poppinslight;">
+          O Pris.me é uma solução idealizada pelo grupo Capibyte buscando auxiliar ONGs com a monitoria de seu impacto e de forma fácil compartilhar com os seus padrinhos, dentre as funcionalidades do artefato estão o gerenciamento do controle de caixa, geração de gráficos com base nas diretrizes de impacto da sua organização.
+        </p>
+        <form method="post" style="display: flex; flex-direction: column;  width: 70%;">
+          {% csrf_token %}
+          <input
+            type="text"
+            placeholder="Email"
+            class="form-control"
+            name="email"
+            required
+            style="margin-top: 15px; height: 30px; padding: 15px; border-radius: 20px; border: none; font-size: 20px;"
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            class="form-control"
+            id="password"
+            name="senha"
+            required
+            style="margin-top: 15px; height: 30px; padding: 15px; border-radius: 20px; border: none; font-size: 20px;"
+          />
+          {% if erro %}
+          <br/>
+          <div class="alert alert-primary" role="alert">
+            {{ erro }}
+          </div>
+          {% endif %}
+          <button
+            type="submit"
+            style="margin-top: 15px; height: 20px; padding: 15px; height: 50%; width: 50%; border-radius: 20px; border: none; background-color:  blueviolet; color: white;"
+          >Entrar</button>
+        </form>
 
-{% block main %}
-    <h1>Login</h1>
-        {%if erro %}
-        <div class="alert alert-primary" role="alert">
-        {{ erro }}
-        {% endif %}
-</div>
-    <form method="post">
-        {% csrf_token %}
-        <label for="email">Usuário:</label>
-        <input type="text" id="email" name="email" required><br><br>
+      </aside>
 
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="senha" required><br><br>
+      <article>
+        <img class="img" style="padding-left: 100px;" src="https://i.imgur.com/VtK054m.jpeg">
+      </article>
+    </main>
+    {% endblock %}
 
-        <button type="submit">Entrar</button>
-    </form>
-
-{% endblock%}
+  </body>
+</html>
