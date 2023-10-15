@@ -18,7 +18,7 @@ def salvagrafico():
 
 def linhas(x, y, titulo, tit_x, tit_y):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(10,5))
+    plt.figure(figsize=(7.5,5))
     plt.title(titulo)
     plt.plot(x, y)
     plt.xticks(rotation=45)

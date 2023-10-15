@@ -100,6 +100,7 @@ margin: 0 auto;
     padding: 15px 10px 20px 10px;
     transition: all 0.35s;
     background-color: #cfcfcf;
+    z-index: 999;
 }
 
 .main{
@@ -239,3 +240,25 @@ margin: 0 auto;
     }
 }/*/
 
+.produtos{
+    margin-top: 100px;   
+}
+.graficos{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.gastos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-gap: 10px;
+}
+.graficos .image{
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 49%;
+    margin-top: 30px;
+}

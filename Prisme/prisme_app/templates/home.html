@@ -4,7 +4,36 @@
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
 
-<img src="data:image/png;base64, {{graficos|safe}}">
+<div class="produtos">
+    <div class="gastos">
+        <div class="card w-100" style="width: 18rem">
+            <div class="card-body">
+                <h5 class="card-title">Ganhos</h5>
+                <p class="card-text">$12.90</p>
+            </div>
+        </div>
+        <div class="card w-100" style="width: 18rem">
+            <div class="card-body">
+                <h5 class="card-title">Ganhos</h5>
+                <p class="card-text">$12.90</p>
+            </div>
+        </div>
+        <div class="card w-100" style="width: 18rem">
+            <div class="card-body">
+                <h5 class="card-title">Ganhos</h5>
+                <p class="card-text">$12.90</p>
+            </div>
+        </div>
+    </div>
+    <div class="graficos">
+        {% for item in grafico %}
+        <div class="image">
+            <img class="img-fluid" src="data:image/png;base64, {{item|safe}}">
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
 
 {% if error_message %}
 <p>{{ error_message }}</p>
