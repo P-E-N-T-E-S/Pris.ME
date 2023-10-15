@@ -102,19 +102,6 @@ margin: 0 auto;
     background-color: #cfcfcf;
 }
 
-.navbar-entrar{
-    position: fixed;
-    top: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    height: 80px;
-    width: 100%;
-    padding: 15px 10px 20px 10px;
-    background-color: #cfcfcf;
-    transition: all 0.35s;
-}
-
 .main{
     margin-left: 250px;
     margin-right: 6px;

@@ -123,14 +123,6 @@
   </nav>
   {% endif %}
 
-  {% if not user.is_authenticated %}
-  <aside class="navbar-entrar">
-    <nav>
-      <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
-    </nav>
-  </aside>
-  {% endif %}
-
   <main class="main">
     {% block main %} {% endblock %}
   </main>
