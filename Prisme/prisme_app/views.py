@@ -119,7 +119,7 @@ def add_projeto(request):
             return render(request, "add_projeto.html", contexto)
             
         if Projeto.objects.filter(nome_projeto=nome_projeto).exists():
-            return render(request, 'add_projeto.html', {"erro": "Esse Projeto já existe"})
+            return render(request, 'add_projeto.html', {"erro": "Esse Projeto já existe"}, contexto)
         
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
@@ -137,13 +137,13 @@ def add_projeto(request):
     }
     return render(request, 'add_projeto.html', contexto)
 
+
 @login_required
 def add_dados(request):
     usuario = request.user
     erros = {}
     if request.method == 'POST':
         errado = False
-        projeto = request.POST['projeto']
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
         valor1 = request.POST['valor1']
@@ -151,7 +151,7 @@ def add_dados(request):
         tipo1 = request.POST['tipo1']
         tipo2 = request.POST['tipo2']
 
-        if not projeto or not descricao or not titulo or not valor1 or not valor2 or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
+        if not descricao or not titulo or not valor1 or not valor2 or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
             erros["campos"] = "Preencha todos os campos necessários"
             errado = True
         
