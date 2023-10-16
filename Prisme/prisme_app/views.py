@@ -2,6 +2,7 @@ import pandas as pd
 import statistics as sts
 from django.shortcuts import render, redirect
 from .utils import linhas, barras
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
@@ -25,6 +26,7 @@ tipos2 = [
 
 
 def home(request):
+    moda = True
     usuario = request.user
     graficos = []
     impactados = []
@@ -45,22 +47,31 @@ def home(request):
                     grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
-        moda_impacto = sts.mode(impactados) #nome da moda
-        for indice, projeto in enumerate(list(projetos)):
-            dados = projeto.dadosimpactos_set.all()
-            for dado in list(dados):
-                if dado.tipo1 == moda_impacto:
-                    linha = dado.linhasimpacto_set.all().values()
-                    if len(list(linha)) != 0:
-                        if indice == 0:
-                            base_impacto = pd.DataFrame(linha)
+        try:
+            moda_impacto = sts.mode(impactados) #nome da moda
+        except:
+            moda_impacto = "Sem dados suficientes"
+            moda = False
+        else:
+            for indice, projeto in enumerate(list(projetos)):
+                dados = projeto.dadosimpactos_set.all()
+                for dado in list(dados):
+                    if dado.tipo1 == moda_impacto:
+                        linha = dado.linhasimpacto_set.all().values()
+                        if len(list(linha)) != 0:
+                            if indice == 0:
+                                base_impacto = pd.DataFrame(linha)
+                            else:
+                                moda = True
+                                base_impacto_temp = pd.DataFrame(linha)
+                                base_impacto = pd.concat([base_impacto, base_impacto_temp])
                         else:
-                            base_impacto_temp = pd.DataFrame(linha)
-                            base_impacto = pd.concat([base_impacto, base_impacto_temp])
-                    else:
-                        pass
+                            moda = False
         contexto["nome_impacto"] = moda_impacto
-        contexto["soma_impacto"] = base_impacto['valor1'].sum()
+        if moda:
+            contexto["soma_impacto"] = base_impacto['valor1'].sum()
+        else:
+            contexto["soma_impacto"] = 0
 
 
 
@@ -132,13 +143,21 @@ def add_projeto(request):
             return render(request, "add_projeto.html", contexto)
             
         if Projeto.objects.filter(nome_projeto=nome_projeto).exists():
-            return render(request, 'add_projeto.html', {"erro": "Esse Projeto já existe"})
+            contexto = {
+                "erros": "Esse Projeto já existe",
+                "ong": usuario.first_name,
+                "nome_projeto": nome_projeto,
+                "descricao": descricao,
+                "metodologiasUtilizadas": metodologiasUtilizadas,
+                "publicoAlvo": publicoAlvo,
+            }
+            return render(request, 'add_projeto.html', contexto)
         
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
         finally:
-            return render(request, 'add_dados.html')
+            return redirect(add_dados)
 
     contexto = {
         "erros": erros,
@@ -226,8 +245,9 @@ def add_dados(request):
                 "tipos1": tipos1,
                 "tipos2": tipos2
             }
-            return render(request, 'add_projeto.html', contexto)
+            return render(request, 'add_dados.html', contexto)
         DadosImpactos.objects.create(projeto=Projeto.objects.get(nome_projeto=project),titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
+        dado = DadosImpactos.objects.get(titulo=titulo)
         return redirect(home)
     return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "projetos": projeto})
 
