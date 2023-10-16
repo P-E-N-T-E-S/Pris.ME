@@ -45,32 +45,41 @@
     </header>
 
     <nav>
+      <a href="{% url 'home' %}">
       <button>
-        <span>
+        <span>  
           <i class="material-symbols-outlined"> person </i>
           <span>Perfil</span>
         </span>
       </button>
-
+    </a>
+    <a href="{% url 'home' %}">
       <button>
         <span>
           <i href="" class="material-symbols-outlined"> home </i>
           <span>Home</span>
         </span>
       </button>
+    </a>
 
+    <a href="{% url 'add_projeto' %}">
       <button>
         <span>
           <i class="material-symbols-outlined"> view_timeline </i>
           <span>Caixa</span>
         </span>
       </button>
+    </a>
+
+    <a href="{% url 'add_dados' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> timeline </i>
+          <span>D.I</span>
+        </span>
+      </button>
     <button>
-      <span>
-        <i href="/add_projeto" class="material-symbols-outlined"> timeline </i>
-        <span>D.I</span>
-      </span>
-    </button>
+    </a>
   </nav>
 
   </aside>
@@ -121,4 +130,3 @@
     {% block main %} {% endblock %}
   </main>
 </body>
-</html>
