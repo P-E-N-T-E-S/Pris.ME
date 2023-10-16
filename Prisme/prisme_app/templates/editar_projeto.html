@@ -2,6 +2,8 @@
 {% block title %} Editar projeto {% endblock %} 
 
 {% block main %} 
+
+<div class="container">
 <h1>Editar Projeto - {{ projeto.nome_projeto }}</h1>
     
     <form method="post">
@@ -35,5 +37,5 @@
     </form>
     
     <a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
-
+</div>
 {% endblock %}

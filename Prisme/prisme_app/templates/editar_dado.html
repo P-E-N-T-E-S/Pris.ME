@@ -3,6 +3,7 @@
 
 {% block main %} 
 
+<div class="container">
 <h1>Editar Dado de Impacto - {{ dado_impacto.titulo }}</h1>
 
 <form method="post">
@@ -47,6 +48,6 @@
 
     <input type="submit" value="Salvar Alterações">
 </form>
-
+</div>
 <a href="{% url 'visualizar_projetos' %}">Voltar</a>
 {% endblock %}

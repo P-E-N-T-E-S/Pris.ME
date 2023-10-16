@@ -1,8 +1,8 @@
-{% extends "layout.html" %}
+d{% extends "layout.html" %}
 {% block title %} Adicionar Linhas {% endblock %} 
 
 {% block main %} 
-
+<div class="container">
 <h1>Adicionar Valores a Linhas de Impacto</h1>
     
 <form method="post">
@@ -23,6 +23,6 @@
 </form>
 
 <a href="{% url 'detalhes_dado' dado_impacto.id %}">Voltar para os Detalhes do Dado de Impacto</a>
-
+</div>
 
 {% endblock %}
