@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %} Editar Dado de Impacto {% endblock %} 
+
+{% block main %} 
+
+<h1>Editar Dado de Impacto - {{ dado_impacto.titulo }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" value="{{ dado_impacto.titulo }}">
+    <br><br>
+
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao">{{ dado_impacto.descricao }}</textarea>
+    <br><br>
+
+    <label for="tipo1">Tipo 1:</label>
+    <label for="tipo1" class="form-label">Selecione o eixo X</label>
+    <select
+      class="form-select"
+      id="tipo1"
+      name="tipo1"
+      value="{{ tipo1 }}">
+      {% for tipo in tipos1 %}
+      <option value="{{ tipo }}">{{ tipo }}</option>
+      {% endfor %}
+  </select>
+  <br><br>
+    <label for="tipo2" class="form-label">Selecione o eixo Y</label>
+    <select
+      class="form-select"
+      id="tipo2"
+      name="tipo2"
+      value="{{ tipo2 }}">
+      {% for tipo in tipos2 %}
+      <option value="{{ tipo }}">{{ tipo }}</option>
+      {% endfor %}
+  </select>
+    <br><br>
+
+    {% if erros %}
+        <p style="color: red;">{{ erros.campos }}</p>
+    {% endif %}
+
+    <input type="submit" value="Salvar Alterações">
+</form>
+
+<a href="{% url 'visualizar_projetos' %}">Voltar</a>
+{% endblock %}

@@ -7,7 +7,7 @@
 
 {% for projeto in projetos %}
 <div class="projeto-quadro">
-    <h2>{{ projeto.nome_projeto }}</h2>
+    <h2>{{ projeto.nome_projeto }}</h2> <a href="{% url 'editar_projeto' projeto.id %}">Editar</a>
     <p>{{ projeto.descricao }} {{projeto.dataDeCriacao}}</p>
     <p>Dados de impacto:</p>
 
@@ -24,6 +24,9 @@
             <tr>
                 <td>{{ dado_impacto.titulo }}</td>
                 <td>{{ dado_impacto.descricao }}</td>
+                <td>
+                    <a href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
+                </td>
                 <td>
                     <a href="{% url 'detalhes_dado' dado_impacto.id %}">Visualizar Linhas</a>
                 </td>

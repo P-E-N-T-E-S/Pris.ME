@@ -152,6 +152,39 @@ def add_projeto(request):
 
 
 @login_required
+def editar_projeto(request, projeto_id):
+    usuario = request.user
+    erros = {}
+
+    projeto = Projeto.objects.get(pk=projeto_id)
+
+    if request.method == 'POST':
+        nome_projeto = request.POST['nome_projeto']
+        descricao = request.POST['descricao']
+        metodologiasUtilizadas = request.POST['metodologia']
+        publicoAlvo = request.POST['publico']
+        dataDeCriacao = request.POST['criacao']
+
+        if not nome_projeto or not descricao or not metodologiasUtilizadas or not publicoAlvo or not dataDeCriacao:
+            erros["campos"] = "Preencha todos os campos necessários"
+        else:
+            projeto.nome_projeto = nome_projeto
+            projeto.descricao = descricao
+            projeto.metodologiasUtilizadas = metodologiasUtilizadas
+            projeto.publicoAlvo = publicoAlvo
+            projeto.dataDeCriacao = dataDeCriacao
+            projeto.save()
+            return redirect('visualizar_projetos', projeto_id=projeto.id)
+
+    contexto = {
+        "erros": erros,
+        "projeto": projeto,
+    }
+
+    return render(request, 'editar_projeto.html', contexto)
+
+
+@login_required
 def add_dados(request):
     usuario = request.user
     ong_logada = Ong.objects.get(nome=usuario.first_name)
@@ -170,7 +203,6 @@ def add_dados(request):
             errado = True
         
         if errado:
-                print("ta dando erro porra")
                 contexto = {
                     "erros": erros,
                     "projetos": projeto,
@@ -199,6 +231,38 @@ def add_dados(request):
         return redirect(home)
     return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "projetos": projeto})
 
+
+@login_required
+def editar_dado(request, dado_impacto_id):
+    usuario = request.user
+    erros = {}
+
+    dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+
+    if request.method == 'POST':
+        titulo = request.POST['titulo']
+        descricao = request.POST['descricao']
+        tipo1 = request.POST['tipo1']
+        tipo2 = request.POST['tipo2']
+
+        if not titulo or not descricao or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
+            erros["campos"] = "Preencha todos os campos necessários"
+        else:
+            dado_impacto.titulo = titulo
+            dado_impacto.descricao = descricao
+            dado_impacto.tipo1 = tipo1
+            dado_impacto.tipo2 = tipo2
+            dado_impacto.save()
+            return redirect(visualizar_projetos)
+
+    contexto = {
+        "erros": erros,
+        "dado_impacto": dado_impacto,
+        "tipos1": tipos1,
+        "tipos2": tipos2,
+    }
+
+    return render(request, 'editar_dado.html', contexto)
 
 
 @login_required

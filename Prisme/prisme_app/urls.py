@@ -11,4 +11,6 @@ urlpatterns =[
     path("visualizar_projetos",views.visualizar_projetos, name="visualizar_projetos"),
     path("editar_linha_impacto/<str:dado_impacto_id>",views.editar_linha_impacto, name="editar_linha_impacto"),
     path("detalhes_dado/<str:dado_impacto_id>",views.visualizar_linhas_impacto, name="detalhes_dado"),
+    path('editar_projeto/<int:projeto_id>/', views.editar_projeto, name='editar_projeto'),
+    path('editar_dado/<int:dado_impacto_id>/', views.editar_dado, name='editar_dado'),
 ]

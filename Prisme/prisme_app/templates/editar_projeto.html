@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %} Editar projeto {% endblock %} 
+
+{% block main %} 
+<h1>Editar Projeto - {{ projeto.nome_projeto }}</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="nome_projeto">Nome do Projeto:</label>
+        <input type="text" id="nome_projeto" name="nome_projeto" value="{{ projeto.nome_projeto }}">
+        <br><br>
+        
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao">{{ projeto.descricao }}</textarea>
+        <br><br>
+        
+        <label for="metodologia">Metodologias Utilizadas:</label>
+        <input type="text" id="metodologia" name="metodologia" value="{{ projeto.metodologiasUtilizadas }}">
+        <br><br>
+        
+        <label for="publico">Público-Alvo:</label>
+        <input type="text" id="publico" name="publico" value="{{ projeto.publicoAlvo }}">
+        <br><br>
+        
+        <label for="criacao">Data de Criação:</label>
+        <input type="text" id="criacao" name="criacao" value="{{ projeto.dataDeCriacao }}">
+        <br><br>
+        
+        {% if erros %}
+        <p style="color: red;">{{ erros.campos }}</p>
+        {% endif %}
+
+        <input type="submit" value="Salvar Alterações">
+    </form>
+    
+    <a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
+
+{% endblock %}
