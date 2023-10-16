@@ -173,7 +173,7 @@ def editar_projeto(request, projeto_id):
             projeto.publicoAlvo = publicoAlvo
             projeto.dataDeCriacao = dataDeCriacao
             projeto.save()
-            return redirect('visualizar_projetos', projeto_id=projeto.id)
+            return redirect('visualizar_projetos')
 
     contexto = {
         "erros": erros,
@@ -200,7 +200,7 @@ def add_dados(request, projeto_id):
         tipo1 = request.POST['tipo1']
         tipo2 = request.POST['tipo2']
 
-        if not descricao or not titulo or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
+        if not descricao or not titulo or tipo1 == "Selecione o tipo de dado Numérico" or tipo2 == "Selecione o tipo de dado Categorico":
             erros["campos"] = "Preencha todos os campos necessários"
             errado = True
         

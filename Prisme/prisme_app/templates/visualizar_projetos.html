@@ -3,45 +3,44 @@
 
 {% block main %} 
 
-<div class="container">
-    <h1>Projetos <a class="btn btn-primary" href="{% url 'add_projeto' %}">+</a> </h1> 
-</div>
 
 {% for projeto in projetos %}
 <div class="container">
-    <div>
+    <div class="text-start">
+        <h1>Projetos <a class="btn btn-primary" href="{% url 'add_projeto' %}">+</a> </h1> 
+    </div>
+    <div style="margin-top: 30px;">
         <h2>{{ projeto.nome_projeto }}
             <a class="btn btn-primary" href="{% url 'editar_projeto' projeto.id %}">Editar</a>
         </h2>
         <p>{{ projeto.descricao }} <br> {{projeto.dataDeCriacao}}</p>
     </div>
     <p class="fw-bold">Dados de impacto:</p>
-
+    
+    
     <table class="table table-primary">
         <thead>
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Descrição</th>
                 <th scope="col">Editar</th>
-                <th scope="col">Visualizar Linhas de Impacto</th>
             </tr>
         </thead>
         <tbody>
             {% for dado_impacto in projeto.dadosimpactos_set.all %}
             <tr scope="row" class="table-secondary">
-                <td>{{ dado_impacto.titulo }}</td>
+                <td><a  href="{% url 'detalhes_dado' dado_impacto.id %}">{{ dado_impacto.titulo }}</a></td>
                 <td>{{ dado_impacto.descricao }}</td>
                 <td>
                     <a class="btn btn-primary" href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
                 </td>
-                <td>
-                    <a class="btn btn-primary" href="{% url 'detalhes_dado' dado_impacto.id %}">Visualizar Linhas</a>
-                </td>
             </tr>
             {% endfor %}
-            <a class="btn btn-primary" href="{% url 'add_dados' projeto.id %}">Adicionar D.I.</a>
         </tbody>
     </table>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <a class="btn btn-primary me-md-2" href="{% url 'add_dados' projeto.id %}">Adicionar D.I.</a>
+    </div>
 </div>
 {% endfor %}
 
