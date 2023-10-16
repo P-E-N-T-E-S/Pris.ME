@@ -40,27 +40,27 @@ def home(request):
             for dado in list(dados):
                 impactados.append(dado.tipo1)
                 linha = dado.linhasimpacto_set.all().values()
-                if linha is not None:
+                if len(list(linha)) != 0:
                     base = pd.DataFrame(linha)
                     grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
-        try:
-            moda_impacto = sts.mode(impactados) #nome da moda
-            for indice, projeto in enumerate(list(projetos)):
-                dados = projeto.dadosimpactos_set.all()
-                for dado in list(dados):
-                    if dado.tipo1 == moda_impacto:
-                        linha = dado.linhasimpacto_set.all().values()
+        moda_impacto = sts.mode(impactados) #nome da moda
+        for indice, projeto in enumerate(list(projetos)):
+            dados = projeto.dadosimpactos_set.all()
+            for dado in list(dados):
+                if dado.tipo1 == moda_impacto:
+                    linha = dado.linhasimpacto_set.all().values()
+                    if linha is not None:
                         if indice == 0:
                             base_impacto = pd.DataFrame(linha)
                         else:
                             base_impacto_temp = pd.DataFrame(linha)
                             base_impacto = pd.concat([base_impacto, base_impacto_temp])
-            contexto["nome_impacto"] = moda_impacto
-            contexto["soma_impacto"] = base_impacto['valor1'].sum()
-        except:
-            pass
+                    else:
+                        pass
+        contexto["nome_impacto"] = moda_impacto
+        contexto["soma_impacto"] = base_impacto['valor1'].sum()
 
 
 
@@ -154,44 +154,50 @@ def add_projeto(request):
 @login_required
 def add_dados(request):
     usuario = request.user
+    ong_logada = Ong.objects.get(nome=usuario.first_name)
+    projeto = list(ong_logada.projeto_set.all())
     erros = {}
     if request.method == 'POST':
         errado = False
+        project = request.POST['projeto']
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
-        valor1 = request.POST['valor1']
-        valor2 = request.POST['valor2']
         tipo1 = request.POST['tipo1']
         tipo2 = request.POST['tipo2']
 
-        if not descricao or not titulo or not valor1 or not valor2 or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
+        if not descricao or not titulo or tipo1 == "Selecione o tipo de dado" or tipo2 == "Selecione o tipo de dado":
             erros["campos"] = "Preencha todos os campos necessários"
             errado = True
         
         if errado:
+                print("ta dando erro porra")
                 contexto = {
                     "erros": erros,
-                    "projeto": projeto,
+                    "projetos": projeto,
                     "descricao": descricao,
                     "titulo": titulo,
-                    "valor1": valor1,
-                    "valor2":valor1,
-                    "tipo1":tipo1,
+                    "tipo1": tipo1,
                     "tipo2": tipo2,
-                    "tipos1":tipos1,
+                    "tipos1": tipos1,
                     "tipos2": tipos2
                 }
                 return render(request, "add_dados.html", contexto)
         
         if DadosImpactos.objects.filter(titulo=titulo).exists():
-            return render(request, 'add_projeto.html', {"erro": "Esse Dado já existe"})
-        if Projeto.objects.filter(nome_projeto=projeto).exists():
-            DadosImpactos.objects.create(projeto=Projeto.objects.filter(nome_projeto=projeto).first(),titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
-            return redirect(home)
-        else:
-            return render(request, 'add_dados.html', {"erro": "Essa Projeto Não existe"})
-
-    return render(request,'add_dados.html',{"tipos1":tipos1, "tipos2":tipos2})
+            contexto = {
+                "erros": "esse dado ja existe",
+                "projetos": projeto,
+                "descricao": descricao,
+                "titulo": titulo,
+                "tipo1": tipo1,
+                "tipo2": tipo2,
+                "tipos1": tipos1,
+                "tipos2": tipos2
+            }
+            return render(request, 'add_projeto.html', contexto)
+        DadosImpactos.objects.create(projeto=Projeto.objects.get(nome_projeto=project),titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
+        return redirect(home)
+    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "projetos": projeto})
 
 
 
