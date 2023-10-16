@@ -6,29 +6,34 @@
 <h1>Projetos</h1>
 
 {% for projeto in projetos %}
-<div class="projeto-quadro">
-    <h2>{{ projeto.nome_projeto }}</h2> <a href="{% url 'editar_projeto' projeto.id %}">Editar</a>
-    <p>{{ projeto.descricao }} {{projeto.dataDeCriacao}}</p>
-    <p>Dados de impacto:</p>
+<div class="container">
+    <div>
+        <h2>{{ projeto.nome_projeto }}
+            <a class="btn btn-primary" href="{% url 'editar_projeto' projeto.id %}">Editar</a>
+        </h2>
+        <p>{{ projeto.descricao }} <br> {{projeto.dataDeCriacao}}</p>
+    </div>
+    <p class="fw-bold">Dados de impacto:</p>
 
-    <table>
+    <table class="table table-primary">
         <thead>
             <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Visualizar Linhas de Impacto</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Visualizar Linhas de Impacto</th>
             </tr>
         </thead>
         <tbody>
             {% for dado_impacto in projeto.dadosimpactos_set.all %}
-            <tr>
+            <tr scope="row" class="table-secondary">
                 <td>{{ dado_impacto.titulo }}</td>
                 <td>{{ dado_impacto.descricao }}</td>
                 <td>
-                    <a href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
+                    <a class="btn btn-primary" href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
                 </td>
                 <td>
-                    <a href="{% url 'detalhes_dado' dado_impacto.id %}">Visualizar Linhas</a>
+                    <a class="btn btn-primary" href="{% url 'detalhes_dado' dado_impacto.id %}">Visualizar Linhas</a>
                 </td>
             </tr>
             {% endfor %}
