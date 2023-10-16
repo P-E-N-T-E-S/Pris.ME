@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,8 +18,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link rel="stylesheet" href="static/style.css"/>
-
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css">
+    
     <title>Pris.ME {% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -120,7 +122,7 @@
     <button>
       <span>
         <i class="material-symbols-outlined"> timeline </i>
-        <span class="mobile -text">D.I</span>
+        <span class="mobile-text">D.I</span>
       </span>
     </button>
   </nav>

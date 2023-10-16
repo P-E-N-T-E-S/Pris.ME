@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+
 urlpatterns =[
     path("", views.Login, name='login'),
     path("home", views.home, name="home"),
@@ -15,3 +16,4 @@ urlpatterns =[
     path('editar_projeto/<int:projeto_id>/', views.editar_projeto, name='editar_projeto'),
     path('editar_dado/<int:dado_impacto_id>/', views.editar_dado, name='editar_dado'),
 ]
+
