@@ -1,13 +1,11 @@
 # Pris.ME - Organização de ONGs
 
-![GitHub repo size](https://img.shields.io/github/repo-size/P-E-N-T-E-S/Projeto?style=flat)
-![GitHub language count](https://img.shields.io/github/languages/count/P-E-N-T-E-S/Projeto?style=flat&logo=python)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Projeto?style=flat&logo=github)
-![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Projeto?style=flat&logo=github)
-[![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Projeto)](LICENSE.md)
-[![CI](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml/badge.svg)](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml)
-![Site Online](https://img.shields.io/website)
-
+![GitHub repo size](https://img.shields.io/github/repo-size/P-E-N-T-E-S/Pris.me?style=flat)
+![GitHub language count](https://img.shields.io/github/languages/count/P-E-N-T-E-S/Pris.me?style=flat&logo=python)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Pris.me?style=flat&logo=github)
+![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Pris.me?style=flat&logo=github)
+[![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Pris.me)](LICENSE.md)
+[![CI](https://github.com/P-E-N-T-E-S/Pris.me/actions/workflows/main_prisme.yml/badge.svg)](https://github.com/P-E-N-T-E-S/Pris.me/actions/workflows/main_prisme.yml)
 
 ## 📄 Descrição do Projeto
 
