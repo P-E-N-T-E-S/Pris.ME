@@ -3,7 +3,9 @@
 
 {% block main %} 
 
-<h1>Projetos</h1>
+<div class="container">
+    <h1>Projetos <a class="btn btn-primary" href="{% url 'add_projeto' %}">+</a> </h1> 
+</div>
 
 {% for projeto in projetos %}
 <div class="container">
@@ -37,6 +39,7 @@
                 </td>
             </tr>
             {% endfor %}
+            <a class="btn btn-primary" href="{% url 'add_dados' %}">Adicionar D.I.</a>
         </tbody>
     </table>
 </div>

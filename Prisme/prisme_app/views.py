@@ -319,28 +319,31 @@ def editar_linha_impacto(request, linha_impacto_id):
     erros = {}
 
     linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
-
+    valor1 = linha_impacto.valor1
+    
     if request.method == 'POST':
         errado = False
-        descricao = request.POST['descricao']
-        valor1 = request.POST['valor1']
+        valor1_input = request.POST['valor1']
         valor2 = request.POST['valor2']
 
-        if not descricao or not valor1 or not valor2:
+        valor1_input = float(str(valor1_input).replace(',', '.'))
+        
+        if not valor1_input or not valor2:
             erros["campos"] = "Preencha todos os campos necessários"
             errado = True
+        else:
+            valor1 = valor1_input 
+
 
         if errado:
             contexto = {
                 "erros": erros,
-                "descricao": descricao,
                 "valor1": valor1,
                 "valor2": valor2,
                 "linha_impacto": linha_impacto,
             }
             return render(request, "editar_linha_impacto.html", contexto)
 
-        linha_impacto.descricao = descricao
         linha_impacto.valor1 = valor1
         linha_impacto.valor2 = valor2
         linha_impacto.save()
@@ -349,7 +352,9 @@ def editar_linha_impacto(request, linha_impacto_id):
 
     contexto = {
         "erros": erros,
-        "linha_impacto": linha_impacto
+        "linha_impacto": linha_impacto,
+        "valor1": valor1,
+        "valor2": linha_impacto.valor2, 
     }
 
     return render(request, 'editar_linha_impacto.html', contexto)

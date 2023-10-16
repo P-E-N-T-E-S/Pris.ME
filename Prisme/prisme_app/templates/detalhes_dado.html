@@ -3,7 +3,7 @@
 
 {% block main %} 
 
-
+<div class="container">
 <h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
 
 <table>
@@ -20,12 +20,16 @@
             <td>{{ linha_impacto.descricao }}</td>
             <td>{{ linha_impacto.valor1 }}</td>
             <td>{{ linha_impacto.valor2 }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'editar_linha_impacto' linha_impacto.id %}">Editar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
+    <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
 </table>
 
 <a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
-
+</div>
 
 {% endblock %}

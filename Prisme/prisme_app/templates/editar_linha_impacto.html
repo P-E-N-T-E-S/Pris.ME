@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %} Editar Linha {% endblock %} 
+
+{% block main %} 
+
+<div class="container">
+<h1>Editar Valor</h1>
+    
+<form method="post">
+
+
+    {% csrf_token %}
+    
+    <label for="valor1">Valor 1:</label>
+    <input type="text" id="valor1" name="valor1" value="{{ linha_impacto.valor1 }}">
+    <br><br>
+    
+    <label for="valor2">Valor 2:</label>
+    <textarea id="valor2" name="valor2">{{ linha_impacto.valor2 }}</textarea>
+    <br><br>
+    {% if erros %}
+    <p style="color: red;">{{ erros.campos }}</p>
+    {% endif %}
+
+    <input type="submit" value="Editar Valores">
+</form>
+
+    <a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
+
+</div>
+
+{% endblock %}
