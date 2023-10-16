@@ -8,14 +8,14 @@
 {% for projeto in projetos %}
 <div class="projeto-quadro">
     <h2>{{ projeto.nome_projeto }}</h2>
-    <p>{{ projeto.descricao }}</p>
+    <p>{{ projeto.descricao }} {{projeto.dataDeCriacao}}</p>
+    <p>Dados de impacto:</p>
 
     <table>
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Descrição</th>
-                <th>Data de Criação</th>
                 <th>Visualizar Linhas de Impacto</th>
             </tr>
         </thead>
