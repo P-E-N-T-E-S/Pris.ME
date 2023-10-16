@@ -25,21 +25,32 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 ## 📪 Entregas
 
-1. Diagrama de atividades:
+1. Link do Site:
+   https://prisme.azurewebsites.net
+
+2. Diagrama de atividades:
    ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
+   
    link: https://i.imgur.com/L7d3RYt.png
 
-3. Protótipo de Baixa:
+4. Protótipo de Baixa:
    https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0
 
-   2.1 Screencast:
-
+   2.1 Screencast: https://youtu.be/ozqRWbZTO3Y
    
-4. Relato da Programação em par:
+5. Relato da Programação em par:
    https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing
 
-5. Link do Jira (Histórias):
+6. Histórias:
+   https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing
+
+7. Link do Jira:
    https://pentes.atlassian.net/jira/software/projects/CPB/boards/5
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/1d4ba6fc-ffbc-4ae5-8c40-7ccb90f844cf)
+
+8. Issue/Bug Tracker:
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85)
+
 
 
 ## 👩‍💻 Membros de CC
