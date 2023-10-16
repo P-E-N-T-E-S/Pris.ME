@@ -51,7 +51,7 @@ def home(request):
             for dado in list(dados):
                 if dado.tipo1 == moda_impacto:
                     linha = dado.linhasimpacto_set.all().values()
-                    if linha is not None:
+                    if len(list(linha)) != 0:
                         if indice == 0:
                             base_impacto = pd.DataFrame(linha)
                         else:
