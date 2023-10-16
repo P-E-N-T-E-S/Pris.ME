@@ -173,7 +173,7 @@ def editar_projeto(request, projeto_id):
             projeto.publicoAlvo = publicoAlvo
             projeto.dataDeCriacao = dataDeCriacao
             projeto.save()
-            return redirect('visualizar_projetos', projeto_id=projeto.id)
+            return redirect(visualizar_projetos)
 
     contexto = {
         "erros": erros,
