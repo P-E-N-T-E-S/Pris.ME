@@ -45,19 +45,22 @@ def home(request):
                     grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
-        moda_impacto = sts.mode(impactados) #nome da moda
-        for indice, projeto in enumerate(list(projetos)):
-            dados = projeto.dadosimpactos_set.all()
-            for dado in list(dados):
-                if dado.tipo1 == moda_impacto:
-                    linha = dado.linhasimpacto_set.all().values()
-                    if indice == 0:
-                        base_impacto = pd.DataFrame(linha)
-                    else:
-                        base_impacto_temp = pd.DataFrame(linha)
-                        base_impacto = pd.concat([base_impacto, base_impacto_temp])
-        contexto["nome_impacto"] = moda_impacto
-        contexto["soma_impacto"] = base_impacto['valor1'].sum()
+        try:
+            moda_impacto = sts.mode(impactados) #nome da moda
+            for indice, projeto in enumerate(list(projetos)):
+                dados = projeto.dadosimpactos_set.all()
+                for dado in list(dados):
+                    if dado.tipo1 == moda_impacto:
+                        linha = dado.linhasimpacto_set.all().values()
+                        if indice == 0:
+                            base_impacto = pd.DataFrame(linha)
+                        else:
+                            base_impacto_temp = pd.DataFrame(linha)
+                            base_impacto = pd.concat([base_impacto, base_impacto_temp])
+            contexto["nome_impacto"] = moda_impacto
+            contexto["soma_impacto"] = base_impacto['valor1'].sum()
+        except:
+            pass
 
 
 
@@ -191,6 +194,101 @@ def add_dados(request):
     return render(request,'add_dados.html',{"tipos1":tipos1, "tipos2":tipos2})
 
 
+
 @login_required
-def add_valores(request):
+def add_linhas(request, dado_impacto_id):
     usuario = request.user
+    erros = {}
+    
+    dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+
+    if request.method == 'POST':
+        errado = False
+        valor1 = request.POST['valor1']
+        valor2 = request.POST['valor2']
+
+        if not valor1 or not valor2:
+            erros["campos"] = "Preencha todos os campos necessários"
+            errado = True
+        
+        if errado:
+                contexto = {
+                    "erros": erros,
+                    "valor1": valor1,
+                    "valor2":valor1,
+                }
+                return render(request, "add_linhas.html", contexto)
+        
+        try:
+            LinhasImpacto.objects.create(dado_impacto=dado_impacto, valor1=valor1, valor2=valor2)
+        finally:
+            return redirect('detalhes_dado', dado_impacto_id=dado_impacto_id)
+        
+    contexto = {
+    "erros": erros,
+    "dado_impacto": dado_impacto
+    }
+    
+    return render(request,'add_linhas.html', contexto)
+
+
+@login_required
+def editar_linha_impacto(request, linha_impacto_id):
+    usuario = request.user
+    erros = {}
+
+    linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
+
+    if request.method == 'POST':
+        errado = False
+        descricao = request.POST['descricao']
+        valor1 = request.POST['valor1']
+        valor2 = request.POST['valor2']
+
+        if not descricao or not valor1 or not valor2:
+            erros["campos"] = "Preencha todos os campos necessários"
+            errado = True
+
+        if errado:
+            contexto = {
+                "erros": erros,
+                "descricao": descricao,
+                "valor1": valor1,
+                "valor2": valor2,
+                "linha_impacto": linha_impacto,
+            }
+            return render(request, "editar_linha_impacto.html", contexto)
+
+        linha_impacto.descricao = descricao
+        linha_impacto.valor1 = valor1
+        linha_impacto.valor2 = valor2
+        linha_impacto.save()
+
+        return redirect('detalhes_dado', dado_impacto_id=linha_impacto.dado_impacto.id)
+
+    contexto = {
+        "erros": erros,
+        "linha_impacto": linha_impacto
+    }
+
+    return render(request, 'editar_linha_impacto.html', contexto)
+
+@login_required
+def visualizar_projetos(request):
+    projetos = Projeto.objects.all()
+    context = {'projetos': projetos}
+    return render(request, 'visualizar_projetos.html', context)   
+
+
+@login_required
+def visualizar_linhas_impacto(request, dado_impacto_id):
+    dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+    linhas_impacto = LinhasImpacto.objects.filter(dado_impacto=dado_impacto)
+    
+    context = {
+        'dado_impacto': dado_impacto,
+        'linhas_impacto': linhas_impacto,
+    }
+    
+    return render(request, 'detalhes_dado.html', context)
+    

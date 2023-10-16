@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %} Detalhes do {{ dado_impacto.titulo }} {% endblock %} 
+
+{% block main %} 
+
+
+<h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor 1</th>
+            <th>Valor 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for linha_impacto in linhas_impacto %}
+        <tr>
+            <td>{{ linha_impacto.descricao }}</td>
+            <td>{{ linha_impacto.valor1 }}</td>
+            <td>{{ linha_impacto.valor2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
+
+
+{% endblock %}

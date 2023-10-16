@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %} Adicionar Linhas {% endblock %} 
+
+{% block main %} 
+
+<h1>Adicionar Valores a Linhas de Impacto</h1>
+    
+<form method="post">
+
+
+    {% csrf_token %}
+    
+    <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}">
+    <br><br>
+    <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}">
+    <br><br>
+    
+    {% if erros %}
+    <p style="color: red;">{{ erros.campos }}</p>
+    {% endif %}
+
+    <input type="submit" value="Adicionar Valores">
+</form>
+
+<a href="{% url 'detalhes_dado' dado_impacto_id %}">Voltar para os Detalhes do Dado de Impacto</a>
+
+
+{% endblock %}

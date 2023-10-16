@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %} Projetos {% endblock %} 
+
+{% block main %} 
+
+<h1>Projetos</h1>
+
+{% for projeto in projetos %}
+<div class="projeto-quadro">
+    <h2>{{ projeto.nome_projeto }}</h2>
+    <p>{{ projeto.descricao }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Data de Criação</th>
+                <th>Visualizar Linhas de Impacto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dado_impacto in projeto.dadosimpactos_set.all %}
+            <tr>
+                <td>{{ dado_impacto.titulo }}</td>
+                <td>{{ dado_impacto.descricao }}</td>
+                <td>
+                    <a href="{% url 'detalhes_dado' dado_impacto.id %}">Visualizar Linhas</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+
+{% endblock %}
