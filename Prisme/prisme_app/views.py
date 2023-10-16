@@ -6,9 +6,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
 
-# Create your views here.
 
 tipos1 = [
          "Selecione o tipo de dado Numérico",
@@ -24,6 +24,20 @@ tipos2 = [
 ]
 
 
+def Login(request):
+    if request.user != None:
+        redirect(home)
+    if request.method == "POST":
+        email = request.POST["email"]
+        senha = request.POST["senha"]
+        user = authenticate(request, username=email, password=senha)
+        if user is not None:
+            login(request, user)
+            return redirect(home)
+        else:
+            return render(request, "login.html", {"erro": "Usuário não encontrado"})
+    return render(request, "login.html")
+
 
 def home(request):
     moda = True
@@ -31,6 +45,7 @@ def home(request):
     graficos = []
     impactados = []
     contexto = {}
+
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
     except:
@@ -74,35 +89,11 @@ def home(request):
             contexto["soma_impacto"] = 0
 
 
-
-
         return render(request, "home.html", context=contexto)
-
-#@login_required
-def add_di(request):
-    contexto = {
-
-    }
-    return render(request, "dados.html", context=contexto)
-
-
-def Login(request):
-    if request.method == "POST":
-        email = request.POST["email"]
-        senha = request.POST["senha"]
-
-        user = authenticate(request, username=email, password=senha)
-        if user is not None:
-            login(request, user)
-            return redirect(home)
-        else:
-            return render(request, "login.html", {"erro": "Usuário não encontrado"})
-    return render(request, "login.html")
 
 
 def Logout(request):
     logout(request)
-    
     if "usuario" in request.session:
         del request.session["usuario"]
     return redirect(home)
