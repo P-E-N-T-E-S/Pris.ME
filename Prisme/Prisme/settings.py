@@ -29,7 +29,7 @@ if NOT_PROD:
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 't!a0ri2-ec4s9%8id-r7aahuk)gwdq46395!q4)hjqqkhiw!ny'
-    ALLOWED_HOSTS = ['prisme.azurewebsites.net']
+    ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
