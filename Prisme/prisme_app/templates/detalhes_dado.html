@@ -1,17 +1,25 @@
 {% extends "layout.html" %}
-{% block title %} Detalhes do {{ dado_impacto.titulo }} {% endblock %} 
+{% block title %} 
+Detalhes do {{ dado_impacto.titulo }} 
+{% endblock %} 
+
+{% load static %}
+{% static 'style.css' %}
 
 {% block main %} 
 
 <div class="container">
-<h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
+    <h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
+    <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
+</div>
 
-<table>
+<table class="table table-primary">
     <thead>
         <tr>
             <th>Descrição</th>
             <th>Valor 1</th>
             <th>Valor 2</th>
+            <th>Editar</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +34,6 @@
         </tr>
         {% endfor %}
     </tbody>
-    <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
 </table>
 
 <a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>

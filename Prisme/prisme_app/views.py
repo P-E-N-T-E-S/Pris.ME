@@ -132,17 +132,6 @@ def add_projeto(request):
                 "publicoAlvo": publicoAlvo,
             }
             return render(request, "add_projeto.html", contexto)
-            
-        if Projeto.objects.filter(nome_projeto=nome_projeto).exists():
-            contexto = {
-                "erros": "Esse Projeto já existe",
-                "ong": usuario.first_name,
-                "nome_projeto": nome_projeto,
-                "descricao": descricao,
-                "metodologiasUtilizadas": metodologiasUtilizadas,
-                "publicoAlvo": publicoAlvo,
-            }
-            return render(request, 'add_projeto.html', contexto)
         
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
@@ -195,14 +184,17 @@ def editar_projeto(request, projeto_id):
 
 
 @login_required
-def add_dados(request):
+def add_dados(request, projeto_id):
     usuario = request.user
+    
+    projeto = Projeto.objects.get(pk=projeto_id)
+    
     ong_logada = Ong.objects.get(nome=usuario.first_name)
-    projeto = list(ong_logada.projeto_set.all())
+    #projeto = list(ong_logada.projeto_set.all())
     erros = {}
+    
     if request.method == 'POST':
         errado = False
-        project = request.POST['projeto']
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
         tipo1 = request.POST['tipo1']
@@ -215,32 +207,20 @@ def add_dados(request):
         if errado:
                 contexto = {
                     "erros": erros,
-                    "projetos": projeto,
                     "descricao": descricao,
                     "titulo": titulo,
                     "tipo1": tipo1,
                     "tipo2": tipo2,
                     "tipos1": tipos1,
-                    "tipos2": tipos2
+                    "tipos2": tipos2,
+                    "projeto": projeto,
                 }
                 return render(request, "add_dados.html", contexto)
         
-        if DadosImpactos.objects.filter(titulo=titulo).exists():
-            contexto = {
-                "erros": "esse dado ja existe",
-                "projetos": projeto,
-                "descricao": descricao,
-                "titulo": titulo,
-                "tipo1": tipo1,
-                "tipo2": tipo2,
-                "tipos1": tipos1,
-                "tipos2": tipos2
-            }
-            return render(request, 'add_dados.html', contexto)
-        DadosImpactos.objects.create(projeto=Projeto.objects.get(nome_projeto=project),titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
-        dado = DadosImpactos.objects.get(titulo=titulo)
-        return redirect(home)
-    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "projetos": projeto})
+
+        DadosImpactos.objects.create(projeto=projeto,titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
+        return redirect(visualizar_projetos)
+    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2})
 
 
 @login_required
@@ -348,7 +328,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return redirect('detalhes_dado', dado_impacto_id=linha_impacto.dado_impacto.id)
+        return render(request, 'detalhes_dado.html', dado_impacto_id=linha_impacto.dado_impacto.id)
 
     contexto = {
         "erros": erros,
@@ -361,7 +341,9 @@ def editar_linha_impacto(request, linha_impacto_id):
 
 @login_required
 def visualizar_projetos(request):
-    projetos = Projeto.objects.all()
+    usuario = request.user
+    ong_logada = Ong.objects.get(email=usuario.username)
+    projetos = list(ong_logada.projeto_set.all())
     context = {'projetos': projetos}
     return render(request, 'visualizar_projetos.html', context)   
 

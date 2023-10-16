@@ -9,19 +9,10 @@
     <h1>Adicionar dados de impacto</h1>
   </div>
     <form
-      action="{% url 'add_dados' %}"
       method="post"
       enctype="multipart/form-data">
       {% csrf_token %}
         <div class="col-md-6 mx-auto">
-          <div class="mb-3">
-            <label for="projeto" class="form-label">Projeto</label>
-            <select class="form-select" aria-label="Default select example" id="projeto" name="projeto">
-              {% for item in projetos %}
-                <option value="{{item}}">{{item}}</option>
-              {% endfor %}
-            </select>
-          </div>
           <div class="mb-3">
             <label for="titulo" class="form-label">Titulo do Dado</label>
             <input
