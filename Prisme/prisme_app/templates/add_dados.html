@@ -15,14 +15,12 @@
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="projeto" class="form-label">Nome do Projeto</label>
-            <input
-              type="text"
-              class="form-control"
-              id="projeto"
-              name="projeto"
-              value="{{ projeto }}"
-            />
+            <label for="projeto" class="form-label">Projeto</label>
+          <select id="projeto" name="projeto">
+            {% for item in projetos %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+          </select>
           </div>
           <div class="mb-3">
             <label for="titulo" class="form-label">Titulo do Dado</label>
@@ -46,26 +44,6 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="mb-3">
-            <label for="valor1" class="form-label">Digite o primeiro valor</label>
-            <input
-              type="text"
-              class="form-control"
-              id="valor1"
-              name="valor1"
-              value="{{ valor1 }}"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="valor2" class="form-label">Digite o segundo valor</label>
-            <input
-              type="text"
-              class="form-control"
-              id="valor2"
-              name="valor2"
-              value="{{ valor2 }}"
-            />
-          </div>
         <div class="mb-3">
           <label for="tipo1" class="form-label">Selecione o eixo X</label>
           <select
@@ -103,4 +81,4 @@
 {% if error_message %}
 <p>{{ error_message }}</p>
 {% endif %} 
-<!--{% endblock %}-->
+{% endblock %}

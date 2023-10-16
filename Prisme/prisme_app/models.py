@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 
 class Ong(models.Model):
-     areaAtuação = [
+     areaAtuacao = [
         (None, "Selecione a área de atuação"),
         ("Esportes","Esportes"),
         ("Direitos Humanos","Direitos Humanos"),
@@ -24,7 +24,7 @@ class Ong(models.Model):
             ]
      nome = models.CharField(max_length=100)
      email = models.EmailField(max_length=100)
-     areaAtuação = models.CharField(choices=areaAtuação,default=areaAtuação[0],max_length=50)
+     areaAtuacao = models.CharField(choices=areaAtuacao,default=areaAtuacao[0],max_length=50)
      descricao = models.TextField(max_length=500, default="Descrição da Ong.")
      CEP = models.CharField(max_length=9)
      CNPJ = models.CharField(max_length=14)
