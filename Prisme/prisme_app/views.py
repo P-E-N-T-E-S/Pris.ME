@@ -1,4 +1,5 @@
 import pandas as pd
+import statistics as sts
 from django.shortcuts import render, redirect
 from .utils import linhas, barras
 from django.contrib.auth.models import User
@@ -26,8 +27,8 @@ tipos2 = [
 def home(request):
     usuario = request.user
     graficos = []
-    contexto = {
-    }
+    impactados = []
+    contexto = {}
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
     except:
@@ -37,12 +38,30 @@ def home(request):
         for projeto in list(projetos):
             dados = projeto.dadosimpactos_set.all()
             for dado in list(dados):
+                impactados.append(dado.tipo1)
                 linha = dado.linhasimpacto_set.all().values()
                 if linha is not None:
                     base = pd.DataFrame(linha)
                     grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
+        moda_impacto = sts.mode(impactados) #nome da moda
+        for indice, projeto in enumerate(list(projetos)):
+            dados = projeto.dadosimpactos_set.all()
+            for dado in list(dados):
+                if dado.tipo1 == moda_impacto:
+                    linha = dado.linhasimpacto_set.all().values()
+                    if indice == 0:
+                        base_impacto = pd.DataFrame(linha)
+                    else:
+                        base_impacto_temp = pd.DataFrame(linha)
+                        base_impacto = pd.concat([base_impacto, base_impacto_temp])
+        contexto["nome_impacto"] = moda_impacto
+        contexto["soma_impacto"] = base_impacto['valor1'].sum()
+
+
+
+
         return render(request, "home.html", context=contexto)
 
 #@login_required
@@ -51,15 +70,6 @@ def add_di(request):
 
     }
     return render(request, "dados.html", context=contexto)
-
-#@login_required
-def teste(request):
-    usuario = request.user
-
-    contexto={
-        "grafico": linhas([1,2,3], [20,30,40], "p", "pX", "pY")
-    }
-    return render(request, "ex.html", context=contexto)
 
 
 def Login(request):
@@ -119,7 +129,7 @@ def add_projeto(request):
             return render(request, "add_projeto.html", contexto)
             
         if Projeto.objects.filter(nome_projeto=nome_projeto).exists():
-            return render(request, 'add_projeto.html', {"erro": "Esse Projeto já existe"}, contexto)
+            return render(request, 'add_projeto.html', {"erro": "Esse Projeto já existe"})
         
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
