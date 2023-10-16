@@ -2,16 +2,11 @@
 {% block title %} 
 Detalhes do {{ dado_impacto.titulo }} 
 {% endblock %} 
-
-{% load static %}
-{% static 'style.css' %}
-
 {% block main %} 
 
 <div class="container">
     <h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
     <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
-</div>
 
 <table class="table table-primary">
     <thead>
