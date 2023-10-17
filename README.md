@@ -26,7 +26,15 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 1. Link do Site:
    https://prisme.azurewebsites.net
 
-2. Diagrama de atividades:
+   Perfil de ONG:
+   Login: professor@ong.com
+   Senha: senha_inicial
+
+   Perfil de Admin:
+   Login: professor
+   Senha: senha1234
+
+3. Diagrama de atividades:
    ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
    
    link: https://i.imgur.com/L7d3RYt.png
