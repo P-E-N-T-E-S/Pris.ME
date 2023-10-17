@@ -26,6 +26,9 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 1. Link do Site:
    https://prisme.azurewebsites.net
 
+   1.1 Vídeo de apresentação do site:
+      https://youtu.be/vERwEOPt9Qc
+
    Perfil de ONG:
    Login: professor@ong.com
    Senha: senha_inicial
