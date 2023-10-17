@@ -3,12 +3,12 @@
 
 {% block main %} 
 
-
-{% for projeto in projetos %}
 <div class="container">
     <div class="text-start">
         <h1>Projetos <a class="btn btn-primary" href="{% url 'add_projeto' %}">+</a> </h1> 
     </div>
+
+    {% for projeto in projetos %}
     <div style="margin-top: 30px;">
         <h2>{{ projeto.nome_projeto }}
             <a class="btn btn-primary" href="{% url 'editar_projeto' projeto.id %}">Editar</a>
