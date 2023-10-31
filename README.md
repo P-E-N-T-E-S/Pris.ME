@@ -127,10 +127,10 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     <a href="https://www.linkedin.com/in/clara-batista-sobral-de-oliveira-351947265/">Clara Sobral</a> - cbso@cesar.school 📩
   </li>
   <li>
-    <a href="https://www.behance.net/emillysaobento/appreciated">Emilly São Bento</a> - eccsb@cesar.school 📩
+    <a href="https://emillysaobento.carrd.co/?fbclid=PAAabKO9AleSjDVm8NMYDXGLUNwpeUD4miwivqiBgTNcZ-TlBikS4EclilYdA">Emilly São Bento</a> - eccsb@cesar.school 📩
   </li>
   <li>
-    <a href="https://www.behance.net/dylanvieira">Dylan Vieira</a> - dvma@cesar.school 📩
+    <a href="https://linktr.ee/DylanVieira?utm_source=linktree_admin_share">Dylan Vieira</a> - dvma@cesar.school 📩
   </li>
   <li>
     <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
