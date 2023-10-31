@@ -101,20 +101,16 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 <ul>
   <li>
-    <a href="https://github.com/Thomazrlima">Thomaz Lima</a> -
-    trl@cesar.school 📩
+    <a href="https://github.com/Thomazrlima">Thomaz Lima</a> - trl@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/hsspedro">Pedro Henrique Silva</a> -
-    phss@cesar.school 📩
+    <a href="https://github.com/hsspedro">Pedro Henrique Silva</a> - phss@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/Sofia-Saraiva">Sofia Saraiva</a> -
-    spscl@cesar.school 📩
+    <a href="https://github.com/Sofia-Saraiva">Sofia Saraiva</a> - spscl@cesar.school 📩
   </li>
   <li>
-    <a href="https://github.com/Luiz-Edu0202">Luiz Eduardo Bryner</a> -
-    elab@cesar.school 📩
+    <a href="https://github.com/Luiz-Edu0202">Luiz Eduardo Bryner</a> - elab@cesar.school 📩
   </li>
   <li>
     <a href="https://github.com/Nerebo">André Goes</a> - algcf@cesar.school 📩
@@ -126,10 +122,20 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 ## 👨‍🎨 Membros de Design
 
-- Clara Sobral - cbso@cesar.school 📩
-- Emilly São Bento - eccsb@cesar.school 📩
-- Dylan Vieira - dvma@cesar.school 📩
-- João Almeida - jfma2@cesar.school 📩
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/clara-batista-sobral-de-oliveira-351947265/">Clara Sobral</a> - cbso@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://www.behance.net/emillysaobento/appreciated">Emilly São Bento</a> - eccsb@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://www.behance.net/dylanvieira">Dylan Vieira</a> - dvma@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
+  </li>
+</ul>
   
 <table>
   <tr>
