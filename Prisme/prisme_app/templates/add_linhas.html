@@ -10,16 +10,25 @@ d{% extends "layout.html" %}
 
     {% csrf_token %}
     
-    <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}">
-    <br><br>
-    <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}">
-    <br><br>
-    
-    {% if erros %}
-    <p style="color: red;">{{ erros.campos }}</p>
-    {% endif %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        <div class="mb-3">
+            <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}">
+        </div>
 
-    <input type="submit" value="Adicionar Valores">
+        <div class="mb-3">
+            <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}">
+        </div>
+    
+        {% if erros %}
+        <p style="color: red;">{{ erros.campos }}</p>
+        {% endif %}
+
+        <div class="d-flex justify-content-center w-100">
+            <input type="submit" class="btn btn-primary" value="Adicionar Valores">
+        </div>
+        </div>
+    </div>
 </form>
 
 <a href="{% url 'detalhes_dado' dado_impacto.id %}">Voltar para os Detalhes do Dado de Impacto</a>

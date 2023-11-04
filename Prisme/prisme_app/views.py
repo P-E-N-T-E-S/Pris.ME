@@ -137,7 +137,7 @@ def add_projeto(request):
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
         finally:
-            return redirect(add_dados)
+            return redirect(visualizar_projetos)
 
     contexto = {
         "erros": erros,

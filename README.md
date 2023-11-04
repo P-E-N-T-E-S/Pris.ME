@@ -23,50 +23,119 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 ## 📪 Entregas
 
-1. Link do Site:
-   https://prisme.azurewebsites.net
+   Para a utilização do site foram gerados 2 perfis para os professores terem a possibilidade de testar, como explicado na apresentação, o cadastro será feito pela Tec-do-Bem, e temporariamente estamos usando o ADMIN do Django para isso, tendo isso em mente aqui estão os perfis do usuário e do administrados, respectivamente.
 
-2. Diagrama de atividades:
-   ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
+   Perfil de ONG:
+   Login: professor@ong.com
+   Senha: senha_inicial
+
+   Perfil de Admin:
+   Login: professor
+   Senha: senha1234
+      
    
-   link: https://i.imgur.com/L7d3RYt.png
 
-4. Protótipo de Baixa:
-   https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0
+<p>Links Importantes</p>
+<ul>
+  <li>
+    <a  href="https://prisme.azurewebsites.net"
+      >Link do Site</a
+    >
+  </li>
+  <li>
+    <a  href="https://pentes.atlassian.net/jira/software/projects/CPB/boards/5"
+      >Link do Jira</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Diagrama de atividades</a
+    >
+  </li>
+</ul>
 
-   2.1 Screencast: https://youtu.be/ozqRWbZTO3Y
-   
-5. Relato da Programação em par:
-   https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing
+<p>SR1</p>
+<ul>
+  <li>
+    <a  href="https://youtu.be/vERwEOPt9Qc"
+      >ScreenCast - Uso do Sistema</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Diagrama de atividades</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0"
+      >Protótipo de Baixa</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/ozqRWbZTO3Y"
+      >ScreenCast - Protótipo de Baixa</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing"
+      >Histórias</a
+    >
+  </li>
+  <li>
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85"
+      >Issue/Bug Tracker</a
+    >
+  </li>
+</ul>
 
-6. Histórias:
-   https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing
-
-7. Link do Jira:
-   https://pentes.atlassian.net/jira/software/projects/CPB/boards/5
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/1d4ba6fc-ffbc-4ae5-8c40-7ccb90f844cf)
-
-8. Issue/Bug Tracker:
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85)
-
-
 
 ## 👩‍💻 Membros de CC
 
-- Thomaz R. Lima
-- Evaldo G. Filho
-- Pedro S. Souza
-- Luiz Eduardo Brayner
-- André Fonseca
-- Sofia Saraiva
+<ul>
+  <li>
+    <a href="https://github.com/Thomazrlima">Thomaz Lima</a> - trl@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/hsspedro">Pedro Henrique Silva</a> - phss@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Sofia-Saraiva">Sofia Saraiva</a> - spscl@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Luiz-Edu0202">Luiz Eduardo Bryner</a> - elab@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Nerebo">André Goes</a> - algcf@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/evaldocunhaf">Evaldo Galdino</a> - egcf@cesar.school 📩
+  </li>
+</ul>
 
 ## 👨‍🎨 Membros de Design
 
-- Clara Sobral
-- Emilly São Bento
-- Dylan Vieira
-- João Almeida
-- Lucas Souto
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/clara-batista-sobral-de-oliveira-351947265/">Clara Sobral</a> - cbso@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://emillysaobento.carrd.co/?fbclid=PAAabKO9AleSjDVm8NMYDXGLUNwpeUD4miwivqiBgTNcZ-TlBikS4EclilYdA">Emilly São Bento</a> - eccsb@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://linktr.ee/DylanVieira?utm_source=linktree_admin_share">Dylan Vieira</a> - dvma@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
+  </li>
+</ul>
   
 <table>
   <tr>
