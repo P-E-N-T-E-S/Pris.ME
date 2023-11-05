@@ -88,7 +88,6 @@ def home(request):
         else:
             contexto["soma_impacto"] = 0
 
-
         return render(request, "home.html", context=contexto)
 
 
@@ -186,11 +185,8 @@ def editar_projeto(request, projeto_id):
 @login_required
 def add_dados(request, projeto_id):
     usuario = request.user
-    
     projeto = Projeto.objects.get(pk=projeto_id)
-    
     ong_logada = Ong.objects.get(nome=usuario.first_name)
-    #projeto = list(ong_logada.projeto_set.all())
     erros = {}
     
     if request.method == 'POST':
@@ -217,7 +213,6 @@ def add_dados(request, projeto_id):
                 }
                 return render(request, "add_dados.html", contexto)
         
-
         DadosImpactos.objects.create(projeto=projeto,titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
         return redirect(visualizar_projetos)
     return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2})
@@ -227,7 +222,6 @@ def add_dados(request, projeto_id):
 def editar_dado(request, dado_impacto_id):
     usuario = request.user
     erros = {}
-
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
 
     if request.method == 'POST':
@@ -260,7 +254,6 @@ def editar_dado(request, dado_impacto_id):
 def add_linhas(request, dado_impacto_id):
     usuario = request.user
     erros = {}
-    
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
 
     if request.method == 'POST':
@@ -297,7 +290,6 @@ def add_linhas(request, dado_impacto_id):
 def editar_linha_impacto(request, linha_impacto_id):
     usuario = request.user
     erros = {}
-
     linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
     valor1 = linha_impacto.valor1
     
@@ -313,7 +305,6 @@ def editar_linha_impacto(request, linha_impacto_id):
             errado = True
         else:
             valor1 = valor1_input 
-
 
         if errado:
             contexto = {
@@ -339,6 +330,7 @@ def editar_linha_impacto(request, linha_impacto_id):
 
     return render(request, 'editar_linha_impacto.html', contexto)
 
+
 @login_required
 def visualizar_projetos(request):
     usuario = request.user
@@ -359,4 +351,3 @@ def visualizar_linhas_impacto(request, dado_impacto_id):
     }
     
     return render(request, 'detalhes_dado.html', context)
-    
