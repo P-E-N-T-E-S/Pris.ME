@@ -38,7 +38,7 @@
 
   <aside class="sidebar">
     <header class="sidebar-header">
-      <img class="logo-img" src="https://i.imgur.com/FWUCFTF.jpeg" style="    width: 40px;
+      <img class="logo-img" src="{{ perfil }}" style="    width: 40px;
       min-height: 40px;
       border-radius: 50%;
       object-fit: cover;
@@ -81,6 +81,16 @@
         </span>
       </button>
     </a>
+
+    <a href="{% url 'editar_estilo' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> Preview </i>
+          <span>Layout</span>
+        </span>
+      </button>
+    </a>
+    
   </nav>
 
 </aside>

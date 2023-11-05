@@ -351,3 +351,19 @@ def visualizar_linhas_impacto(request, dado_impacto_id):
     }
     
     return render(request, 'detalhes_dado.html', context)
+    
+@login_required
+def editar_estilo(request):
+    navcor = request.POST.get("navcor")
+    sidecor = request.POST.get("sidecor")
+    backcor = request.POST.get("backcor")
+    perfil = request.POST.get("perfil")
+
+    context = {
+        'navcor' : navcor,
+        'sidecor' : sidecor,
+        'backcor' : backcor,
+        'perfil' : perfil,
+    }
+
+    return render(request, 'editar_estilo.html', context)

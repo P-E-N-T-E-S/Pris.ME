@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block main %}
+
+<link rel="stylesheet" href="static/style.css"/>
+<div class="container">
+    <div class="text-center">
+        <h1>Editar Estilo</h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="col-md-6 mx-auto">
+            <div class="mb-3">
+                <input type="color" name="navcor" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="color" name="sidecor" class="form-control">
+            </div>
+            <div class="mb-3">
+                <input type="color" name="backcor" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="perfil" class="form-control">
+            </div>
+            
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Alterar</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
