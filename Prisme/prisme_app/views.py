@@ -1,12 +1,10 @@
 import pandas as pd
 import statistics as sts
-from django.shortcuts import render, redirect
-from .utils import linhas, barras
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect,get_object_or_404
+from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
 
 
@@ -23,6 +21,21 @@ tipos2 = [
     "Pessoas",
 ]
 
+areaAtuacao = [
+"Esportes",
+"Direitos Humanos",
+"Educação",
+"Saúde",
+"Cultura e Arte",
+"Meio Ambiente",
+"Desenvolvimento Comunitário",
+"Ajuda Humanitária",
+"Empreendedorismo Social",
+"Alívio da Pobreza",
+"Alimentação e segurança alimentar",
+"Causa animal",
+"Desenvolvimento internacional",
+"Outro",]
 
 def Login(request):
     if request.user != None:
@@ -367,3 +380,33 @@ def editar_estilo(request):
     }
 
     return render(request, 'editar_estilo.html', context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def criar_ong(request):
+    context = { 'areaAtuacao': areaAtuacao}
+
+    if request.method == 'POST':
+        nome_ong = request.POST['nome_ong']
+        email_ong = request.POST['email_ong']
+        area = request.POST['areaAtuacao']
+        descricao = request.POST['descricao']
+        CEP = request.POST['CEP']
+        CNPJ = request.POST['CNPJ']
+        dataDeCriacao = request.POST['criacao']
+        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+
+        ong = Ong(
+            nome=nome_ong,
+            email=email_ong,
+            areaAtuacao=area,
+            descricao=descricao,
+            CEP=CEP,
+            CNPJ=CNPJ,
+            dataDeCriacao=dataDeCriacao,
+            numeroDeVoluntarios=numeroDeVoluntarios)
+        ong.save()
+
+        return redirect(home)
+    else:
+        return render(request, 'criar_ong.html', context=context)
