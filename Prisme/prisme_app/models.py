@@ -80,3 +80,23 @@ class LinhasImpacto(models.Model):
     dado_impacto = models.ForeignKey(DadosImpactos, on_delete=models.CASCADE)
     valor1 = models.DecimalField(max_digits=10, decimal_places=2)
     valor2 = models.CharField(max_length=20)
+
+
+class Categoria(models.Model):
+    escolhas =[("Ganho", "Ganho"), ("Gasto", "Gasto")]
+    ong = models.ForeignKey(Ong, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=100)
+    tipo = models.CharField(choices=escolhas, default=escolhas[1], max_length=100)
+    def __str__(self):
+        return self.nome
+
+
+
+class LinhaCaixa(models.Model):
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    valor = models.IntegerField()
+    data = models.DateField()
+    identificacao = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.identificacao

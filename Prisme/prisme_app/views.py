@@ -1,11 +1,11 @@
 import pandas as pd
 import statistics as sts
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect,get_object_or_404, HttpResponse
 from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
+from .models import *
 
 
 tipos1 = [
@@ -148,6 +148,7 @@ def add_projeto(request):
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
+            Categoria.objects.create(ong=ong_logada, nome=nome_projeto, tipo="Gasto")
         finally:
             return redirect(visualizar_projetos)
 
@@ -406,7 +407,40 @@ def criar_ong(request):
             dataDeCriacao=dataDeCriacao,
             numeroDeVoluntarios=numeroDeVoluntarios)
         ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
 
         return redirect(home)
     else:
         return render(request, 'criar_ong.html', context=context)
+
+def controle_de_gastos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    categorias = [item.nome for item in categoria if categoria.tipo == "Gasto"]
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_gastos.html", contexto)
+
+def controle_de_ganhos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    categorias = [item.nome for item in categoria if categoria.tipo == "Ganho"]
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_ganhos.html", contexto)
