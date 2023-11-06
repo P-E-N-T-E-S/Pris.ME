@@ -46,7 +46,10 @@ def Login(request):
         user = authenticate(request, username=email, password=senha)
         if user is not None:
             login(request, user)
-            return redirect(home)
+            if user.is_superuser:
+                return redirect(home_admin)
+            else:
+                return redirect(home)
         else:
             return render(request, "login.html", {"erro": "Usuário não encontrado"})
     return render(request, "login.html")
@@ -103,6 +106,9 @@ def home(request):
 
         return render(request, "home.html", context=contexto)
 
+
+def home_admin(request):
+    return render(request, "admin.html")
 
 def Logout(request):
     logout(request)
@@ -384,7 +390,7 @@ def editar_estilo(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def criar_ong(request):
+def cadastrar_ong(request):
     context = { 'areaAtuacao': areaAtuacao}
 
     if request.method == 'POST':
@@ -411,9 +417,9 @@ def criar_ong(request):
         Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
         Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
 
-        return redirect(home)
+        return redirect(home_admin)
     else:
-        return render(request, 'criar_ong.html', context=context)
+        return render(request, 'cadastrar_ong.html', context=context)
 
 def controle_de_gastos(request, dado):
     usuario = request.user

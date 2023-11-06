@@ -1,11 +1,11 @@
-{% extends "layout.html" %}
+{% extends "layout_admin.html" %}
 {% block title %} Cadastrar ONG {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
 <div class="container">
     <div class="text-center">
-        <h1>Cadastrar ong</h1>
+        <h1>Cadastrar ONG</h1>
     </div>
     <form method="post">
         {% csrf_token %}
@@ -69,14 +69,14 @@
             />
           </div>
         <div class="mb-3">
-            <label for="numeroDeVoluntarios" class="form-label">Numero de Voluntários:</label>
+            <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
             <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
         </div>
     </div>
     <p class="text-danger">{{ erros.campos }}</p>
     <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary">Criar Ong</button>
-      <a href="{% url 'home' %}" class="btn btn-danger mx-3">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <a href="{% url 'admin' %}" class="btn btn-danger mx-3">Cancelar</a>
     </div>
     <div class="text-center">
         {% if erros %}
