@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block title %} Cadastrar ONG {% endblock %} 
+
+{% block main %} 
+<link rel="stylesheet" href="static/style.css"/>
+<div class="container">
+    <div class="text-center">
+        <h1>Cadastrar ong</h1>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="mb-3">
+                <label for="nome_ong" class="form-label">Nome da Ong:</label>
+                <input type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome_ong }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email_ong" class="form-label">Email:</label>
+                <input type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email_ong }}"required >
+            </div>
+        
+        <div class="mb-3">
+            <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
+            <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
+                <option value="" disabled selected>Selecione a área de atuação</option>
+                {% for area in areaAtuacao %}
+                <option value="{{ area }}"required>{{ area }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <input type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
+            <input type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+            <div class="form_text">Ex: XXXXX-XXX</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
+            <input
+              type="text"
+              class="form-control"
+              id="CNPJ"
+              aria-describedby="CNPJ_"
+              name="CNPJ"
+              value="{{ CNPJ }}"
+              required
+            />
+            <div id="CNPJ_" class="form_text">Ex: XX.XXX.XXX/YYYY-ZZ</div>
+          </div>
+          <div class="mb-3">
+            <label for="criacao" class="form-label"
+              >Selecione a data de criação da Ong</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="criacao"
+              name="criacao"
+              value="{{ criacao }}"
+              required
+            />
+          </div>
+        <div class="mb-3">
+            <label for="numeroDeVoluntarios" class="form-label">Numero de Voluntários:</label>
+            <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
+        </div>
+    </div>
+    <p class="text-danger">{{ erros.campos }}</p>
+    <div class="d-flex justify-content-end w-100">
+      <button type="submit" class="btn btn-primary">Criar Ong</button>
+      <a href="{% url 'home' %}" class="btn btn-danger mx-3">Cancelar</a>
+    </div>
+    <div class="text-center">
+        {% if erros %}
+        <p style="color: red;">{{ erros.campos }}</p>
+        {% endif %}
+
+
+{% endblock %}

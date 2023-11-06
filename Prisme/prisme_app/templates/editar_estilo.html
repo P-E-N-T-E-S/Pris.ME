@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block main %}
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    corpo{
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    label{
+        font-family: "Poppins", sans-serif;
+        font-size: 20px;
+    }
+
+    #estilo {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 100px;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+    }
+    #estilo::-webkit-color-swatch {
+    border-radius: 50%;
+    border: 7px solid #000000;
+    }
+    #estilo::-moz-color-swatch {
+    border-radius: 50%;
+    border: 7px solid #000000;
+    }
+
+</style>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+rel="stylesheet"
+/>
+
+<div class="corpo">
+    <div class="text-center">
+        <h1>Editar Estilo</h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="container">
+            <div>
+                <input type="color" id="estilo" name="navcor" value="#cfcfcf">
+                <label>Selecione a cor da Navbar </label>
+            </div>
+            <div>
+                <input type="color" id="estilo" name="sidecor" value="#6b1bc0">
+                <label>Selecione a cor da Sidebar </label>
+            </div>
+            <div>
+                <input type="color" id="estilo" name="backcor" value="#ebeaea">
+                <label>Selecione a cor da Fundo </label>
+            </div>
+
+            <div>
+                <label>Insira o Link da imagem: </label>
+                <input type="text" name="perfil" style="margin-top: 15px; height: 30px; padding: 15px; border-radius: 20px; border: none; font-size: 20px;" placeholder="Link da Imagem">
+            </div>
+            
+            <button type="submit" style="margin-top: 15px; height: 20px; padding: 15px; height: 35%; width: 35%; border-radius: 20px; border: none; background-color:  blueviolet; color: white;">Alterar</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
