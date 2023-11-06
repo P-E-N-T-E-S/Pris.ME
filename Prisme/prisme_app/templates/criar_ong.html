@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
-{% block title %} Criar ong {% endblock %} 
+{% block title %} Cadastrar ONG {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
 <div class="container">
     <div class="text-center">
-        <h1>Criar ong</h1>
+        <h1>Cadastrar ong</h1>
     </div>
     <form method="post">
         {% csrf_token %}
@@ -37,8 +37,9 @@
         </div>
 
         <div class="mb-3">
-            <label name="CEP" for="CEP" class="form-control" id="CEP"aria-describedby="CEP">CEP:</label>
-            <input type="number" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+            <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
+            <input type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+            <div class="form_text">Ex: XXXXX-XXX</div>
         </div>
 
         <div class="mb-3">
@@ -52,7 +53,7 @@
               value="{{ CNPJ }}"
               required
             />
-            <div id="CNPJ_" class="form_text">Ex: 999.999.999-99</div>
+            <div id="CNPJ_" class="form_text">Ex: XX.XXX.XXX/YYYY-ZZ</div>
           </div>
           <div class="mb-3">
             <label for="criacao" class="form-label"
