@@ -16,7 +16,7 @@ urlpatterns =[
     path('editar_projeto/<int:projeto_id>/', views.editar_projeto, name='editar_projeto'),
     path('editar_dado/<int:dado_impacto_id>/', views.editar_dado, name='editar_dado'),
     path('editar_estilo', views.editar_estilo, name='editar_estilo'),
-    path('criar_ong', views.criar_ong, name='criar_ong'),
+    path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
     path('admin', views.home_admin, name='admin'),
 ]
 

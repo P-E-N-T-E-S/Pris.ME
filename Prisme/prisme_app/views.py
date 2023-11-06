@@ -389,7 +389,7 @@ def editar_estilo(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def criar_ong(request):
+def cadastrar_ong(request):
     context = { 'areaAtuacao': areaAtuacao}
 
     if request.method == 'POST':
@@ -415,4 +415,4 @@ def criar_ong(request):
 
         return redirect(home_admin)
     else:
-        return render(request, 'criar_ong.html', context=context)
+        return render(request, 'cadastrar_ong.html', context=context)

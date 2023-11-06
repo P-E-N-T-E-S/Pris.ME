@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="static/style.css"/>
 <div class="container">
     <div class="text-center">
-        <h1>Cadastrar ong</h1>
+        <h1>Cadastrar ONG</h1>
     </div>
     <form method="post">
         {% csrf_token %}
@@ -75,8 +75,8 @@
     </div>
     <p class="text-danger">{{ erros.campos }}</p>
     <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary">Criar Ong</button>
-      <a href="{% url 'home' %}" class="btn btn-danger mx-3">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <a href="{% url 'admin' %}" class="btn btn-danger mx-3">Cancelar</a>
     </div>
     <div class="text-center">
         {% if erros %}
