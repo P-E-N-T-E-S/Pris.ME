@@ -46,7 +46,10 @@ def Login(request):
         user = authenticate(request, username=email, password=senha)
         if user is not None:
             login(request, user)
-            return redirect(home)
+            if user.is_superuser:
+                return redirect(home_admin)
+            else:
+                return redirect(home)
         else:
             return render(request, "login.html", {"erro": "Usuário não encontrado"})
     return render(request, "login.html")
@@ -103,6 +106,9 @@ def home(request):
 
         return render(request, "home.html", context=contexto)
 
+
+def home_admin(request):
+    return render(request, "admin.html")
 
 def Logout(request):
     logout(request)
@@ -407,6 +413,6 @@ def criar_ong(request):
             numeroDeVoluntarios=numeroDeVoluntarios)
         ong.save()
 
-        return redirect(home)
+        return redirect(home_admin)
     else:
         return render(request, 'criar_ong.html', context=context)

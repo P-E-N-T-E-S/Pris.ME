@@ -17,5 +17,6 @@ urlpatterns =[
     path('editar_dado/<int:dado_impacto_id>/', views.editar_dado, name='editar_dado'),
     path('editar_estilo', views.editar_estilo, name='editar_estilo'),
     path('criar_ong', views.criar_ong, name='criar_ong'),
+    path('admin', views.home_admin, name='admin'),
 ]
 
