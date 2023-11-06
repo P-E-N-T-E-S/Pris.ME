@@ -19,5 +19,5 @@ urlpatterns =[
     path("controle_gastos/<str:dado>", views.controle_de_gastos, name="controle_gastos"),
     path("controle_ganhos/<str:dado>", views.controle_de_ganhos, name="controle_ganhos"),
     path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
-    path('#', views.home_admin, name='#'),
+    path('#', views.home_admin, name='admin'),
     ]

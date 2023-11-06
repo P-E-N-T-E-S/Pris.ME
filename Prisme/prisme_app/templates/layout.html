@@ -64,7 +64,7 @@
       </button>
     </a>
 
-    <a href="{% url 'home' %}">
+    <a href="{% url 'controle_ganhos' dado='Doações' %}">
       <button>
         <span>
           <i class="material-symbols-outlined"> view_timeline </i>
@@ -122,12 +122,14 @@
       </span>
     </button>
 
-    <a href="{% url 'controle_gastos' caixa.nome %}">
+
+    <a href="{% url 'controle_ganhos' dado='Doações' %}">
       <span>
         <i class="material-symbols-outlined"> view_timeline </i>
         <span class="mobile-text">Caixa</span>
       </span>
     </a>
+
 
     <button>
       <span>

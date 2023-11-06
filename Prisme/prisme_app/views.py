@@ -425,7 +425,8 @@ def controle_de_gastos(request, dado):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
     categoria = ong.categoria_set.get(nome=dado)
-    categorias = [item.nome for item in categoria if categoria.tipo == "Gasto"]
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Gasto"]
     separador={
         "nome": categoria.nome,
         "linhas": list(categoria.linhacaixa_set.all())
@@ -440,7 +441,8 @@ def controle_de_ganhos(request, dado):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
     categoria = ong.categoria_set.get(nome=dado)
-    categorias = [item.nome for item in categoria if categoria.tipo == "Ganho"]
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Ganho"]
     separador={
         "nome": categoria.nome,
         "linhas": list(categoria.linhacaixa_set.all())

@@ -1,0 +1,16 @@
+{% extends "layout_admin.html" %}
+{% block title %} Ganhos {% endblock %}
+
+{% block main %} 
+    <div class="container">
+        nome do dado = {{caixa.nome}}<br>
+        {%for item in caixa.linhas%}
+        nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
+        {% endfor %}
+        {%for cat in categorias%}
+        nome de todas as categorias = {{cat}}<br>
+        {% endfor %}
+    </div>
+
+
+{%  endblock %}
