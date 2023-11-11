@@ -18,6 +18,10 @@ urlpatterns =[
     path('editar_estilo', views.editar_estilo, name='editar_estilo'),
     path("controle_gastos/<str:dado>", views.controle_de_gastos, name="controle_gastos"),
     path("controle_ganhos/<str:dado>", views.controle_de_ganhos, name="controle_ganhos"),
+    
+    # Admin
+    path('login_admin', views.Login_Admin, name='login_admin'),
+    path('home_admin', views.home_admin, name='home_admin'),
     path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
-    path('#', views.home_admin, name='admin'),
+    path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),
     ]

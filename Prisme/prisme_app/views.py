@@ -3,7 +3,7 @@ import statistics as sts
 from django.shortcuts import render, redirect,get_object_or_404, HttpResponse
 from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 
@@ -44,17 +44,15 @@ def Login(request):
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
-        if user is not None:
+        if user is not None and not is_admin:
             login(request, user)
-            if user.is_superuser:
-                return redirect(home_admin)
-            else:
-                return redirect(home)
+            return redirect(home)
         else:
-            return render(request, "login.html", {"erro": "Usuário não encontrado"})
+            return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
 
 
+@login_required
 def home(request):
     moda = True
     usuario = request.user
@@ -107,9 +105,7 @@ def home(request):
         return render(request, "home.html", context=contexto)
 
 
-def home_admin(request):
-    return render(request, "admin.html")
-
+@login_required
 def Logout(request):
     logout(request)
     if "usuario" in request.session:
@@ -388,39 +384,6 @@ def editar_estilo(request):
 
     return render(request, 'editar_estilo.html', context)
 
-
-@user_passes_test(lambda u: u.is_superuser)
-def cadastrar_ong(request):
-    context = { 'areaAtuacao': areaAtuacao}
-
-    if request.method == 'POST':
-        nome_ong = request.POST['nome_ong']
-        email_ong = request.POST['email_ong']
-        area = request.POST['areaAtuacao']
-        descricao = request.POST['descricao']
-        CEP = request.POST['CEP']
-        CNPJ = request.POST['CNPJ']
-        dataDeCriacao = request.POST['criacao']
-        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
-
-        ong = Ong(
-            nome=nome_ong,
-            email=email_ong,
-            areaAtuacao=area,
-            descricao=descricao,
-            CEP=CEP,
-            CNPJ=CNPJ,
-            dataDeCriacao=dataDeCriacao,
-            numeroDeVoluntarios=numeroDeVoluntarios)
-        ong.save()
-        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
-        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
-        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
-
-        return redirect(home_admin)
-    else:
-        return render(request, 'cadastrar_ong.html', context=context)
-
 def controle_de_gastos(request, dado):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
@@ -452,3 +415,83 @@ def controle_de_ganhos(request, dado):
         "categorias": categorias
     }
     return render(request, "controle_ganhos.html", contexto)
+
+
+# Admin
+def is_admin(user):
+    return not user.groups.filter(name__startswith='OngGroup_').exists()
+
+
+def Login_Admin(request):
+    if request.user != None:
+        redirect(home)
+    if request.method == "POST":
+        user = request.POST["user"]
+        senha = request.POST["senha"]
+        user = authenticate(request, username=user, password=senha)
+        if user is not None and is_admin:
+            login(request, user)
+            return redirect(home_admin)
+        else:
+            return render(request, "login_admin.html", {"erro": "Usuário não encontrado."})
+    return render(request, "login_admin.html")
+    
+@login_required
+@user_passes_test(is_admin)
+def home_admin(request):
+    ongs = Ong.objects.all() 
+    return render(request, "home_admin.html", {'ongs': ongs})
+
+@login_required
+@user_passes_test(is_admin)
+def cadastrar_ong(request):
+    context = { 'areaAtuacao': areaAtuacao}
+
+    if request.method == 'POST':
+        nome_ong = request.POST['nome_ong']
+        email_ong = request.POST['email_ong']
+        area = request.POST['areaAtuacao']
+        descricao = request.POST['descricao']
+        CEP = request.POST['CEP']
+        CNPJ = request.POST['CNPJ']
+        dataDeCriacao = request.POST['criacao']
+        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+
+        ong = Ong(
+            nome=nome_ong,
+            email=email_ong,
+            areaAtuacao=area,
+            descricao=descricao,
+            CEP=CEP,
+            CNPJ=CNPJ,
+            dataDeCriacao=dataDeCriacao,
+            numeroDeVoluntarios=numeroDeVoluntarios)
+        ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
+
+        return redirect(home_admin)
+    else:
+        return render(request, 'cadastrar_ong.html', context=context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def editar_ong(request, ong_id):
+    ong = get_object_or_404(Ong, id=ong_id)
+
+    if request.method == 'POST':
+        ong.nome = request.POST['nome']
+        ong.email = request.POST['email']
+        ong.areaAtuacao = request.POST['areaAtuacao']
+        ong.descricao = request.POST['descricao']
+        ong.CEP = request.POST['CEP']
+        ong.CNPJ = request.POST['CNPJ']
+        ong.dataDeCriacao = request.POST['dataDeCriacao']
+        ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+        ong.save()
+
+        return redirect('home_admin')
+
+    return render(request, 'editar_ong.html', {'ong': ong, 'areaAtuacao': areaAtuacao})
