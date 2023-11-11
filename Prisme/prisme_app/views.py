@@ -479,8 +479,21 @@ def cadastrar_ong(request):
 @login_required
 @user_passes_test(is_admin)
 def editar_ong(request, ong_id):
-    ong = get_object_or_404(Ong, id=ong_id)
-
+    #ong = get_object_or_404(Ong, id=ong_id)
+    ong = Ong.objects.get(id=ong_id)
+    contexto = {
+        "nome": ong.nome,
+        "email": ong.email,
+        "areaAtuacao": ong.areaAtuacao,
+        "descricao": ong.descricao,
+        "CEP": ong.CEP,
+        "CNPJ": ong.CNPJ,
+        "dataDeCriacao": ong.dataDeCriacao,
+        "numeroDeVoluntarios": ong.numeroDeVoluntarios,
+        'areaAtuacao': areaAtuacao,
+        'ong': ong,
+    }
+    
     if request.method == 'POST':
         ong.nome = request.POST['nome']
         ong.email = request.POST['email']
@@ -494,4 +507,4 @@ def editar_ong(request, ong_id):
 
         return redirect('home_admin')
 
-    return render(request, 'editar_ong.html', {'ong': ong, 'areaAtuacao': areaAtuacao})
+    return render(request, 'editar_ong.html', context=contexto)
