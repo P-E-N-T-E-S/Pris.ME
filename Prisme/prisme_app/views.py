@@ -508,3 +508,10 @@ def editar_ong(request, ong_id):
         return redirect('home_admin')
 
     return render(request, 'editar_ong.html', context=contexto)
+
+
+@login_required
+@user_passes_test(is_admin)
+def deletar_ong(request, ong_id):
+    Ong.objects.delete(id=ong_id)
+    return redirect(home_admin)

@@ -24,4 +24,5 @@ urlpatterns =[
     path('home_admin', views.home_admin, name='home_admin'),
     path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
     path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),
+    path('deletar_ong/<int:ong_id>/', views.deletar_ong, name='deletar_ong'),
     ]
