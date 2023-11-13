@@ -1,11 +1,11 @@
 {% extends "layout_admin.html" %}
-{% block title %} Cadastrar ONG {% endblock %} 
+{% block title %} Editar ONG {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
 <div class="container">
     <div class="text-center">
-        <h1>Cadastrar ONG</h1>
+        <h1>Editar ONG</h1>
     </div>
     <form method="post">
         {% csrf_token %}
@@ -14,11 +14,11 @@
         <div class="col-md-6 mx-auto">
             <div class="mb-3">
                 <label for="nome_ong" class="form-label">Nome da Ong:</label>
-                <input type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome_ong }}" required>
+                <input type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome }}" required>
             </div>
             <div class="mb-3">
                 <label for="email_ong" class="form-label">Email:</label>
-                <input type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email_ong }}"required >
+                <input type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email }}"required >
             </div>
         
         <div class="mb-3">
@@ -26,7 +26,8 @@
             <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
                 <option value="" disabled selected>Selecione a área de atuação</option>
                 {% for area in areaAtuacao %}
-                <option value="{{ area }}"required>{{ area }}</option>
+                <option value="{{ area }}" {% if area == ong.areaAtuacao %}selected{% endif %}>
+                    {{ area }}
                 {% endfor %}
             </select>
         </div>
@@ -64,7 +65,7 @@
               class="form-control"
               id="criacao"
               name="criacao"
-              value="{{ criacao }}"
+              value="{{ dataDeCriacao|date:'Y-m-d' }}"
               required
             />
           </div>

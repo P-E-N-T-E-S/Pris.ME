@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -30,16 +30,21 @@ class Ong(models.Model):
      CNPJ = models.CharField(max_length=14)
      dataDeCriacao = models.DateField()
      numeroDeVoluntarios = models.PositiveSmallIntegerField()
+    
      def __str__(self):
         return (self.nome)
  
  
 @receiver(post_save, sender=Ong)
-def create_user_for_ong(sender, instance, created, **kwargs):
+def create_user_and_group_for_ong(sender, instance, created, **kwargs):
     if created:
-        # Crie um novo usuário associado à Ong
         user = User.objects.create_user(username=instance.email, password='senha_inicial', first_name=instance.nome)
         instance.user = user
+        
+        group_name = f'OngGroup_{instance.id}'
+        ong_group, created = Group.objects.get_or_create(name=group_name)
+        user.groups.add(ong_group)
+        
         instance.save()       
         
         
@@ -100,3 +105,15 @@ class LinhaCaixa(models.Model):
 
     def __str__(self):
         return self.identificacao
+
+class EditarEstilo(models.Model):
+    sidecor = models.CharField(max_length=20, default='#FFFFFF')
+    backcor = models.CharField(max_length=20, default='#f5f7fa')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
+@receiver(post_save, sender=User)
+def create_estilo_user(sender, instance, created, **kwargs):
+    if created:
+        EditarEstilo.objects.create(user=instance)
+   

@@ -4,10 +4,10 @@
 }
 
 body{
+    background-color: #f5f7fa;
     margin: 0;
-    font-family: sans-serif;
-    background-color: #ebeaea;
-margin: 0 auto;
+    font-family: 'Poppins';
+    margin: 0 auto;
 }
 
 .border{
@@ -24,7 +24,7 @@ margin: 0 auto;
     height: 100%;
     padding: 40px 10px 30px 10px;
     transition: all 0.35s;
-    background-color: #6b1bc0;
+    background-color: #fff;
 }
 
 .sidebar-header{
@@ -33,16 +33,10 @@ margin: 0 auto;
 }
 
 .logo-img{
-    width: 40px;
+    width: 80%;
     min-height: 40px;
-    border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.4s;
     margin-left: 10px;
-}
-
-.logo-img:hover{
-    transform: scale(1.5);
 }
 
 .sidebar button{
@@ -50,7 +44,7 @@ margin: 0 auto;
     background: transparent;
     border: 0;
     font-family: inherit;
-    color: #FFF;
+    color: #99a0c9;
     cursor: pointer;
     text-align: left;
     padding: 0;
@@ -68,7 +62,7 @@ margin: 0 auto;
 }
 
 .sidebar button:hover > span {
-    background-color: rgba(0, 0, 0, 0.10);
+    background-color: #e8d3ff;
 }
 
 .sidebar button{
@@ -88,38 +82,20 @@ margin: 0 auto;
     width: 100%;
 }
 
-.navbar{
-    margin-left: 240px;
-    position: fixed;
-    top: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    height: 80px;
-    width: 100%;
-    padding: 15px 10px 20px 10px;
-    transition: all 0.35s;
-    background-color: #cfcfcf;
-    z-index: 999;
-}
-
 .main{
+    margin-top: 2%;
     margin-left: 250px;
     margin-right: 6px;
     overflow: hidden;
 }
 
 .container{
-    margin-top: 90px;
+    margin-top: 20px;
 }
 
 @media (width < 920px){
     .sidebar{
         width: 72px
-    }
-
-    .navbar{
-        margin-left: 72px;
     }
 
     .sidebar button > span{
@@ -143,7 +119,7 @@ margin: 0 auto;
     align-items: center;
     margin: 16px;
     background: transparent;
-    color: #FFF;
+    color: #99a0c9;
     border: 0;
      
 }
@@ -160,7 +136,7 @@ margin: 0 auto;
 .menu-mobile-active{
     width: 100vw;
     height: 100vh;
-    background-color: #000;
+    background-color: #f5f7fa;
     z-index: 99;
     position: fixed;
     top: 0;
@@ -226,7 +202,7 @@ margin: 0 auto;
 }
 
 
-/*@media (max-width: 480px){
+@media (max-width: 480px){
     .sidebar{
         display: none;
     }
@@ -238,7 +214,7 @@ margin: 0 auto;
     .main{
         margin-left: 6px;
     }
-}*/
+}
 
 .produtos{
     margin-top: 100px;   

@@ -8,7 +8,7 @@ from django.contrib.staticfiles import finders
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 
@@ -49,23 +49,24 @@ def Login(request):
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
-        if user is not None:
+        if user is not None and user is not is_admin:
             login(request, user)
-            if user.is_superuser:
-                return redirect(home_admin)
-            else:
-                return redirect(home)
+            return redirect(home)
         else:
-            return render(request, "login.html", {"erro": "Usuário não encontrado"})
+            return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
 
 
+@login_required
 def home(request):
     moda = True
     usuario = request.user
     graficos = []
     impactados = []
     contexto = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto["sidecor"] = layout.sidecor
+    contexto["backcor"] = layout.backcor
 
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
@@ -112,9 +113,7 @@ def home(request):
         return render(request, "home.html", context=contexto)
 
 
-def home_admin(request):
-    return render(request, "admin.html")
-
+@login_required
 def Logout(request):
     logout(request)
     if "usuario" in request.session:
@@ -127,6 +126,8 @@ def add_projeto(request):
     erros = {}
     usuario = request.user
     ong_logada = Ong.objects.get(nome=usuario.first_name) 
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     nome_projeto = ""
     descricao = ""
@@ -170,6 +171,7 @@ def add_projeto(request):
         "descricao": descricao,
         "metodologiasUtilizadas": metodologiasUtilizadas,
         "publicoAlvo": publicoAlvo,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     return render(request, 'add_projeto.html', contexto)
 
@@ -178,6 +180,8 @@ def add_projeto(request):
 def editar_projeto(request, projeto_id):
     usuario = request.user
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
 
     projeto = Projeto.objects.get(pk=projeto_id)
 
@@ -202,6 +206,7 @@ def editar_projeto(request, projeto_id):
     contexto = {
         "erros": erros,
         "projeto": projeto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_projeto.html', contexto)
@@ -213,6 +218,8 @@ def add_dados(request, projeto_id):
     projeto = Projeto.objects.get(pk=projeto_id)
     ong_logada = Ong.objects.get(nome=usuario.first_name)
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -240,15 +247,16 @@ def add_dados(request, projeto_id):
         
         DadosImpactos.objects.create(projeto=projeto,titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
         return redirect(visualizar_projetos)
-    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2})
+    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "sidecor": layout.sidecor, "backcor": layout.backcor})
 
 
 @login_required
 def editar_dado(request, dado_impacto_id):
     usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     erros = {}
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
-
+    print(layout)
     if request.method == 'POST':
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
@@ -270,6 +278,8 @@ def editar_dado(request, dado_impacto_id):
         "dado_impacto": dado_impacto,
         "tipos1": tipos1,
         "tipos2": tipos2,
+        "sidecor": layout.sidecor, 
+        "backcor": layout.backcor
     }
 
     return render(request, 'editar_dado.html', contexto)
@@ -280,6 +290,9 @@ def add_linhas(request, dado_impacto_id):
     usuario = request.user
     erros = {}
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
+
 
     if request.method == 'POST':
         errado = False
@@ -305,7 +318,8 @@ def add_linhas(request, dado_impacto_id):
         
     contexto = {
     "erros": erros,
-    "dado_impacto": dado_impacto
+    "dado_impacto": dado_impacto,
+    "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request,'add_linhas.html', contexto)
@@ -317,6 +331,8 @@ def editar_linha_impacto(request, linha_impacto_id):
     erros = {}
     linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
     valor1 = linha_impacto.valor1
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -351,6 +367,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         "linha_impacto": linha_impacto,
         "valor1": valor1,
         "valor2": linha_impacto.valor2, 
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_linha_impacto.html', contexto)
@@ -359,72 +376,51 @@ def editar_linha_impacto(request, linha_impacto_id):
 @login_required
 def visualizar_projetos(request):
     usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
     ong_logada = Ong.objects.get(email=usuario.username)
     projetos = list(ong_logada.projeto_set.all())
-    context = {'projetos': projetos}
+    context = {'projetos': projetos, "sidecor": layout.sidecor, "backcor": layout.backcor}
     return render(request, 'visualizar_projetos.html', context)   
 
 
 @login_required
 def visualizar_linhas_impacto(request, dado_impacto_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
     linhas_impacto = LinhasImpacto.objects.filter(dado_impacto=dado_impacto)
     
     context = {
         'dado_impacto': dado_impacto,
         'linhas_impacto': linhas_impacto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request, 'detalhes_dado.html', context)
     
 @login_required
 def editar_estilo(request):
-    navcor = request.POST.get("navcor")
-    sidecor = request.POST.get("sidecor")
-    backcor = request.POST.get("backcor")
-    perfil = request.POST.get("perfil")
+    usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    context["sidecor"] = layout.sidecor
+    context["backcor"] = layout.backcor
+    
+    if request.method == 'POST':
+        layout = EditarEstilo.objects.get(user_id=usuario)
+        print(layout)
+        layout.sidecor = request.POST.get("sidecor")
+        layout.backcor = request.POST.get("backcor")
 
-    context = {
-        'navcor' : navcor,
-        'sidecor' : sidecor,
-        'backcor' : backcor,
-        'perfil' : perfil,
-    }
+        layout.save()
+        
+        context = {
+            'sidecor' : layout.sidecor,
+            'backcor' : layout.backcor,
+        }
 
     return render(request, 'editar_estilo.html', context)
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def cadastrar_ong(request):
-    context = { 'areaAtuacao': areaAtuacao}
-
-    if request.method == 'POST':
-        nome_ong = request.POST['nome_ong']
-        email_ong = request.POST['email_ong']
-        area = request.POST['areaAtuacao']
-        descricao = request.POST['descricao']
-        CEP = request.POST['CEP']
-        CNPJ = request.POST['CNPJ']
-        dataDeCriacao = request.POST['criacao']
-        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
-
-        ong = Ong(
-            nome=nome_ong,
-            email=email_ong,
-            areaAtuacao=area,
-            descricao=descricao,
-            CEP=CEP,
-            CNPJ=CNPJ,
-            dataDeCriacao=dataDeCriacao,
-            numeroDeVoluntarios=numeroDeVoluntarios)
-        ong.save()
-        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
-        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
-        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
-
-        return redirect(home_admin)
-    else:
-        return render(request, 'cadastrar_ong.html', context=context)
 
 def controle_de_gastos(request, dado):
     usuario = request.user
@@ -502,3 +498,100 @@ def render_pdf_view(request):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+# Admin
+def is_admin(user):
+    return not user.groups.filter(name__startswith='OngGroup_').exists()
+
+
+def Login_Admin(request):
+    if request.user != None:
+        redirect(home)
+    if request.method == "POST":
+        user = request.POST["user"]
+        senha = request.POST["senha"]
+        user = authenticate(request, username=user, password=senha)
+        if user is not None and is_admin:
+            login(request, user)
+            return redirect(home_admin)
+        else:
+            return render(request, "login_admin.html", {"erro": "Usuário não encontrado."})
+    return render(request, "login_admin.html")
+    
+@login_required
+@user_passes_test(is_admin)
+def home_admin(request):
+    ongs = Ong.objects.all() 
+    return render(request, "home_admin.html", {'ongs': ongs})
+
+@login_required
+@user_passes_test(is_admin)
+def cadastrar_ong(request):
+    context = { 'areaAtuacao': areaAtuacao}
+
+    if request.method == 'POST':
+        nome_ong = request.POST['nome_ong']
+        email_ong = request.POST['email_ong']
+        area = request.POST['areaAtuacao']
+        descricao = request.POST['descricao']
+        CEP = request.POST['CEP']
+        CNPJ = request.POST['CNPJ']
+        dataDeCriacao = request.POST['criacao']
+        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+
+        ong = Ong(
+            nome=nome_ong,
+            email=email_ong,
+            areaAtuacao=area,
+            descricao=descricao,
+            CEP=CEP,
+            CNPJ=CNPJ,
+            dataDeCriacao=dataDeCriacao,
+            numeroDeVoluntarios=numeroDeVoluntarios)
+        ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
+
+        return redirect(home_admin)
+    else:
+        return render(request, 'cadastrar_ong.html', context=context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def editar_ong(request, ong_id):
+    ong = Ong.objects.get(id=ong_id)
+    contexto = {
+        "nome": ong.nome,
+        "email": ong.email,
+        "areaAtuacao": ong.areaAtuacao,
+        "descricao": ong.descricao,
+        "CEP": ong.CEP,
+        "CNPJ": ong.CNPJ,
+        "dataDeCriacao": ong.dataDeCriacao,
+        "numeroDeVoluntarios": ong.numeroDeVoluntarios,
+        'areaAtuacao': areaAtuacao,
+        'ong': ong,
+    }
+    
+    if request.method == 'POST':
+        ong.nome = request.POST['nome']
+        ong.email = request.POST['email']
+        ong.areaAtuacao = request.POST['areaAtuacao']
+        ong.descricao = request.POST['descricao']
+        ong.CEP = request.POST['CEP']
+        ong.CNPJ = request.POST['CNPJ']
+        ong.dataDeCriacao = request.POST['dataDeCriacao']
+        ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+        ong.save()
+
+        return redirect('home_admin')
+
+    return render(request, 'editar_ong.html', context=contexto)
+
+
+@login_required
+@user_passes_test(is_admin)
+def deletar_ong(request, ong_id):
+    Ong.objects.delete(id=ong_id)
+    return redirect(home_admin)

@@ -17,49 +17,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css">
     
     <title>Pris.ME {% block title %}{% endblock %}</title>
 </head>
-<body>
+<body style='background-color: {{ backcor }};'>
 
   {% if user.is_authenticated %}
 
-  <aside class="navbar">
-    <nav>
-      <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
-      
-      <a class="nav-item">
-        <a href="{% url 'logout' %}"> Sair </a>
-      </a>
-    </nav>
-  </aside>
-
-  <aside class="sidebar">
+  <aside class="sidebar" style="background-color: {{ sidecor }}">
     <header class="sidebar-header">
-      <img class="logo-img" src="{{ perfil }}" style="    width: 40px;
-      min-height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      transition: transform 0.4s;
-      margin-left: 10px;"  alt="Foto da ONG"/>
+      <img class="logo-img" src="https://imgur.com/L6frWlx.png">
     </header>
 
     <nav>
-      <a href="{% url 'home' %}">
-      <button>
-        <span>  
-          <i class="material-symbols-outlined"> person </i>
-          <span>Perfil</span>
-        </span>
-      </button>
-    </a>
+      <p style="font-weight: bold; font-size: 80%; margin-left: 5%; margin-top: 10%; margin-bottom: -1%;">MENU</p>
     <a href="{% url 'home' %}">
       <button>
         <span>
-          <i href="" class="material-symbols-outlined"> home </i>
-          <span>Home</span>
+          <i href="" class="material-symbols-outlined"> bar_chart </i>
+          <span>Resumos</span>
         </span>
       </button>
     </a>
@@ -67,7 +46,7 @@
     <a href="{% url 'controle_ganhos' dado='Doações' %}">
       <button>
         <span>
-          <i class="material-symbols-outlined"> view_timeline </i>
+          <i class="material-symbols-outlined"> receipt_long </i>
           <span>Caixa</span>
         </span>
       </button>
@@ -76,8 +55,18 @@
     <a href="{% url 'visualizar_projetos' %}">
       <button>
         <span>
-          <i class="material-symbols-outlined"> timeline </i>
+          <i class="material-symbols-outlined"> stacked_line_chart </i>
           <span>D.I</span>
+        </span>
+      </button>
+    </a>
+
+    <p style="font-weight: bold; font-size: 80%; margin-left: 5%; margin-top: 10%; margin-bottom: -1%;">OUTROS</p>
+    <a href="{% url 'home' %}">
+      <button>
+        <span>  
+          <i class="material-symbols-outlined"> person </i>
+          <span>Conta</span>
         </span>
       </button>
     </a>
@@ -85,8 +74,17 @@
     <a href="{% url 'editar_estilo' %}">
       <button>
         <span>
-          <i class="material-symbols-outlined"> Preview </i>
+          <i class="material-symbols-outlined"> palette </i>
           <span>Layout</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="{% url 'logout' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> logout </i>
+          <span>Sair</span>
         </span>
       </button>
     </a>
@@ -129,7 +127,6 @@
         <span class="mobile-text">Caixa</span>
       </span>
     </a>
-
 
     <button>
       <span>
