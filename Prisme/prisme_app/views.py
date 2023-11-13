@@ -44,7 +44,7 @@ def Login(request):
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
-        if user is not None and not is_admin:
+        if user is not None and user is not is_admin:
             login(request, user)
             return redirect(home)
         else:
