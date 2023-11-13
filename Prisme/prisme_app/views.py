@@ -475,15 +475,14 @@ def gerar_relatorio(request):
     contexto["titulos"] = titulos
     if request.method == 'POST':
         texto = request.POST['texto']
-        imagem = request.POST['imagem']
-        request['relatorio'] = {'texto': texto, 'imagem': imagem}
+        request.session['relatorio'] = {'texto': texto, 'graficos': graficos}
 
     return render(request, "preencher_relatorio.html", contexto)
 
 
 def render_pdf_view(request):
     template_path = 'teste-pdf.html'
-    context = {'myvar': 'this is your template context'}
+    context = {'myvar': request.session['relatorio']['texto'], 'graficos': request.session['relatorio']['graficos']}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'

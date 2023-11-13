@@ -8,5 +8,12 @@
 
 {{myvar}}
 
+<br/>
+
+{% for item in graficos %}
+<div class="image">
+    <img class="img-fluid" src="data:image/png;base64, {{item|safe}}">
+</div>
+{% endfor %}
 </body>
 </html>

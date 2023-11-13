@@ -12,5 +12,13 @@
 
 {%endfor%}
 
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="texto">
+
+    <button type="submit">:)</button>
+
+</form>
+
 </body>
 </html>
