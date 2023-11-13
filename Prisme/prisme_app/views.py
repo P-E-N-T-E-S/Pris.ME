@@ -370,16 +370,23 @@ def visualizar_linhas_impacto(request, dado_impacto_id):
     
 @login_required
 def editar_estilo(request):
-    navcor = request.POST.get("navcor")
+    usuario = request.user.id
     sidecor = request.POST.get("sidecor")
     backcor = request.POST.get("backcor")
-    perfil = request.POST.get("perfil")
+    
+    '''layout = EditarEstilo.objects.filter(id=usuario).exists()
 
+    if not layout:
+        EditarEstilo.objects.create(id=usuario, sidecor=sidecor, backcor=backcor)
+    else:
+        layout = EditarEstilo.objects.get(id=usuario)
+        layout.sidecor
+        layout.backcor
+        layout.save()'''
+    
     context = {
-        'navcor' : navcor,
         'sidecor' : sidecor,
         'backcor' : backcor,
-        'perfil' : perfil,
     }
 
     return render(request, 'editar_estilo.html', context)
@@ -479,7 +486,6 @@ def cadastrar_ong(request):
 @login_required
 @user_passes_test(is_admin)
 def editar_ong(request, ong_id):
-    #ong = get_object_or_404(Ong, id=ong_id)
     ong = Ong.objects.get(id=ong_id)
     contexto = {
         "nome": ong.nome,

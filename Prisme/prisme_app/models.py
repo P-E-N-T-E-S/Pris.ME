@@ -105,3 +105,7 @@ class LinhaCaixa(models.Model):
 
     def __str__(self):
         return self.identificacao
+
+class EditarEstilo(models.Model):
+    sidecor = models.CharField(max_length=20)
+    backcor = models.CharField(max_length=20)
