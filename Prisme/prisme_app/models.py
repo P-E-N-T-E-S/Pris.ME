@@ -107,5 +107,13 @@ class LinhaCaixa(models.Model):
         return self.identificacao
 
 class EditarEstilo(models.Model):
-    sidecor = models.CharField(max_length=20)
-    backcor = models.CharField(max_length=20)
+    sidecor = models.CharField(max_length=20, default='#FFFFFF')
+    backcor = models.CharField(max_length=20, default='#f5f7fa')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
+@receiver(post_save, sender=User)
+def create_estilo_user(sender, instance, created, **kwargs):
+    if created:
+        EditarEstilo.objects.create(user=instance)
+   

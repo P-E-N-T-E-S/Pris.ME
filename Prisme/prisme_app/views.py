@@ -59,6 +59,9 @@ def home(request):
     graficos = []
     impactados = []
     contexto = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto["sidecor"] = layout.sidecor
+    contexto["backcor"] = layout.backcor
 
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
@@ -118,6 +121,8 @@ def add_projeto(request):
     erros = {}
     usuario = request.user
     ong_logada = Ong.objects.get(nome=usuario.first_name) 
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     nome_projeto = ""
     descricao = ""
@@ -161,6 +166,7 @@ def add_projeto(request):
         "descricao": descricao,
         "metodologiasUtilizadas": metodologiasUtilizadas,
         "publicoAlvo": publicoAlvo,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     return render(request, 'add_projeto.html', contexto)
 
@@ -169,6 +175,8 @@ def add_projeto(request):
 def editar_projeto(request, projeto_id):
     usuario = request.user
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
 
     projeto = Projeto.objects.get(pk=projeto_id)
 
@@ -193,6 +201,7 @@ def editar_projeto(request, projeto_id):
     contexto = {
         "erros": erros,
         "projeto": projeto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_projeto.html', contexto)
@@ -204,6 +213,8 @@ def add_dados(request, projeto_id):
     projeto = Projeto.objects.get(pk=projeto_id)
     ong_logada = Ong.objects.get(nome=usuario.first_name)
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -231,15 +242,16 @@ def add_dados(request, projeto_id):
         
         DadosImpactos.objects.create(projeto=projeto,titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
         return redirect(visualizar_projetos)
-    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2})
+    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "sidecor": layout.sidecor, "backcor": layout.backcor})
 
 
 @login_required
 def editar_dado(request, dado_impacto_id):
     usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     erros = {}
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
-
+    print(layout)
     if request.method == 'POST':
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
@@ -261,6 +273,8 @@ def editar_dado(request, dado_impacto_id):
         "dado_impacto": dado_impacto,
         "tipos1": tipos1,
         "tipos2": tipos2,
+        "sidecor": layout.sidecor, 
+        "backcor": layout.backcor
     }
 
     return render(request, 'editar_dado.html', contexto)
@@ -271,6 +285,9 @@ def add_linhas(request, dado_impacto_id):
     usuario = request.user
     erros = {}
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
+
 
     if request.method == 'POST':
         errado = False
@@ -296,7 +313,8 @@ def add_linhas(request, dado_impacto_id):
         
     contexto = {
     "erros": erros,
-    "dado_impacto": dado_impacto
+    "dado_impacto": dado_impacto,
+    "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request,'add_linhas.html', contexto)
@@ -308,6 +326,8 @@ def editar_linha_impacto(request, linha_impacto_id):
     erros = {}
     linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
     valor1 = linha_impacto.valor1
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -342,6 +362,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         "linha_impacto": linha_impacto,
         "valor1": valor1,
         "valor2": linha_impacto.valor2, 
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_linha_impacto.html', contexto)
@@ -350,44 +371,49 @@ def editar_linha_impacto(request, linha_impacto_id):
 @login_required
 def visualizar_projetos(request):
     usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
     ong_logada = Ong.objects.get(email=usuario.username)
     projetos = list(ong_logada.projeto_set.all())
-    context = {'projetos': projetos}
+    context = {'projetos': projetos, "sidecor": layout.sidecor, "backcor": layout.backcor}
     return render(request, 'visualizar_projetos.html', context)   
 
 
 @login_required
 def visualizar_linhas_impacto(request, dado_impacto_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
     linhas_impacto = LinhasImpacto.objects.filter(dado_impacto=dado_impacto)
     
     context = {
         'dado_impacto': dado_impacto,
         'linhas_impacto': linhas_impacto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request, 'detalhes_dado.html', context)
     
 @login_required
 def editar_estilo(request):
-    usuario = request.user.id
-    sidecor = request.POST.get("sidecor")
-    backcor = request.POST.get("backcor")
+    usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    context["sidecor"] = layout.sidecor
+    context["backcor"] = layout.backcor
     
-    '''layout = EditarEstilo.objects.filter(id=usuario).exists()
+    if request.method == 'POST':
+        layout = EditarEstilo.objects.get(user_id=usuario)
+        print(layout)
+        layout.sidecor = request.POST.get("sidecor")
+        layout.backcor = request.POST.get("backcor")
 
-    if not layout:
-        EditarEstilo.objects.create(id=usuario, sidecor=sidecor, backcor=backcor)
-    else:
-        layout = EditarEstilo.objects.get(id=usuario)
-        layout.sidecor
-        layout.backcor
-        layout.save()'''
-    
-    context = {
-        'sidecor' : sidecor,
-        'backcor' : backcor,
-    }
+        layout.save()
+        
+        context = {
+            'sidecor' : layout.sidecor,
+            'backcor' : layout.backcor,
+        }
 
     return render(request, 'editar_estilo.html', context)
 
