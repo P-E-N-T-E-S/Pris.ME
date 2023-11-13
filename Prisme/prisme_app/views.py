@@ -1,6 +1,11 @@
 import pandas as pd
 import statistics as sts
-from django.shortcuts import render, redirect,get_object_or_404, HttpResponse
+import os
+from django.conf import settings
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -79,7 +84,7 @@ def home(request):
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         try:
-            moda_impacto = sts.mode(impactados) #nome da moda
+            moda_impacto = sts.mode(impactados)
         except:
             moda_impacto = "Sem dados suficientes"
             moda = False
@@ -452,3 +457,48 @@ def controle_de_ganhos(request, dado):
         "categorias": categorias
     }
     return render(request, "controle_ganhos.html", contexto)
+
+
+def gerar_relatorio(request):
+    usuario = request.user
+    graficos = []
+    titulos = []
+    contexto = {}
+
+    ong = Ong.objects.get(nome=usuario.first_name)
+    projetos = ong.projeto_set.all()
+    for projeto in list(projetos):
+        dados = projeto.dadosimpactos_set.all()
+        for dado in list(dados):
+            linha = dado.linhasimpacto_set.all().values()
+            if len(list(linha)) != 0:
+                base = pd.DataFrame(linha)
+                grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                graficos.append(grafico)
+                titulos.append(f"{projeto.nome_projeto} - {dado.titulo}")
+    contexto["titulos"] = titulos
+    if request.method == 'POST':
+        texto = request.POST['texto']
+        imagem = request.POST['imagem']
+        request['relatorio'] = {'texto': texto, 'imagem': imagem}
+
+    return render(request, "preencher_relatorio.html", contexto)
+
+
+def render_pdf_view(request):
+    template_path = 'teste-pdf.html'
+    context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

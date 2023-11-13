@@ -20,4 +20,6 @@ urlpatterns =[
     path("controle_ganhos/<str:dado>", views.controle_de_ganhos, name="controle_ganhos"),
     path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
     path('#', views.home_admin, name='admin'),
+    path("pdf", views.render_pdf_view, name="pdf"),
+    path("relatorio", views.gerar_relatorio, name='relatorio')
     ]
