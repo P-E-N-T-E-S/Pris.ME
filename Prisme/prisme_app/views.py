@@ -1,11 +1,11 @@
 import pandas as pd
 import statistics as sts
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect,get_object_or_404, HttpResponse
 from .utils import linhas, barras, criador_senha_aleatoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
+from .models import *
 
 
 tipos1 = [
@@ -44,14 +44,15 @@ def Login(request):
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
-        if user is not None:
+        if user is not None and user is not is_admin:
             login(request, user)
             return redirect(home)
         else:
-            return render(request, "login.html", {"erro": "Usuário não encontrado"})
+            return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
 
 
+@login_required
 def home(request):
     moda = True
     usuario = request.user
@@ -104,6 +105,7 @@ def home(request):
         return render(request, "home.html", context=contexto)
 
 
+@login_required
 def Logout(request):
     logout(request)
     if "usuario" in request.session:
@@ -148,6 +150,7 @@ def add_projeto(request):
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
+            Categoria.objects.create(ong=ong_logada, nome=nome_projeto, tipo="Gasto")
         finally:
             return redirect(visualizar_projetos)
 
@@ -381,9 +384,67 @@ def editar_estilo(request):
 
     return render(request, 'editar_estilo.html', context)
 
+def controle_de_gastos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Gasto"]
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_gastos.html", contexto)
 
-@user_passes_test(lambda u: u.is_superuser)
-def criar_ong(request):
+def controle_de_ganhos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Ganho"]
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_ganhos.html", contexto)
+
+
+# Admin
+def is_admin(user):
+    return not user.groups.filter(name__startswith='OngGroup_').exists()
+
+
+def Login_Admin(request):
+    if request.user != None:
+        redirect(home)
+    if request.method == "POST":
+        user = request.POST["user"]
+        senha = request.POST["senha"]
+        user = authenticate(request, username=user, password=senha)
+        if user is not None and is_admin:
+            login(request, user)
+            return redirect(home_admin)
+        else:
+            return render(request, "login_admin.html", {"erro": "Usuário não encontrado."})
+    return render(request, "login_admin.html")
+    
+@login_required
+@user_passes_test(is_admin)
+def home_admin(request):
+    ongs = Ong.objects.all() 
+    return render(request, "home_admin.html", {'ongs': ongs})
+
+@login_required
+@user_passes_test(is_admin)
+def cadastrar_ong(request):
     context = { 'areaAtuacao': areaAtuacao}
 
     if request.method == 'POST':
@@ -406,7 +467,51 @@ def criar_ong(request):
             dataDeCriacao=dataDeCriacao,
             numeroDeVoluntarios=numeroDeVoluntarios)
         ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
 
-        return redirect(home)
+        return redirect(home_admin)
     else:
-        return render(request, 'criar_ong.html', context=context)
+        return render(request, 'cadastrar_ong.html', context=context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def editar_ong(request, ong_id):
+    #ong = get_object_or_404(Ong, id=ong_id)
+    ong = Ong.objects.get(id=ong_id)
+    contexto = {
+        "nome": ong.nome,
+        "email": ong.email,
+        "areaAtuacao": ong.areaAtuacao,
+        "descricao": ong.descricao,
+        "CEP": ong.CEP,
+        "CNPJ": ong.CNPJ,
+        "dataDeCriacao": ong.dataDeCriacao,
+        "numeroDeVoluntarios": ong.numeroDeVoluntarios,
+        'areaAtuacao': areaAtuacao,
+        'ong': ong,
+    }
+    
+    if request.method == 'POST':
+        ong.nome = request.POST['nome']
+        ong.email = request.POST['email']
+        ong.areaAtuacao = request.POST['areaAtuacao']
+        ong.descricao = request.POST['descricao']
+        ong.CEP = request.POST['CEP']
+        ong.CNPJ = request.POST['CNPJ']
+        ong.dataDeCriacao = request.POST['dataDeCriacao']
+        ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+        ong.save()
+
+        return redirect('home_admin')
+
+    return render(request, 'editar_ong.html', context=contexto)
+
+
+@login_required
+@user_passes_test(is_admin)
+def deletar_ong(request, ong_id):
+    Ong.objects.delete(id=ong_id)
+    return redirect(home_admin)

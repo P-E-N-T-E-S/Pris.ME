@@ -16,6 +16,13 @@ urlpatterns =[
     path('editar_projeto/<int:projeto_id>/', views.editar_projeto, name='editar_projeto'),
     path('editar_dado/<int:dado_impacto_id>/', views.editar_dado, name='editar_dado'),
     path('editar_estilo', views.editar_estilo, name='editar_estilo'),
-    path('criar_ong', views.criar_ong, name='criar_ong'),
-]
-
+    path("controle_gastos/<str:dado>", views.controle_de_gastos, name="controle_gastos"),
+    path("controle_ganhos/<str:dado>", views.controle_de_ganhos, name="controle_ganhos"),
+    
+    # Admin
+    path('login_admin', views.Login_Admin, name='login_admin'),
+    path('home_admin', views.home_admin, name='home_admin'),
+    path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
+    path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),
+    path('deletar_ong/<int:ong_id>/', views.deletar_ong, name='deletar_ong'),
+    ]

@@ -1,0 +1,40 @@
+{% extends "layout_admin.html" %}
+{% block title %} Admin {% endblock %} 
+
+{% block main %} 
+<div class="container">
+    <h1>Listagem de ONGs</h1>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Área de Atuação</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">CEP</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Data de Criação</th>
+                <th scope="col">Número de Voluntários</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ong in ongs %}
+            <tr>
+                <td>{{ ong.nome }}</td>
+                <td>{{ ong.email }}</td>
+                <td>{{ ong.get_areaAtuacao_display }}</td>
+                <td>{{ ong.descricao }}</td>
+                <td>{{ ong.CEP }}</td>
+                <td>{{ ong.CNPJ }}</td>
+                <td>{{ ong.dataDeCriacao }}</td>
+                <td>{{ ong.numeroDeVoluntarios }}</td>
+                <td><a href="{% url 'editar_ong' ong.id %}" class="btn btn-primary btn-sm">Editar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

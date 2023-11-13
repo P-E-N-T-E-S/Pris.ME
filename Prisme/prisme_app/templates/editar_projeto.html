@@ -32,7 +32,7 @@
 
         <div class="mb-3">
             <label for="criacao" class="form-label">Data de Criação:</label>
-            <input type="date" id="criacao" class="form-control" name="criacao" value="{{ projeto.dataDeCriacao }}">
+            <input type="date" id="criacao" class="form-control" name="criacao" value="{{ projeto.dataDeCriacao|date:'Y-m-d' }}">
         </div>
     </div>
     <div class="text-center">
