@@ -52,6 +52,9 @@ def Login(request):
         if user is not None and user is not is_admin:
             login(request, user)
             return redirect(home)
+        elif user is not None and user is is_admin:
+            login(request, user)
+            return redirect(home_admin)
         else:
             return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
@@ -520,7 +523,9 @@ def Login_Admin(request):
 @user_passes_test(is_admin)
 def home_admin(request):
     ongs = Ong.objects.all() 
-    return render(request, "home_admin.html", {'ongs': ongs})
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    return render(request, "home_admin.html", {'ongs': ongs, 'sidecor': layout.sidecor, 'backcor': layout.backcor})
 
 @login_required
 @user_passes_test(is_admin)
