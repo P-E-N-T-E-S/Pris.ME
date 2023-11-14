@@ -15,6 +15,9 @@
 <form method="post">
     {% csrf_token %}
     <input type="text" name="texto">
+    <br>
+    <label for="grafindex">escolha o index do seu grafico</label>
+    <input type="number" name="grafindex" id="grafindex">
 
     <button type="submit">:)</button>
 
