@@ -460,6 +460,7 @@ def gerar_relatorio(request):
     graficos = []
     titulos = []
     contexto = {}
+    indice = 0
 
     ong = Ong.objects.get(nome=usuario.first_name)
     projetos = ong.projeto_set.all()
@@ -471,10 +472,13 @@ def gerar_relatorio(request):
                 base = pd.DataFrame(linha)
                 grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                 graficos.append(grafico)
-                titulos.append(f"{projeto.nome_projeto} - {dado.titulo}")
+                titulos.append({'titulo': f"{projeto.nome_projeto} - {dado.titulo}",
+                                'index': indice})
+                indice+=1
     contexto["titulos"] = titulos
     if request.method == 'POST':
         texto = request.POST['texto']
+        graph = request.POST['grafindex']
         request.session['relatorio'] = {'texto': texto, 'graficos': graficos}
 
     return render(request, "preencher_relatorio.html", contexto)
