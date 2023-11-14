@@ -462,11 +462,27 @@ def controle_de_ganhos(request, dado):
     return render(request, "controle_ganhos.html", contexto)
 
 
+def render_pdf_view(request):
+    template_path = 'teste-pdf.html'
+    context = {'myvar': request.session['relatorio']['texto'], 'grafico': request.session['relatorio']['graficos'][request.session['relatorio']['index']]}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
 def gerar_relatorio(request):
     usuario = request.user
     graficos = []
     titulos = []
     contexto = {}
+    indice = 0
 
     ong = Ong.objects.get(nome=usuario.first_name)
     projetos = ong.projeto_set.all()
@@ -478,32 +494,17 @@ def gerar_relatorio(request):
                 base = pd.DataFrame(linha)
                 grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                 graficos.append(grafico)
-                titulos.append(f"{projeto.nome_projeto} - {dado.titulo}")
+                titulos.append({'titulo': f"{projeto.nome_projeto} - {dado.titulo}",
+                                'index': indice})
+                indice+=1
     contexto["titulos"] = titulos
     if request.method == 'POST':
         texto = request.POST['texto']
-        request.session['relatorio'] = {'texto': texto, 'graficos': graficos}
+        graph = int(request.POST['grafindex'])
+        request.session['relatorio'] = {'texto': texto, 'graficos': graficos, "index": graph}
+        return redirect(render_pdf_view)
 
     return render(request, "preencher_relatorio.html", contexto)
-
-
-def render_pdf_view(request):
-    template_path = 'teste-pdf.html'
-    context = {'myvar': request.session['relatorio']['texto'], 'graficos': request.session['relatorio']['graficos']}
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context)
-
-    # create a pdf
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-    # if error then show some funny view
-    if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
 
 
 # Admin
