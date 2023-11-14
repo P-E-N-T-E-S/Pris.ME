@@ -26,22 +26,12 @@
 
   {% if user.is_authenticated %}
 
-  <aside class="navbar">
-    <nav>
-      <img src="https://i.imgur.com/heUOxtp.png" width="180" height="50">
-      
-      <a class="nav-item">
-        <a href="{% url 'logout' %}"> Sair </a>
-      </a>
-    </nav>
-  </aside>
-
   <aside class="sidebar">
     <header class="sidebar-header">
-
+      <img class="logo-img" src="https://imgur.com/L6frWlx.png">
     </header>
 
-    <nav>
+    <nav style='margin-top: 10%;'>
     <a href="{% url 'home_admin' %}">
       <button>
         <span>
@@ -61,6 +51,14 @@
     </a>
   </nav>
 
+  <a href="{% url 'logout' %}">
+    <button>
+      <span>
+        <i class="material-symbols-outlined"> logout </i>
+        <span>Sair</span>
+      </span>
+    </button>
+  </a>
 </aside>
 
   <script src="static/script.js"></script>
