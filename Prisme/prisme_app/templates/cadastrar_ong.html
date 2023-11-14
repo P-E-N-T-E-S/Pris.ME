@@ -78,10 +78,10 @@
       <button type="submit" class="btn btn-primary">Salvar</button>
       <a href="{% url 'home_admin' %}" class="btn btn-danger mx-3">Cancelar</a>
     </div>
+    {% if erros %}
     <div class="text-center">
-        {% if erros %}
         <p style="color: red;">{{ erros.campos }}</p>
-        {% endif %}
-
-
+    </div>
+    {% endif %}
+    
 {% endblock %}

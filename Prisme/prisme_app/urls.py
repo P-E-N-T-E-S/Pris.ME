@@ -21,7 +21,6 @@ urlpatterns =[
     path('login_admin', views.Login_Admin, name='login_admin'),
     path('home_admin', views.home_admin, name='home_admin'),
     path('cadastrar_ong', views.cadastrar_ong, name='cadastrar_ong'),
-    path('#', views.home_admin, name='admin'),
     path("pdf", views.render_pdf_view, name="pdf"),
     path("relatorio", views.gerar_relatorio, name='relatorio'),
     path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),

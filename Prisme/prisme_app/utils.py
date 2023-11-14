@@ -67,3 +67,40 @@ def criador_senha_aleatoria(tamanho):
         codigo = codigo + x
 
     return codigo
+
+def validar_cep(cep):
+    if len(cep) == 9 and cep[5] == '-':
+        partes = cep.split('-')
+        parte1, parte2 = partes[0], partes[1]
+
+        if parte1.isdigit() and parte2.isdigit():
+            return True
+
+    return False
+
+
+def validar_cnpj(cnpj):
+    cnpj = ''.join(filter(str.isdigit, cnpj))
+
+    if len(cnpj) != 14:
+        return False
+
+    soma = 0
+    multiplicador = 5
+    for i in range(12):
+        soma += int(cnpj[i]) * multiplicador
+        multiplicador = 9 if multiplicador == 2 else multiplicador - 1
+
+    resto = soma % 11
+    digito1 = 0 if resto < 2 else 11 - resto
+
+    soma = 0
+    multiplicador = 6
+    for i in range(13):
+        soma += int(cnpj[i]) * multiplicador
+        multiplicador = 9 if multiplicador == 2 else multiplicador - 1
+
+    resto = soma % 11
+    digito2 = 0 if resto < 2 else 11 - resto
+
+    return int(cnpj[12]) == digito1 and int(cnpj[13]) == digito2

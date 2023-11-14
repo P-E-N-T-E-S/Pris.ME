@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .utils import linhas, barras, criador_senha_aleatoria
+from .utils import linhas, barras, criador_senha_aleatoria, validar_cep, validar_cnpj
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -43,18 +43,21 @@ areaAtuacao = [
 "Outro",]
 
 def Login(request):
-    if request.user != None:
-        redirect(home)
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect(home_admin)
+        else:
+            return redirect(home)
     if request.method == "POST":
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
-        if user is not None and user is not is_admin:
+        if user is not None:
             login(request, user)
-            return redirect(home)
-        elif user is not None and user is is_admin:
-            login(request, user)
-            return redirect(home_admin)
+            if not user.is_staff:
+                return redirect(home)
+            else:
+                return redirect(home_admin)
         else:
             return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
@@ -402,6 +405,7 @@ def visualizar_linhas_impacto(request, dado_impacto_id):
     
     return render(request, 'detalhes_dado.html', context)
     
+    
 @login_required
 def editar_estilo(request):
     usuario = request.user
@@ -500,6 +504,8 @@ def render_pdf_view(request):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+
 # Admin
 def is_admin(user):
     return not user.groups.filter(name__startswith='OngGroup_').exists()
@@ -519,20 +525,36 @@ def Login_Admin(request):
             return render(request, "login_admin.html", {"erro": "Usuário não encontrado."})
     return render(request, "login_admin.html")
     
+    
 @login_required
 @user_passes_test(is_admin)
 def home_admin(request):
+    contexto = {}
+    
     ongs = Ong.objects.all() 
+    
     usuario = request.user
+    
     layout = EditarEstilo.objects.get(user_id=usuario)
-    return render(request, "home_admin.html", {'ongs': ongs, 'sidecor': layout.sidecor, 'backcor': layout.backcor})
+
+    contexto = {
+        'ongs': ongs,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
+    
+    return render(request, "home_admin.html", context=contexto)
+
 
 @login_required
 @user_passes_test(is_admin)
 def cadastrar_ong(request):
-    context = { 'areaAtuacao': areaAtuacao}
+    context = {'areaAtuacao': areaAtuacao}
 
     if request.method == 'POST':
+        errado = False
+        erros = {}
+        
         nome_ong = request.POST['nome_ong']
         email_ong = request.POST['email_ong']
         area = request.POST['areaAtuacao']
@@ -542,19 +564,34 @@ def cadastrar_ong(request):
         dataDeCriacao = request.POST['criacao']
         numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
 
-        ong = Ong(
-            nome=nome_ong,
-            email=email_ong,
-            areaAtuacao=area,
-            descricao=descricao,
-            CEP=CEP,
-            CNPJ=CNPJ,
-            dataDeCriacao=dataDeCriacao,
-            numeroDeVoluntarios=numeroDeVoluntarios)
-        ong.save()
-        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
-        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
-        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
+        if not validar_cnpj(CNPJ):
+            errado = True
+            erros['CNPJ'] = "CNPJ inválido."
+        
+        if not validar_cep(CEP):
+            errado = True
+            erros['CEP'] = "CEP inválido."
+        
+        if errado:
+            context["erros"] = erros
+            return render(request, 'cadastrar_ong.html', context=context)
+        else:
+            try:
+                ong = Ong(
+                    nome=nome_ong,
+                    email=email_ong,
+                    areaAtuacao=area,
+                    descricao=descricao,
+                    CEP=CEP,
+                    CNPJ=CNPJ,
+                    dataDeCriacao=dataDeCriacao,
+                    numeroDeVoluntarios=numeroDeVoluntarios)
+                ong.save()
+                Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+                Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+                Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
+            except:
+                context['erros'] = "Preencha todos os campos corretamente."
 
         return redirect(home_admin)
     else:
