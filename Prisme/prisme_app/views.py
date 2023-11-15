@@ -565,35 +565,20 @@ def cadastrar_ong(request):
         dataDeCriacao = request.POST['criacao']
         numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
 
-        if not validar_cnpj(CNPJ):
-            errado = True
-            erros['CNPJ'] = "CNPJ inválido."
-        
-        if not validar_cep(CEP):
-            errado = True
-            erros['CEP'] = "CEP inválido."
-        
-        if errado:
-            context["erros"] = erros
-            return render(request, 'cadastrar_ong.html', context=context)
-        else:
-            try:
-                ong = Ong(
-                    nome=nome_ong,
-                    email=email_ong,
-                    areaAtuacao=area,
-                    descricao=descricao,
-                    CEP=CEP,
-                    CNPJ=CNPJ,
-                    dataDeCriacao=dataDeCriacao,
-                    numeroDeVoluntarios=numeroDeVoluntarios)
-                ong.save()
-                Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
-                Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
-                Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
-            except:
-                context['erros'] = "Preencha todos os campos corretamente."
 
+        ong = Ong(
+            nome=nome_ong,
+            email=email_ong,
+            areaAtuacao=area,
+            descricao=descricao,
+            CEP=CEP,
+            CNPJ=CNPJ,
+            dataDeCriacao=dataDeCriacao,
+            numeroDeVoluntarios=numeroDeVoluntarios)
+        ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
         return redirect(home_admin)
     else:
         return render(request, 'cadastrar_ong.html', context=context)

@@ -32,7 +32,7 @@
 
     <nav style='margin-top: 20%;'>
 
-    <a href="#">
+    <a href="{% url 'home' %}">
       <button>
         <span>
           <i href="" class="material-symbols-outlined"> bar_chart </i>
@@ -71,6 +71,15 @@
     <div><img src='https://imgur.com/M7i7ZQq.png' style="margin-left: 10%; width: 80%;"></div>
     
     {% if user.is_staff %}
+    <a href="{% url 'home_admin' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> view_timeline </i>
+          <span>Lista de ONGs</span>
+        </span>
+      </button>
+    </a>
+
     <a href="{% url 'cadastrar_ong' %}">
       <button>
         <span>
