@@ -75,16 +75,7 @@
       <button>
         <span>
           <i class="material-symbols-outlined"> view_timeline </i>
-          <span>Lista de ONGs</span>
-        </span>
-      </button>
-    </a>
-
-    <a href="{% url 'cadastrar_ong' %}">
-      <button>
-        <span>
-          <i class="material-symbols-outlined"> view_timeline </i>
-          <span>Cadastrar ONG</span>
+          <span>ONGs</span>
         </span>
       </button>
     </a>
@@ -152,34 +143,97 @@
       </span>
     </button>
 
-    <button>
-      <span>
-        <i class="material-symbols-outlined"> person </i>
-        <span class="mobile-text">Perfil</span>
-      </span>
-    </button>
-
-    <button>
-      <span>
-        <i class="material-symbols-outlined"> home </i>
-        <span class="mobile-text">Home</span>
-      </span>
-    </button>
-
-
-    <a href="{% url 'controle_ganhos' dado='Doações' %}">
-      <span>
-        <i class="material-symbols-outlined"> view_timeline </i>
-        <span class="mobile-text">Caixa</span>
-      </span>
+    <a href="{% url 'home' %}">
+      <button>
+        <span>
+          <i href="" class="material-symbols-outlined"> bar_chart </i>
+          <span>Resumos</span>
+        </span>
+      </button>
     </a>
 
-    <button>
-      <span>
-        <i class="material-symbols-outlined"> timeline </i>
-        <span class="mobile-text">D.I</span>
-      </span>
-    </button>
+    <a href="{% url 'visualizar_projetos' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> stacked_line_chart </i>
+          <span>D.I</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="{% url 'controle_ganhos' dado='Doações' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> receipt_long </i>
+          <span>Caixa</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="#">
+      <button>
+        <span>  
+          <i class="material-symbols-outlined"> badge </i>
+          <span>Voluntariado</span>
+        </span>
+      </button>
+    </a>
+    
+    {% if user.is_staff %}
+    <a href="{% url 'home_admin' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> view_timeline </i>
+          <span>ONGs</span>
+        </span>
+      </button>
+    </a>
+    {% endif %}
+
+    <a href="#">
+      <button>
+        <span>  
+          <i class="material-symbols-outlined"> person </i>
+          <span>Conta</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="#">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> settings </i>
+          <span>Configurações</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="{% url 'editar_estilo' %}">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> palette </i>
+          <span>Layout</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="#">
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> info </i>
+          <span>Ajuda</span>
+        </span>
+      </button>
+    </a>
+
+    <a href="{% url 'logout' %}" style='margin-top: auto'>
+      <button>
+        <span>
+          <i class="material-symbols-outlined"> logout </i>
+          <span>Sair</span>
+        </span>
+      </button>
+    </a>
   </nav>
 
   <main class="main">

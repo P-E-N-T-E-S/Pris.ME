@@ -1,5 +1,7 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} 
 {% block main %} 
+
+<div class='container'>
 {% if erro %}
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
@@ -32,9 +34,9 @@
         </div>
         {% endfor %}
     </div>
-
 </div>
 {% if error_message %}
 <p>{{ error_message }}</p>
+</div>
 {% endif %} 
 {% endblock %}
