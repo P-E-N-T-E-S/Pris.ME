@@ -11,6 +11,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
+from django.core.mail import send_mail
 
 
 tipos1 = [
@@ -565,6 +566,15 @@ def cadastrar_ong(request):
         dataDeCriacao = request.POST['criacao']
         numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
 
+        if request.method == 'POST':
+            send_mail(
+                    (f"Bem vindo(a) ao Pris.me, { nome_ong }: !"),
+                    (f"Bem vindo(a) ao Pris.me\nSeu login é: { email_ong }\nSua senha é: Senha Inicial"),
+                    "suporte.pris.me@gmail.com",
+                    [f"{email_ong}"],
+                    fail_silently=False,
+                )
+            
 
         ong = Ong(
             nome=nome_ong,
