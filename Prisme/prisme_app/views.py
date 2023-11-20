@@ -1,6 +1,7 @@
 import pandas as pd
 import statistics as sts
 import os
+import csv
 from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -632,3 +633,20 @@ def editar_ong(request, ong_id):
 def deletar_ong(request, ong_id):
     Ong.objects.delete(id=ong_id)
     return redirect(home_admin)
+
+
+def baixar_impacto(request, projeto):
+    projeto = Projeto.objects.get(nome_projeto=projeto)
+    dados = list(projeto.dadosimpactos_set.all())
+    for dado in dados:
+        lista = [[dado.tipo1, dado.tipo2]]
+        linhas = dado.list(linhasimpacto_set.all())
+        for linha in linhas:
+            lista.append([linha.valor1, linha.valor2])
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = f"attachment: filename={projeto.nome_projeto}_{dado.titulo}.csv"
+        csv_writer = csv.writer(response)
+        for linha in lista:
+            csv_writer.writerow(linha)
+        return response
+    return render(request, "teste.html")

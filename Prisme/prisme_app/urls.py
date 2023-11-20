@@ -25,4 +25,5 @@ urlpatterns =[
     path("relatorio", views.gerar_relatorio, name='relatorio'),
     path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),
     path('deletar_ong/<int:ong_id>/', views.deletar_ong, name='deletar_ong'),
+    path("baixar_impacto/<str:projeto>", views.baixar_impacto, name="baixar_impacto")
     ]
