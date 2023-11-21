@@ -2,28 +2,265 @@
 {% block title %} Adicionar voluntário {% endblock %} 
 
 {% block main %} 
-<div class="container">
-    <h1>Adicionar Voluntário</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
-        <label for="nascimento">Data de Nascimento:</label>
-        <input type="date" id="nascimento" name="nascimento" required><br><br>
-        <label for="ingresso">Data de Ingresso:</label>
-        <input type="date" id="ingresso" name="ingresso" required><br><br>
-        <label for="contato">Contato:</label>
-        <input type="text" id="contato" name="contato" required><br><br>
-        <label for="horas">Horas:</label>
-        <input type="text" id="horas" name="horas" required><br><br>
-        <label for="genero">Gênero:</label>
-        <select id="genero" name="genero">
-            <option value="">Selecione...</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Outro">Outro</option>
-        </select>
-        <input type="submit" value="Enviar">
-    </form>
+<link rel="stylesheet" href="static/style.css"/>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+    }
+
+    .input-box input {
+        margin: 0.6rem 0;
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 0.8rem;
+    }
+
+    .input-box input:hover {
+        background-color: #eeeeee75;
+    }
+
+    .input-box input:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+
+    .input-box label,
+    .gender-title h6 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .input-box input::placeholder {
+        color: #000000be;
+    }
+
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.62rem;
+        padding: 0 .5rem;
+    }
+
+    .gender-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .gender-input input {
+        margin-right: 0.35rem;
+    }
+
+    .gender-input label {
+        font-size: 0.81rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .continue-button button {
+        width: 100%;
+        margin-top: 2.5rem;
+        border: none;
+        background-color: #9b40ff;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
+        background-color: rgba(83, 77, 199, 0.945)
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 1330px) {
+        .form-image {
+            display: none;
+        }
+        .container {
+            width: 50%;
+        }
+        .form {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 1064px) {
+        .container {
+            width: 90%;
+            height: auto;
+        }
+        .input-group {
+            flex-direction: column;
+            z-index: 5;
+            padding-right: 5rem;
+            max-height: 10rem;
+            overflow-y: scroll;
+            flex-wrap: nowrap;
+        }
+        .gender-inputs {
+            margin-top: 2rem;
+        }
+        .gender-group {
+            flex-direction: column;
+        }
+        .gender-title h6 {
+            margin: 0;
+        }
+        .gender-input {
+            margin-top: 0.5rem;
+        }
+    }
+    
+    </style>
+
+<div class="corpo">
+    <div class="container">
+        <div class="form-image">
+            <img src="https://i.imgur.com/YlcMXGX.png" alt="Voluntários">
+        </div>
+        <div class="form">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-header">
+                <div class="title">
+                    <h1>Voluntariado</h1>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="nascimento" class="form-label">Nome:</label>
+                    <input placeholder="Nome" type="text" id="nome" name="nome" required><br><br>
+                </div>
+
+                <div class="input-box">
+                    <label for="criacao" class="form-label">Data de Nascimento</label>
+                    <input type="date" id="nascimento" name="nascimento" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="ingresso" class="form-label">Data de Ingresso:</label>
+                    <input type="date" id="ingresso" name="ingresso" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="contato" class="form-label">Contato:</label>
+                    <input placeholder="(XX)XXXXX-XXXX" type="contato" id="contato" name="contato" required>
+                </div>
+
+                <div class="input-box" style="margin-left: -5px;">
+                   <label for="Área de Atuação:" class="form-label">Horas:</label>
+                   <input placeholder="00:00" type="text" id="horas" name="horas" required>
+                </div>
+
+            </div>
+
+            <div class="gender-inputs">
+                <div class="gender-title">
+                    <h6>Gênero</h6>
+                </div>
+
+                <div class="gender-group">
+                    <div class="gender-input">
+                        <input value="Feminino" id="female" type="radio" name="gender">
+                        <label for="female">Feminino</label>
+                    </div>
+
+                    <div class="gender-input">
+                        <input value="Masculino" id="male" type="radio" name="gender">
+                        <label for="male">Masculino</label>
+                    </div>
+
+                    <div class="gender-input">
+                        <input id="others" type="radio" name="gender">
+                        <label value="Outro" for="others">Outros</label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="continue-button">
+                <button><a href="#">Continuar</a> </button>
+            </div>
+        </form>
+    </div>
 </div>
+    
 {% endblock %}
