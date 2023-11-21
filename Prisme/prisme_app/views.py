@@ -697,8 +697,10 @@ def deletar_ong(request, ong_id):
 
 
 def baixar_impacto(request, projeto):
-    projeto = Projeto.objects.get(nome_projeto=projeto)
-    dados = list(projeto.dadosimpactos_set.all())
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    projeto = list(ong.projeto_set.filter(nome_projeto=projeto))
+    dados = list(projeto[0].dadosimpactos_set.all())
     contexto = {
         'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
     }
@@ -706,7 +708,7 @@ def baixar_impacto(request, projeto):
 
         index = int(request.POST["dado_impacto"])
 
-        dados = list(projeto.dadosimpactos_set.all())
+        dados = list(projeto[0].dadosimpactos_set.all())
         dado = dados[index]
         lista = [[dado.tipo1, dado.tipo2]]
         linhas = list(dado.linhasimpacto_set.all())
