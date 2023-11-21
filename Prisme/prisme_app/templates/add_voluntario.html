@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %} Adicionar voluntário {% endblock %} 
+
+{% block main %} 
+<div class="container">
+    <h1>Adicionar Voluntário</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+        <label for="nascimento">Data de Nascimento:</label>
+        <input type="date" id="nascimento" name="nascimento" required><br><br>
+        <label for="ingresso">Data de Ingresso:</label>
+        <input type="date" id="ingresso" name="ingresso" required><br><br>
+        <label for="contato">Contato:</label>
+        <input type="text" id="contato" name="contato" required><br><br>
+        <label for="horas">Horas:</label>
+        <input type="text" id="horas" name="horas" required><br><br>
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero">
+            <option value="">Selecione...</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Outro">Outro</option>
+        </select>
+        <input type="submit" value="Enviar">
+    </form>
+</div>
+{% endblock %}

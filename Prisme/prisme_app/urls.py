@@ -25,4 +25,7 @@ urlpatterns =[
     path("relatorio", views.gerar_relatorio, name='relatorio'),
     path('editar_ong/<int:ong_id>/', views.editar_ong, name='editar_ong'),
     path('deletar_ong/<int:ong_id>/', views.deletar_ong, name='deletar_ong'),
+    path('voluntariado', views.voluntariado, name='voluntariado'),
+    path('add_voluntario', views.add_voluntario, name='add_voluntario'),
+    path('editar_voluntario/<int:voluntario_id>/', views.editar_voluntario, name='editar_voluntario'),
     ]

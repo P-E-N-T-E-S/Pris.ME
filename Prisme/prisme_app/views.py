@@ -416,7 +416,6 @@ def editar_estilo(request):
     
     if request.method == 'POST':
         layout = EditarEstilo.objects.get(user_id=usuario)
-        print(layout)
         layout.sidecor = request.POST.get("sidecor")
         layout.backcor = request.POST.get("backcor")
 
@@ -429,6 +428,7 @@ def editar_estilo(request):
 
     return render(request, 'editar_estilo.html', context)
 
+@login_required
 def controle_de_gastos(request, dado):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
@@ -445,6 +445,7 @@ def controle_de_gastos(request, dado):
     }
     return render(request, "controle_gastos.html", contexto)
 
+@login_required
 def controle_de_ganhos(request, dado):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
@@ -461,7 +462,7 @@ def controle_de_ganhos(request, dado):
     }
     return render(request, "controle_ganhos.html", contexto)
 
-
+@login_required
 def render_pdf_view(request):
     template_path = 'teste-pdf.html'
     context = {'myvar': request.session['relatorio']['texto'], 'grafico': request.session['relatorio']['graficos'][request.session['relatorio']['index']]}
@@ -476,7 +477,7 @@ def render_pdf_view(request):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-
+@login_required
 def gerar_relatorio(request):
     usuario = request.user
     graficos = []
@@ -507,6 +508,66 @@ def gerar_relatorio(request):
     return render(request, "preencher_relatorio.html", contexto)
 
 
+@login_required
+def voluntariado(request):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    
+    voluntarios = list(usuario.voluntariado_set.all())
+    contexto = {
+        "voluntarios": voluntarios,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
+    }
+    return render(request, "voluntariado.html", contexto)
+
+
+@login_required
+def add_voluntario(request):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
+    
+    nome = ''
+    nascimento = ''
+    ingresso = ''
+    contato = ''
+    horas = ''
+    genero = ''
+    
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        nascimento = request.POST['nascimento']
+        ingresso = request.POST['ingresso']
+        contato = request.POST['contato']
+        horas = request.POST['horas']
+        genero = request.POST['genero']
+
+        
+        try:
+            Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
+                                   genero=genero)
+        finally:
+            return redirect(voluntariado)
+
+    contexto = {
+        "nome": nome,
+        "nascimento": nascimento,
+        "ingresso": ingresso,
+        "contato": contato,
+        "horas": horas,
+        "genero": genero,
+        "generos": genero,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
+    }
+    return render(request, "add_voluntario.html", contexto)
+
+@login_required
+def editar_voluntario(request):
+    return render(request, "editar_voluntario.html")
+    
+    
+    
+    
 # Admin
 def is_admin(user):
     return not user.groups.filter(name__startswith='OngGroup_').exists()
