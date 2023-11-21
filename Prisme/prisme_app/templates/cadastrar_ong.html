@@ -66,7 +66,6 @@
     
       .input-box input {
         margin: 0.6rem 0;
-        padding: 0.8rem 18rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
@@ -84,43 +83,9 @@
       .input-box input::placeholder {
         color: #000000be;
       }
-
-      .input2-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 1rem 0;
-      }
-    
-      .input2-box {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1.1rem;
-      }
-    
-      .input2-box input {
-        margin: 0.6rem 0;
-        padding: 0.8rem 5rem;
-        border: none;
-        border-radius: 10px;
-        box-shadow: 1px 1px 6px #0000001c;
-        font-size: 0.8rem;
-      }
-    
-      .input2-box input:hover {
-        background-color: #ffffff75;
-      }
-    
-    .input2-box input:focus-visible {
-        outline: 1px solid #9b40ff;
-      }
-    
-      .input2-box input::placeholder {
-        color: #000000be;
-      }
     
       .continue-button button {
-        width: 100%;
+        width: 20%;
         height: 45px;
         background-color: #5eecb4;
         border: none;
@@ -143,30 +108,6 @@
         color: #000000;
       }
 
-      .cancelar-button button {
-        width: 100%;
-        height: 45px;
-        background-color: #9b40ff;
-        border: none;
-        outline: none;
-        border-radius: 10px;
-        box-shadow: 0 0 010px rgba(0, 0, 0, .1);
-        cursor: #333;
-        font-weight: 600;
-        margin-top: 15px;
-      }
-
-      .cancelar-button button:hover {
-        background-color: #40097d;
-      }
-    
-      .cancelar-button button a {
-        text-decoration: none;
-        font-size: 0.93rem;
-        font-weight: 500;
-        color: #fff;
-      }
-    
       @media screen and (max-width: 1330px) {
         .form-image {
             display: none;
@@ -217,7 +158,7 @@
                     <input placeholder="Nome da ONG" type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome_ong }}" required>
                 </div>
 
-                <div class="input2-box">
+                <div class="input-box">
                     <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
                     <input
                     placeholder="CNPJ da ONG" 
@@ -231,7 +172,7 @@
                     />
                 </div>
 
-                <div class="input2-box">
+                <div class="input-box">
                     <label for="criacao" class="form-label"
                     >Selecione a data de criação da Ong</label
                   >
@@ -255,7 +196,7 @@
                     <input placeholder="Descrição" type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
                 </div>
 
-                <div class="input2-box" style="margin-left: -5px;">
+                <div class="input-box" style="margin-left: -5px;">
                    <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
                     <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
                         <option value="" disabled selected>Categoria</option>
@@ -265,12 +206,12 @@
                     </select>
                 </div>
 
-                <div class="input2-box">
+                <div class="input-box">
                     <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
                     <input placeholder="CEP" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
                 </div>
 
-                <div class="input2-box">
+                <div class="input-box">
                     <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
                     <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
                 </div>
@@ -284,9 +225,6 @@
 
             <div class="continue-button">
                 <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-            <div class="cancelar-button">
-                <button type="submit"><a href="{% url 'home_admin' %}">Cancelar</a></button>
             </div>
         </form>
     </div>
