@@ -3,7 +3,22 @@
 
 {% block main %} 
     <div class="container">
-        nome do dado = {{caixa.nome}}<br>
+        <div>
+            nome do dado = {{caixa.nome}}
+        </div>
+        <table class="table">
+            <tbody>
+            {% for item in caixa.linhas %}
+              <tr>
+                <th scope="row">1</th>
+                <td>{{item.identificacao}}</td>
+                <td>{{item.valor}}</td>
+                <td>Mes</td>
+                <td>Ano</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>/
         {%for item in caixa.linhas%}
         nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
         {% endfor %}
