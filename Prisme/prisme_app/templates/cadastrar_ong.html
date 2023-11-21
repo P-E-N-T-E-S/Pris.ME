@@ -5,42 +5,56 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-      }
-    
-      .corpo {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .corpo {
+        margin-top: 2vh;
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-    
-      .container {
-    
+    }
+
+
+    .container {
+        width: 100%;
+        height: 80vh;
         display: flex;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
-        border-radius: 10px;
-        
-      }
-    
-      .form {
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
         width: 50%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 3rem;
-      }
-    
-      .form-header {
+    }
+
+    .form-header {
         margin-bottom: 3rem;
         display: flex;
         justify-content: space-between;
-      }
-    
-      .form-header h1::after {
+    }
+
+    .form-header h1::after {
         content: '';
         display: block;
         width: 5rem;
@@ -49,66 +63,93 @@
         margin: 0 auto;
         position: absolute;
         border-radius: 10px;
-      }
-    
-      .input-group {
+    }
+
+    .input-group {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 1rem 0;
-      }
-    
-      .input-box {
+    }
+
+    .input-box {
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
-      }
-    
-      .input-box input {
+    }
+
+    .input-box input {
         margin: 0.6rem 0;
+        padding: 0.8rem 1.2rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
         font-size: 0.8rem;
-      }
-    
-      .input-box input:hover {
+    }
+
+    .input-box input:hover {
         background-color: #eeeeee75;
-      }
-    
+    }
+
     .input-box input:focus-visible {
         outline: 1px solid #9b40ff;
-      }
-    
-      .input-box input::placeholder {
-        color: #000000be;
-      }
-    
-      .continue-button button {
-        width: 20%;
-        height: 45px;
-        background-color: #5eecb4;
-        border: none;
-        outline: none;
-        border-radius: 10px;
-        box-shadow: 0 0 010px rgba(0, 0, 0, .1);
-        cursor: #333;
+    }
+
+    .input-box label,
+    .gender-title h6 {
+        font-size: 0.75rem;
         font-weight: 600;
-        margin-top: 15px;
-      }
-    
-      .continue-button button:hover {
+        color: #000000c0;
+    }
+
+    .input-box input::placeholder {
+        color: #000000be;
+    }
+
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.62rem;
+        padding: 0 .5rem;
+    }
+
+    .gender-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .gender-input input {
+        margin-right: 0.35rem;
+    }
+
+    .gender-input label {
+        font-size: 0.81rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .continue-button button {
+        width: 100%;
+        margin-top: 2.5rem;
+        border: none;
+        background-color: #5eecb4;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
         background-color: #0d8757;
-      }
-    
-      .continue-button button a {
+    }
+
+    .continue-button button a {
         text-decoration: none;
         font-size: 0.93rem;
         font-weight: 500;
-        color: #000000;
-      }
+        color: #fff;
+    }
 
-      @media screen and (max-width: 1330px) {
+    @media screen and (max-width: 1330px) {
         .form-image {
             display: none;
         }
@@ -118,116 +159,101 @@
         .form {
             width: 100%;
         }
-      }
-    
-      @media screen and (max-width: 1064px) {
-        .container {
-            width: 90%;
-            height: auto;
-        }
-        .input-group {
-            flex-direction: column;
-            z-index: 5;
-            padding-right: 5rem;
-            max-height: 10rem;
-            overflow-y: scroll;
-            flex-wrap: nowrap;
-        }
-      }
-    
-      .erros {
-        font-size: medium;
-        color: red;
-      }
+    }
     
     </style>
 
 <div class="corpo">
-    <div class="form">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-header">
-                <div class="title">
-                    <h1>Cadastrar nova ONG</h1>
-                </div>
-            </div>
+  <div class="container">
+      <div class="form-image">
+          <img src="https://i.imgur.com/rOzuQjh.png" alt="Voluntários">
+      </div>
+      <div class="form">
+      <form method="POST">
+          {% csrf_token %}
+          <div class="form-header">
+              <div class="title">
+                  <h1>Cadastrar nova ONG</h1>
+              </div>
+          </div>
 
-            <div class="input-group">
-                <div class="input-box">
-                    <label for="nome_ong" class="form-label">Nome da Ong:</label>
-                    <input placeholder="Nome da ONG" type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome_ong }}" required>
-                </div>
+          <div class="input-group">
+              <div class="input-box">
+                <label for="nome_ong" class="form-label">Nome da Ong:</label>
+                <input placeholder="Nome da ONG" type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome_ong }}" required>
+              </div>
 
-                <div class="input-box">
-                    <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
-                    <input
-                    placeholder="CNPJ da ONG" 
-                      type="text"
-                      class="form-control"
-                      id="CNPJ"
-                      aria-describedby="CNPJ_"
-                      name="CNPJ"
-                      value="{{ CNPJ }}"
-                      required
-                    />
-                </div>
+              <div class="input-box">
+                <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
+                <input
+                placeholder="CNPJ da ONG" 
+                  type="text"
+                  class="form-control"
+                  id="CNPJ"
+                  aria-describedby="CNPJ_"
+                  name="CNPJ"
+                  value="{{ CNPJ }}"
+                  required
+                />
+              </div>
 
-                <div class="input-box">
-                    <label for="criacao" class="form-label"
-                    >Selecione a data de criação da Ong</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="criacao"
-                    name="criacao"
-                    value="{{ criacao }}"
-                    required
-                  />
-                </div>
+              <div class="input-box">
+                <label for="criacao" class="form-label"
+                >Selecione a data de criação da Ong</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="criacao"
+                name="criacao"
+                value="{{ criacao }}"
+                required
+              />
+              </div>
 
-                <div class="input-box">
-                    <label for="email_ong" class="form-label">Email:</label>
-                    <input placeholder="ex@gmail.com" type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email_ong }}"required >
-                </div>
+              <div class="input-box">
+                <label for="email_ong" class="form-label">Email:</label>
+                <input placeholder="ex@gmail.com" type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email_ong }}"required >
+              </div>
 
-                <div class="input-box">
-                    <label for="descricao" class="form-label">Descrição:</label>
-                    <input placeholder="Descrição" type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
-                </div>
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <input placeholder="Descrição" type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
+              </div>
 
-                <div class="input-box" style="margin-left: -5px;">
-                   <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
-                    <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
-                        <option value="" disabled selected>Categoria</option>
-                        {% for area in areaAtuacao %}
-                        <option value="{{ area }}"required>{{ area }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
+                <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
+                    <option value="" disabled selected>Categoria</option>
+                    {% for area in areaAtuacao %}
+                    <option value="{{ area }}"required>{{ area }}</option>
+                    {% endfor %}
+                </select>
+              </div>
 
-                <div class="input-box">
-                    <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
-                    <input placeholder="CEP" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
-                </div>
+              <div class="input-box" style="margin-left: -5px;">
+                <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
+                <input placeholder="CEP" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+              </div>
 
-                <div class="input-box">
-                    <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
-                    <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
-                </div>
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
+                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
+              </div>
 
-            </div>
-            {% if erros %}
-            <div class="text-center">
-                <p style="color: red;">{{ erros.campos }}</p>
-            </div>
-            {% endif %}
+          </div>
 
-            <div class="continue-button">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
-    </div>
+          {% if erros %}
+          <div class="text-center">
+              <p style="color: red;">{{ erros.campos }}</p>
+          </div>
+          {% endif %}
+
+          <div class="continue-button">
+              <button value="Enviar" >Continuar</button>
+          </div>
+      </form>
   </div>
+</div>
     
 {% endblock %}
