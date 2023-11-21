@@ -638,15 +638,23 @@ def deletar_ong(request, ong_id):
 def baixar_impacto(request, projeto):
     projeto = Projeto.objects.get(nome_projeto=projeto)
     dados = list(projeto.dadosimpactos_set.all())
-    for dado in dados:
+    contexto = {
+        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
+    }
+    if request.method == "POST":
+
+        index = int(request.POST["dado_impacto"])
+
+        dados = list(projeto.dadosimpactos_set.all())
+        dado = dados[index]
         lista = [[dado.tipo1, dado.tipo2]]
-        linhas = dado.list(linhasimpacto_set.all())
+        linhas = list(dado.linhasimpacto_set.all())
         for linha in linhas:
             lista.append([linha.valor1, linha.valor2])
         response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = f"attachment: filename={projeto.nome_projeto}_{dado.titulo}.csv"
+        response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
         csv_writer = csv.writer(response)
         for linha in lista:
             csv_writer.writerow(linha)
         return response
-    return render(request, "teste.html")
+    return render(request, "baixardados.html", contexto)
