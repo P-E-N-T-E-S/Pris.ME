@@ -116,4 +116,18 @@ class EditarEstilo(models.Model):
 def create_estilo_user(sender, instance, created, **kwargs):
     if created:
         EditarEstilo.objects.create(user=instance)
+        
+
+class Voluntariado(models.Model):
+    generos = [(None, "Selecione..."), ("Feminino", "Feminino"), ("Masculino", "Masculino"), ("Outro", "Outro")]
+    nome = models.CharField(max_length=100)
+    nascimento = models.DateField()
+    ingresso = models.DateField()
+    contato = models.CharField(max_length=50)
+    horas = models.IntegerField()
+    genero = models.CharField(choices=generos, default=generos[0], max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.nome
    
