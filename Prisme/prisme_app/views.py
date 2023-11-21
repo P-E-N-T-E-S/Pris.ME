@@ -653,7 +653,7 @@ def baixar_impacto(request, projeto):
             lista.append([linha.valor1, linha.valor2])
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
-        csv_writer = csv.writer(response)
+        csv_writer = csv.writer(response, delimiter=';')
         for linha in lista:
             csv_writer.writerow(linha)
         return response

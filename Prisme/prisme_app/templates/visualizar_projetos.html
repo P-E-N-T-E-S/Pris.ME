@@ -12,6 +12,7 @@
     <div style="margin-top: 30px;">
         <h2>{{ projeto.nome_projeto }}
             <a class="btn btn-primary" style='background-color:  #9b40ff;' href="{% url 'editar_projeto' projeto.id %}">Editar</a>
+            <a class="btn btn-primary" style='background-color:  #9b40ff;' href="{% url 'baixar_impacto' projeto.nome_projeto %}">Baixar CSV</a>
         </h2>
         <p>{{ projeto.descricao }} <br> {{projeto.dataDeCriacao}}</p>
     </div>
