@@ -1,6 +1,7 @@
 import pandas as pd
 import statistics as sts
 import os
+import csv
 from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -11,6 +12,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
+from django.core.mail import send_mail
 
 
 tipos1 = [
@@ -626,6 +628,15 @@ def cadastrar_ong(request):
         dataDeCriacao = request.POST['criacao']
         numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
 
+        if request.method == 'POST':
+            send_mail(
+                    (f"Bem vindo(a) ao Pris.me, { nome_ong }: !"),
+                    (f"Bem vindo(a) ao Pris.me\nSeu login é: { email_ong }\nSua senha é: Senha Inicial"),
+                    "suporte.pris.me@gmail.com",
+                    [f"{email_ong}"],
+                    fail_silently=False,
+                )
+            
 
         ong = Ong(
             nome=nome_ong,
@@ -683,3 +694,28 @@ def editar_ong(request, ong_id):
 def deletar_ong(request, ong_id):
     Ong.objects.delete(id=ong_id)
     return redirect(home_admin)
+
+
+def baixar_impacto(request, projeto):
+    projeto = Projeto.objects.get(nome_projeto=projeto)
+    dados = list(projeto.dadosimpactos_set.all())
+    contexto = {
+        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
+    }
+    if request.method == "POST":
+
+        index = int(request.POST["dado_impacto"])
+
+        dados = list(projeto.dadosimpactos_set.all())
+        dado = dados[index]
+        lista = [[dado.tipo1, dado.tipo2]]
+        linhas = list(dado.linhasimpacto_set.all())
+        for linha in linhas:
+            lista.append([linha.valor1, linha.valor2])
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
+        csv_writer = csv.writer(response)
+        for linha in lista:
+            csv_writer.writerow(linha)
+        return response
+    return render(request, "baixardados.html", contexto)

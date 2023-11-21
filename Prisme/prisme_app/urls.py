@@ -28,4 +28,5 @@ urlpatterns =[
     path('voluntariado', views.voluntariado, name='voluntariado'),
     path('add_voluntario', views.add_voluntario, name='add_voluntario'),
     path('editar_voluntario/<int:voluntario_id>/', views.editar_voluntario, name='editar_voluntario'),
+    path("baixar_impacto/<str:projeto>", views.baixar_impacto, name="baixar_impacto"),
     ]
