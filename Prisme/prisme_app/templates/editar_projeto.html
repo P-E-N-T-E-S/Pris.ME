@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Adicionar Projeto {% endblock %} 
+{% block title %} Editar Projeto {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
@@ -147,10 +147,7 @@
             <img src="https://i.imgur.com/ukDKJrY.png" alt="Voluntários">
         </div>
         <div class="form">
-          <form
-          action="{% url 'add_projeto' %}"
-          method="post"
-          enctype="multipart/form-data">
+          <form method="post">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
