@@ -16,16 +16,25 @@ from django.core.mail import send_mail
 
 
 tipos1 = [
-         "Selecione o tipo de dado Numérico",
-         "Pessoas Impactadas",
-         "Casas Contruidas",
-         "Valor"
-     ]
+    "Selecione o tipo de dado Numérico",
+    "Pessoas Impactadas",
+    "Casas Contruidas",
+    "Árvores plantadas",
+    "Lixo removido (TON)",
+    "Médicos alocados",
+    "Alunos ajudados",
+    "Merendas Disponibilizadas",
+    "Tratamentos Disponibilizadas",
+    "Animais ajudados",
+]
 
 tipos2 = [
     "Selecione o tipo de dado Categorico",
     "Tempo",
     "Pessoas",
+    "Km2",
+    "Bairro",
+    "Estado",
 ]
 
 areaAtuacao = [
