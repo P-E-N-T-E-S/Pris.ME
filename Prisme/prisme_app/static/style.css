@@ -230,11 +230,14 @@ body{
     grid-template-columns: repeat(3, 1fr); 
     grid-gap: 10px;
 }
-.graficos .image{
+.graficos .img-fluid {
     background-color: #FFF;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 49%;
-    margin-top: 30px;
+    width: 90%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 5%; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }

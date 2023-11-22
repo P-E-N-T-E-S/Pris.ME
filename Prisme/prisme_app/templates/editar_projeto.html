@@ -167,7 +167,7 @@
 
                 <div class="input-box">
                     <label for="ong" class="form-label">Descrição</label>
-                    <input type="text" class="form-control" id="ong" value="{{ projeto.descricao }}">
+                    <input type="text" class="form-control" id="descricao" name="descricao" value="{{ projeto.descricao }}">
                 </div>
 
                 <div class="input-box">
@@ -192,7 +192,7 @@
             {% endif %}
 
             <div class="continue-button">
-                <button value="Enviar" >Salvar Alterações</button>
+                <button value="Enviar" style='color: white;'>Salvar Alterações</button>
                 <button value="Enviar" ><a href="{% url 'visualizar_projetos' %}">Cancelar</a></button>
             </div>
         </form>
