@@ -135,7 +135,7 @@ def Logout(request):
     logout(request)
     if "usuario" in request.session:
         del request.session["usuario"]
-    return redirect(home)
+    return redirect(Login)
 
 
 @login_required
