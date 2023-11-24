@@ -171,13 +171,13 @@
                 </div>
 
             </div>
-
+            
             {% if erros %}
             <p style="color: red;">{{ erros.campos }}</p>
             {% endif %}
             <div class="continue-button">
                 <button value="Enviar" style='color: white;'>Adicionar Valores</button>
-                <button><a href="{% url 'detalhes_dado' dado_impacto.id%}">Voltar</a></button>
+                <button><a href="{% url 'visualizar_projetos' %}">Voltar</a></button>
             </div> 
         </form>
     </div>
