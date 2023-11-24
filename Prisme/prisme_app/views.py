@@ -683,13 +683,13 @@ def editar_ong(request, ong_id):
     }
     
     if request.method == 'POST':
-        ong.nome = request.POST['nome']
-        ong.email = request.POST['email']
+        ong.nome = request.POST['nome_ong']
+        ong.email = request.POST['email_ong']
         ong.areaAtuacao = request.POST['areaAtuacao']
         ong.descricao = request.POST['descricao']
         ong.CEP = request.POST['CEP']
         ong.CNPJ = request.POST['CNPJ']
-        ong.dataDeCriacao = request.POST['dataDeCriacao']
+        ong.dataDeCriacao = request.POST['criacao']
         ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
         ong.save()
 
