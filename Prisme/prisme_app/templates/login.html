@@ -89,23 +89,23 @@
         <form method="post" style="display: flex; flex-direction: column;  width: 60%; margin-top: 5%">
           {% csrf_token %}
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Endereço de e-mail</label>
+            <label for="usuario" class="form-label">Endereço de e-mail</label>
             <input
             type="name"
             placeholder="E-mail"
             class="form-control"
             name="email"
-            id="exampleFormControlInput1" 
+            id="usuario"
             required
             />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Senha</label>
+            <label for="senha" class="form-label">Senha</label>
             <input
             type="password"
             placeholder="Senha"
             class="form-control"
-            id="password"
+            id="senha"
             name="senha"
             required
             />
@@ -121,6 +121,7 @@
             type="submit"
             class="btn btn-dark"
             style="background-color: #9b40ff; margin-top: 5%; height: 6vh;"
+            id="Logar"
           >Entrar</button>
         </form>
         {% if erro %}

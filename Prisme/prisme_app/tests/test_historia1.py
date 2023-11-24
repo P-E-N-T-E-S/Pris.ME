@@ -20,4 +20,5 @@ class Historia1(LiveServerTestCase):
 
     def test_000_setup(self):
         driver = setup_selenium()
+        driver.get("")
         
