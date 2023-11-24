@@ -1,30 +1,49 @@
 {% extends "layout.html" %}
 {% block title %} Ganhos {% endblock %}
 
-{% block main %} 
+{% block main %}
+
+<style>
+.container{
+  display: flex;
+}
+
+
+.table, .categorias {
+  flex: 1;
+}
+</style>
+
     <div class="container">
-        <div>
-            nome do dado = {{caixa.nome}}
+      <h1>Ganhos:</h1>
+      <a href="{% url 'controle_gastos' dado='Manutenção' %}">Gastos</a>
+       <div class="table">
+          <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>tantofaz</td>
+                  <td>fds</td>
+                  <td>Mes</td>
+                  <td>Ano</td>
+                </tr>
+              </tbody>
+            </table>
+          {%for item in caixa.linhas%}
+          nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
+          {% endfor %}
         </div>
-        <table class="table">
+        <div class="categorias">
+          <table>
             <tbody>
-            {% for item in caixa.linhas %}
+              {% for cat in categorias %}
               <tr>
-                <th scope="row">1</th>
-                <td>{{item.identificacao}}</td>
-                <td>{{item.valor}}</td>
-                <td>Mes</td>
-                <td>Ano</td>
+                <td><a href="{% url 'controle_ganhos' cat %}">{{ cat }}</a></td>
               </tr>
-            {% endfor %}
+              {% endfor %}
             </tbody>
-          </table>/
-        {%for item in caixa.linhas%}
-        nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
-        {% endfor %}
-        {%for cat in categorias%}
-        nome de todas as categorias = {{cat}}<br>
-        {% endfor %}
+          </table>
+        </div>
     </div>
 
 

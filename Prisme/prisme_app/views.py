@@ -135,7 +135,7 @@ def Logout(request):
     logout(request)
     if "usuario" in request.session:
         del request.session["usuario"]
-    return redirect(home)
+    return redirect(Login)
 
 
 @login_required
@@ -377,7 +377,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return render(request, 'detalhes_dado.html', dado_impacto_id=linha_impacto.dado_impacto.id)
+        return render(request, 'detalhes_dado.html', {'dado_impacto_id': linha_impacto.dado_impacto.id})
 
     contexto = {
         "erros": erros,
@@ -732,13 +732,13 @@ def editar_ong(request, ong_id):
     }
     
     if request.method == 'POST':
-        ong.nome = request.POST['nome']
-        ong.email = request.POST['email']
+        ong.nome = request.POST['nome_ong']
+        ong.email = request.POST['email_ong']
         ong.areaAtuacao = request.POST['areaAtuacao']
         ong.descricao = request.POST['descricao']
         ong.CEP = request.POST['CEP']
         ong.CNPJ = request.POST['CNPJ']
-        ong.dataDeCriacao = request.POST['dataDeCriacao']
+        ong.dataDeCriacao = request.POST['criacao']
         ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
         ong.save()
 
