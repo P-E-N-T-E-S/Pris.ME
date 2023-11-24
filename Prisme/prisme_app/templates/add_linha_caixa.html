@@ -1,0 +1,25 @@
+{% extends "layout.html" %} {% block title %} Adicionar Linhas {% endblock %} 
+{% block main %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="form-label">Valor</label>
+    <input type="text" placeholder="XX,YY" name="valor">
+
+    <label class="form-label">Identificaçao</label>
+    <input type="text" name="identificador">
+
+    <label class="form-label">categoria</label>
+    <select id="categoria" name="categoria">
+        {% for tipo in categorias %}
+        <option value="{{ tipo }}">{{ tipo }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit"> Criar </button>
+    </form>
+    {% if erros %}
+    <p style="color: red;">{{ erros }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

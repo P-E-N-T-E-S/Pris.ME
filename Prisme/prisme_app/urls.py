@@ -29,4 +29,6 @@ urlpatterns =[
     path('add_voluntario', views.add_voluntario, name='add_voluntario'),
     path('editar_voluntario/<int:voluntario_id>/', views.editar_voluntario, name='editar_voluntario'),
     path("baixar_impacto/<str:projeto>", views.baixar_impacto, name="baixar_impacto"),
+    path("adicionar_categoria", views.add_categoria_caixa, name="adicionar_categoria"),
+    path("adicionar_linha_caixa", views.add_linha_caixa, name="adicionar_linha_caixa"),
     ]

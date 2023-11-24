@@ -2,14 +2,24 @@
 {% block main %} 
 
 <div class="container">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <label class="form-label">Nome da categoria</label>
-    <input type="text">
+    <input type="text" name="nomecat">
 
     <label class="form-label">tipo</label>
-    <input type="select">
+    <select  id="tipo" name="Tipo">
+        {% for tipo in escolha %}
+        <option value="{{ tipo }}">{{ tipo }}</option>
+        {% endfor %}
+    </select>
 
     <button type="submit"> Criar </button>
+    </form>
 </div>
+{% if erros %}
+<p style="color: red;">{{ erros }}</p>
+{% endif %}
 
 
 

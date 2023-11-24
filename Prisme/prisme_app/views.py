@@ -486,15 +486,18 @@ def add_linha_caixa(request):
     if request.method == "POST":
         identificacao = request.POST.get("identificador")
         valor = request.POST.get("valor")
-        categoria = request.POST.get("categoria")
+        categoria = request.POST['categoria']
 
-        try:
-            LinhaCaixa.objects.create(valor = valor, identificacao=identificacao, categoria=categoria)
-        except:
-            contexto["erros"] = "Erro ao criar linha"
-            return render(request, "add_linha_caixa.html", contexto)
-        else:
-            return redirect(controle_de_ganhos)
+        #try:
+        print(identificacao)
+        print(valor)
+        print(categoria)
+        LinhaCaixa.objects.create(valor = valor, identificacao=identificacao, categoria=categoria)
+        #except:
+            #contexto["erros"] = "Erro ao criar linha"
+            #return render(request, "add_linha_caixa.html", contexto)
+        #else:
+            #return redirect(controle_de_ganhos)
 
     return render(request, "add_linha_caixa.html", contexto)
 
@@ -521,7 +524,7 @@ def add_categoria_caixa(request):
                 contexto["erros"] = "Erro ao criar categoria"
                 return render(request, "add_categorias.html", contexto)
             else:
-                return redirect(controle_de_ganhos)
+                return redirect(controle_de_ganhos, dado=nomecat)
 
     return render(request, "add_categorias.html", contexto)
 
