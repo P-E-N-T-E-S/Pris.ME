@@ -478,7 +478,7 @@ def controle_de_ganhos(request, dado):
 def add_linha_caixa(request):
     usuario = request.user
     ong = Ong.objects.get(nome=usuario.first_name)
-    categoria = list(ong.categoria_set.get(nome=dado))
+    categoria = list(ong.categoria_set.all())
     contexto={
         "categorias": categoria
     }
