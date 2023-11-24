@@ -5,7 +5,7 @@ from io import BytesIO
 import pandas as pd
 import random
 import array
-from .views import Categoria
+from .models import Categoria
 
 
 def salvagrafico():
