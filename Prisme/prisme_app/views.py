@@ -95,13 +95,17 @@ def home(request):
             dados = projeto.dadosimpactos_set.all()
             for dado in list(dados):
                 impactados.append(dado.tipo1)
-                linha = dado.linhasimpacto_set.all().values()
-                if len(list(linha)) != 0:
+                lines = dado.linhasimpacto_set.all()
+                linha ={
+                    "valor1": [float(linha.valor1) for linha in lines],
+                    "valor2": [str(linha.valor2) for linha in lines]
+                }
+                if len(linha["valor1"]) != 0:
                     base = pd.DataFrame(linha)
                     if dado.tipo2 == 'Tempo':
                         grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     else:
-                        grafico = barras(base, base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                        grafico = barras(base, dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         try:

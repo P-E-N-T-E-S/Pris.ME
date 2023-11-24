@@ -21,7 +21,7 @@ def salvagrafico():
 
 def linhas(x, y, titulo, tit_x, tit_y):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(7.5,5))
+    plt.figure(figsize=(6,5))
     plt.title(titulo)
     plt.plot(x, y)
     plt.xticks(rotation=45)
@@ -31,12 +31,11 @@ def linhas(x, y, titulo, tit_x, tit_y):
     grafico = salvagrafico()
     return grafico
 
-def barras(base, categorica, numerica, titulo, tit_x, tit_y):
+def barras(base, titulo, tit_x, tit_y):
     plt.switch_backend("AGG")
-    plt.figure(figsize=(10,5))
-    agrupado = base.groupby([categorica])[numerica].sum()
-    #tit_x é categorico
-    sns.barplot(x=tit_x, y=tit_y, data=agrupado).set_title(titulo)
+    plt.figure(figsize=(6,5))
+    base.rename(columns={"valor1": tit_y, "valor2": tit_x}, inplace=True)
+    sns.barplot(x=tit_x, y=tit_y, data=base).set_title(titulo)
     plt.tight_layout()
     grafico = salvagrafico()
     return grafico
