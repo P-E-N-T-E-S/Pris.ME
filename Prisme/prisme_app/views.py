@@ -480,24 +480,26 @@ def add_linha_caixa(request):
     ong = Ong.objects.get(nome=usuario.first_name)
     categoria = list(ong.categoria_set.all())
     contexto={
-        "categorias": categoria
+        "categorias": [X.nome for X in categoria]
     }
 
     if request.method == "POST":
         identificacao = request.POST.get("identificador")
-        valor = request.POST.get("valor")
-        categoria = request.POST['categoria']
+        valor = float(request.POST.get("valor").replace(",", "."))
+        data = request.POST.get("data")
+        nomecategoria = request.POST['categoria']
+        esccategoria = ong.categoria_set.filter(nome=nomecategoria)[0]
 
-        #try:
-        print(identificacao)
-        print(valor)
-        print(categoria)
-        LinhaCaixa.objects.create(valor = valor, identificacao=identificacao, categoria=categoria)
-        #except:
-            #contexto["erros"] = "Erro ao criar linha"
-            #return render(request, "add_linha_caixa.html", contexto)
-        #else:
-            #return redirect(controle_de_ganhos)
+        try:
+            LinhaCaixa.objects.create(valor=valor, identificacao=identificacao, categoria=esccategoria, data=data)
+        except:
+            contexto["erros"] = "Erro ao criar linha"
+            return render(request, "add_linha_caixa.html", contexto)
+        else:
+            if esccategoria.tipo == "Ganho":
+                return redirect(controle_de_ganhos, dado=nomecategoria)
+            elif esccategoria.tipo == "Gasto":
+                return redirect(controle_de_gastos, dado=nomecategoria)
 
     return render(request, "add_linha_caixa.html", contexto)
 
@@ -524,7 +526,10 @@ def add_categoria_caixa(request):
                 contexto["erros"] = "Erro ao criar categoria"
                 return render(request, "add_categorias.html", contexto)
             else:
-                return redirect(controle_de_ganhos, dado=nomecat)
+                if tipocat == "Ganho":
+                    return redirect(controle_de_ganhos, dado=nomecat)
+                elif tipocat == "Gasto":
+                    return redirect(controle_de_gastos, dado=nomecat)
 
     return render(request, "add_categorias.html", contexto)
 
