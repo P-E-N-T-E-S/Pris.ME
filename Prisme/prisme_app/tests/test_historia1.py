@@ -20,5 +20,75 @@ class Historia1(LiveServerTestCase):
 
     def test_000_setup(self):
         driver = setup_selenium()
-        driver.get("")
-        
+        usuario = driver.find_element(by=By.ID, value="usuario")
+        senha = driver.find_element(by=By.ID, value="senha")
+        botao = driver.find_element(by=By.ID, value="Logar")
+
+        usuario.send_keys("TestesM")
+        senha.send_keys("Teste12345")
+        botao.send_keys(Keys.ENTER)
+
+        driver.get("http://127.0.0.1:8000/cadastrar_ong")
+
+        nome_ong = driver.find_element(by=By.ID, value="nome_ong")
+        cnpj = driver.find_element(by=By.ID, value="CNPJ")
+        data = driver.find_element(by=By.ID, value="criacao")
+        email = driver.find_element(by=By.ID, value="email_ong")
+        descricao = driver.find_element(by=By.ID, value="descricao")
+        area = driver.find_element(by=By.ID, value="areaAtuacao")
+        area = Select(area)
+        CEP = driver.find_element(by=By.ID, value="CEP")
+        voluntarios = driver.find_element(by=By.ID, value="numeroDeVoluntarios")
+        botao = driver.find_element(by=By.ID, value="cadastrar")
+
+        nome_ong.send_keys("Teste1")
+        cnpj.send_keys("04.712.500/0001-07")
+        data.send_keys("29082003")
+        email.send_keys("teste1@ong.com")
+        descricao.send_keys("definitivamente é uma ong")
+        area.select_by_visible_text("Outro")
+        CEP.send_keys("52071-321")
+        voluntarios.send_keys("4")
+        botao.send_keys(Keys.ENTER)
+        driver.get("http://127.0.0.1:8000/logout")
+
+        driver.get("http://127.0.0.1:8000/")
+        usuario = driver.find_element(by=By.ID, value="usuario")
+        senha = driver.find_element(by=By.ID, value="senha")
+        botao = driver.find_element(by=By.ID, value="Logar")
+
+        usuario.send_keys("teste1@ong.com")
+        senha.send_keys("senha_inicial")
+        botao.send_keys(Keys.ENTER)
+
+        driver.get("http://127.0.0.1:8000/add_projeto")
+        nome = driver.find_element(by=By.ID, value="nome_projeto")
+        descricao = driver.find_element(by=By.ID, value="descricao")
+        metodologia = driver.find_element(by=By.ID, value="metodologia")
+        publico = driver.find_element(by=By.ID, value="publico")
+        data = driver.find_element(by=By.ID, value="criacao")
+        botao = driver.find_element(by=By.ID, value="cadastrar")
+
+        nome.send_keys("projeto_teste")
+        descricao.send_keys("definitivamente é um projeto")
+        metodologia.send_keys("cientifica")
+        publico.send_keys("todos")
+        data.send_keys("29082003")
+        botao.send_keys(Keys.ENTER)
+        driver.get("http://127.0.0.1:8000/logout")
+        self.assertTrue(True)
+
+    def test_001_cenario1(self):
+        driver.get("http://127.0.0.1:8000/")
+        usuario = driver.find_element(by=By.ID, value="usuario")
+        senha = driver.find_element(by=By.ID, value="senha")
+        botao = driver.find_element(by=By.ID, value="Logar")
+
+        usuario.send_keys("teste1@ong.com")
+        senha.send_keys("senha_inicial")
+        botao.send_keys(Keys.ENTER)
+
+        driver.get("http://127.0.0.1:8000/visualizar_projetos")
+        projeto_id = driver.find_element(by=By.TAG_NAME, value="h2").get_attribute("id")
+        driver.get(f"http://127.0.0.1:8000/add_dados/{projeto_id}/")
+
