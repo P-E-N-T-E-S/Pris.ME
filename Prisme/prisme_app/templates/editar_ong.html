@@ -3,86 +3,255 @@
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
-<div class="container">
-    <div class="text-center">
-        <h1>Editar ONG</h1>
-    </div>
-    <form method="post">
-        {% csrf_token %}
-        
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <div class="mb-3">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+    }
+
+    .input-box input {
+        margin: 0.6rem 0;
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 0.8rem;
+    }
+
+    .input-box input:hover {
+        background-color: #eeeeee75;
+    }
+
+    .input-box input:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+
+    .input-box label,
+    .gender-title h6 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .input-box input::placeholder {
+        color: #000000be;
+    }
+
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.62rem;
+        padding: 0 .5rem;
+    }
+
+    .gender-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .gender-input input {
+        margin-right: 0.35rem;
+    }
+
+    .gender-input label {
+        font-size: 0.81rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .continue-button button {
+        width: 100%;
+        margin-top: 2.5rem;
+        border: none;
+        background-color: #5eecb4;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
+        background-color: #0d8757;
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 1330px) {
+        .form-image {
+            display: none;
+        }
+        .container {
+            width: 50%;
+        }
+        .form {
+            width: 100%;
+        }
+    }
+    
+    </style>
+
+<div class="corpo">
+  <div class="container">
+      <div class="form-image">
+          <img src="https://i.imgur.com/rOzuQjh.png" alt="ONGS">
+      </div>
+      <div class="form">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-header">
+              <div class="title">
+                  <h1>Editar ONG</h1>
+              </div>
+          </div>
+
+          <div class="input-group">
+              <div class="input-box">
                 <label for="nome_ong" class="form-label">Nome da Ong:</label>
                 <input type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome }}" required>
-            </div>
-            <div class="mb-3">
+              </div>
+
+              <div class="input-box">
                 <label for="email_ong" class="form-label">Email:</label>
                 <input type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email }}"required >
-            </div>
-        
-        <div class="mb-3">
-            <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
-            <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
-                <option value="" disabled selected>Selecione a área de atuação</option>
-                {% for area in areaAtuacao %}
-                <option value="{{ area }}" {% if area == ong.areaAtuacao %}selected{% endif %}>
-                    {{ area }}
-                {% endfor %}
-            </select>
-        </div>
+              </div>
 
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição:</label>
-            <input type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
-        </div>
+              <div class="input-box">
+                <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
+                <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
+                    <option value="" disabled selected>Selecione a área de atuação</option>
+                    {% for area in areaAtuacao %}
+                    <option value="{{ area }}" {% if area == ong.areaAtuacao %}selected{% endif %}>
+                        {{ area }}
+                    {% endfor %}
+                </select>
+              </div>
 
-        <div class="mb-3">
-            <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
-            <input type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
-            <div class="form_text">Ex: XXXXX-XXX</div>
-        </div>
+              <div class="input-box">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <input type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
+              </div>
 
-        <div class="mb-3">
-            <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
-            <input
-              type="text"
-              class="form-control"
-              id="CNPJ"
-              aria-describedby="CNPJ_"
-              name="CNPJ"
-              value="{{ CNPJ }}"
-              required
-            />
-            <div id="CNPJ_" class="form_text">Ex: XX.XXX.XXX/YYYY-ZZ</div>
+              <div class="input-box" style="margin-left: -5px;">
+                <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
+                <input placeholder="Ex: XXXXX-XXX" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="CNPJ"
+                  aria-describedby="CNPJ_"
+                  name="CNPJ"
+                  value="{{ CNPJ }}"
+                  required
+                />
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="criacao" class="form-label"
+                >Selecione a data de criação da Ong</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="criacao"
+                name="criacao"
+                value="{{ dataDeCriacao|date:'Y-m-d' }}"
+                required
+              />
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
+                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
+              </div>
+
           </div>
-          <div class="mb-3">
-            <label for="criacao" class="form-label"
-              >Selecione a data de criação da Ong</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="criacao"
-              name="criacao"
-              value="{{ dataDeCriacao|date:'Y-m-d' }}"
-              required
-            />
+
+          {% if erros %}
+          <p style="color: red;">{{ erros.campos }}</p>
+          {% endif %}
+
+          <div class="continue-button">
+              <button value="Enviar" >Salvar</button>
           </div>
-        <div class="mb-3">
-            <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
-            <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
-        </div>
-    </div>
-    <p class="text-danger">{{ erros.campos }}</p>
-    <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary">Salvar</button>
-      <a href="{% url 'home_admin' %}" class="btn btn-danger mx-3">Cancelar</a>
-    </div>
-    <div class="text-center">
-        {% if erros %}
-        <p style="color: red;">{{ erros.campos }}</p>
-        {% endif %}
-
-
+      </form>
+  </div>
+</div>
+    
 {% endblock %}

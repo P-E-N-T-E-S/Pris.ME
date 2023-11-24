@@ -377,7 +377,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return render(request, 'detalhes_dado.html', dado_impacto_id=linha_impacto.dado_impacto.id)
+        return render(request, 'detalhes_dado.html', {'dado_impacto_id': linha_impacto.dado_impacto.id})
 
     contexto = {
         "erros": erros,
