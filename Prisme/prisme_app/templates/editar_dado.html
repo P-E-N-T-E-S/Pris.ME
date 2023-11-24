@@ -170,7 +170,7 @@
                   class="form-control"
                   id="descricao"
                   name="descricao"
-                  value="{{ descricao }}"
+                  value="{{ dado_impacto.descricao }}"
                 />
                 </div>
 
@@ -179,8 +179,8 @@
                   <select
                     class="form-select"
                     id="tipo1"
-                    name="tipo1"
-                    value="{{ tipo1 }}">
+                    name="tipo1">
+                      <option value="{{ dado_impacto.tipo1 }}">{{ dado_impacto.tipo1 }}</option>
                     {% for tipo in tipos1 %}
                     <option value="{{ tipo }}">{{ tipo }}</option>
                     {% endfor %}
@@ -192,8 +192,8 @@
                   <select
                     class="form-select"
                     id="tipo2"
-                    name="tipo2"
-                    value="{{ tipo2 }}">
+                    name="tipo2">
+                      <option value="{{ dado_impacto.tipo2 }}">{{ dado_impacto.tipo2 }}</option>
                     {% for tipo in tipos2 %}
                     <option value="{{ tipo }}">{{ tipo }}</option>
                     {% endfor %}
@@ -203,7 +203,7 @@
             </div>
 
             <div class="continue-button">
-                <button value="Enviar" >Continuar</button>
+                <button value="Enviar" id="editar">Continuar</button>
                 <button value="Enviar" ><a href="{% url 'visualizar_projetos' %}">Cancelar</a></button>
             </div>
         </form>
