@@ -29,7 +29,7 @@
         <tbody>
             {% for dado_impacto in projeto.dadosimpactos_set.all %}
             <tr scope="row" class="table-secondary">
-                <td><a href="{% url 'detalhes_dado' dado_impacto.id %}">{{ dado_impacto.titulo }}</a></td>
+                <td><a href="{% url 'detalhes_dado' dado_impacto.id %}" id="{{dado_impacto.titulo}}">{{ dado_impacto.titulo }}</a></td>
                 <td>{{ dado_impacto.descricao }}</td>
                 <td>
                     <a class="btn btn-primary" href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
