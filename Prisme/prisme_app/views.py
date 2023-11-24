@@ -98,7 +98,10 @@ def home(request):
                 linha = dado.linhasimpacto_set.all().values()
                 if len(list(linha)) != 0:
                     base = pd.DataFrame(linha)
-                    grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    if dado.tipo2 == 'Tempo':
+                        grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    else:
+                        grafico = barras(base, base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         try:
@@ -377,7 +380,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return render(request, 'detalhes_dado.html', {'dado_impacto_id': linha_impacto.dado_impacto.id})
+        return redirect(visualizar_linhas_impacto, linha_impacto.dado_impacto.id)
 
     contexto = {
         "erros": erros,
