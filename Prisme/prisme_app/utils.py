@@ -5,6 +5,7 @@ from io import BytesIO
 import pandas as pd
 import random
 import array
+from .views import Categoria
 
 
 def salvagrafico():
@@ -104,3 +105,10 @@ def validar_cnpj(cnpj):
     digito2 = 0 if resto < 2 else 11 - resto
 
     return int(cnpj[12]) == digito1 and int(cnpj[13]) == digito2
+
+
+def nomecategoria(categoria):
+    if Categoria.objects.filter(nome=categoria).exists():
+        return True
+    else:
+        return False

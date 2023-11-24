@@ -7,7 +7,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .utils import linhas, barras, criador_senha_aleatoria, validar_cep, validar_cnpj
+from .utils import linhas, barras, criador_senha_aleatoria, validar_cep, validar_cnpj, nomecategoria
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -473,6 +473,58 @@ def controle_de_ganhos(request, dado):
     }
     return render(request, "controle_ganhos.html", contexto)
 
+
+@login_required
+def add_linha_caixa(request):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = list(ong.categoria_set.get(nome=dado))
+    contexto={
+        "categorias": categoria
+    }
+
+    if request.method == "POST":
+        identificacao = request.POST.get("identificador")
+        valor = request.POST.get("valor")
+        categoria = request.POST.get("categoria")
+
+        try:
+            LinhaCaixa.objects.create(valor = valor, identificacao=identificacao, categoria=categoria)
+        except:
+            contexto["erros"] = "Erro ao criar linha"
+            return render(request, "add_linha_caixa.html", contexto)
+        else:
+            return redirect(controle_de_ganhos)
+
+    return render(request, "add_linha_caixa.html", contexto)
+
+
+@login_required
+def add_categoria_caixa(request):
+    escolhas = ["Ganho", "Gasto"]
+    contexto={
+        'escolha': escolhas
+    }
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    if request.method == 'POST':
+        nomecat = request.POST.get("nomecat")
+        tipocat = request.POST.get("Tipo")
+
+        if nomecategoria(nomecat):
+            contexto["erros"] = "Ja existe uma categoria com esse nome"
+            return render(request, "add_categorias.html", contexto)
+        else:
+            try:
+                Categoria.objects.create(nome=nomecat, tipo=tipocat, ong=ong)
+            except:
+                contexto["erros"] = "Erro ao criar categoria"
+                return render(request, "add_categorias.html", contexto)
+            else:
+                return redirect(controle_de_ganhos)
+
+    return render(request, "add_categorias.html", contexto)
+
 @login_required
 def render_pdf_view(request):
     template_path = 'teste-pdf.html'
@@ -575,11 +627,8 @@ def add_voluntario(request):
 @login_required
 def editar_voluntario(request):
     return render(request, "editar_voluntario.html")
-    
-    
-    
-    
-# Admin
+
+
 def is_admin(user):
     return not user.groups.filter(name__startswith='OngGroup_').exists()
 
