@@ -131,7 +131,7 @@ class Voluntariado(models.Model):
     nascimento = models.DateField()
     ingresso = models.DateField()
     contato = models.CharField(max_length=50)
-    horas = models.IntegerField()
+    horas = models.CharField(max_length=50)
     genero = models.CharField(choices=generos, default=generos[0], max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
