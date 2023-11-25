@@ -134,6 +134,24 @@ def home(request):
         else:
             contexto["soma_impacto"] = 0
 
+
+        caixa = list(ong.categoria_set.all())
+        ganho = 0
+        perda = 0
+        print(caixa)
+        for categoria in caixa:
+            if categoria.tipo == "Ganho":
+                print(categoria.nome)
+                for line in list(categoria.linhacaixa_set.all()):
+                    ganho += line.valor
+            elif categoria.tipo == "Gasto":
+                print(categoria.nome)
+                for line in list(categoria.linhacaixa_set.all()):
+                    perda += line.valor
+
+        contexto["ganho"] = float(ganho)
+        contexto["gasto"] = float(perda)
+
         return render(request, "home.html", context=contexto)
 
 
