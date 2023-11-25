@@ -79,6 +79,7 @@ class Historia1(LiveServerTestCase):
         self.assertTrue(True)
 
     def test_001_cenario1(self):
+        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         usuario = driver.find_element(by=By.ID, value="usuario")
         senha = driver.find_element(by=By.ID, value="senha")
@@ -117,7 +118,7 @@ class Historia1(LiveServerTestCase):
         self.assertTrue(validar)
 
     def test_002_cenario2(self):
-        driver =setup_selenium
+        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         usuario = driver.find_element(by=By.ID, value="usuario")
         senha = driver.find_element(by=By.ID, value="senha")
@@ -151,6 +152,7 @@ class Historia1(LiveServerTestCase):
         )
 
     def test_004_cenario4(self):
+        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         usuario = driver.find_element(by=By.ID, value="usuario")
         senha = driver.find_element(by=By.ID, value="senha")
