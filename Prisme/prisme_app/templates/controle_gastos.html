@@ -4,39 +4,71 @@
 {% block main %}
 
 <style>
-.container{
+.tabelas {
   display: flex;
+  flex-direction: row;
 }
 
-
-.table, .categorias {
-  flex: 1;
+.valores {
+  width: 80%;
 }
+
+.categorias {
+  width: 20%;
+  margin-left: 10%;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
 </style>
 
     <div class="container">
-      <h1>Gastos:</h1>
-      <a href="{% url 'controle_ganhos' dado='Doações' %}">Ganhos</a>
-      <a href="{% url 'adicionar_categoria' %}">Adicionar categorias</a>
-      <a href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
-       <div class="table">
+      <div class="head">
+        <h1>Gastos:</h1>
+        <a href="{% url 'controle_ganhos' dado='Doações' %}" class="botao">Ganhos</a>
+      </div>
+      
+      
+
+      <div class="tabelas">
+       <div class="valores">
           <table class="table">
+            <thead>
+              <tr>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Identificação</th>
+                  <th scope="col">Data</th>
+              </tr>
+          </thead>
               <tbody>
+                {% for item in caixa.linhas %}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>tantofaz</td>
-                  <td>fds</td>
-                  <td>Mes</td>
-                  <td>Ano</td>
+                  <td>{{ item.valor }}</td>
+                  <td>{{ item.identificacao }}</td>
+                  <td>{{ item.data }}</td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
-          {%for item in caixa.linhas%}
-          nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
-          {% endfor %}
+          <a href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
         </div>
+        
         <div class="categorias">
-          <table>
+          <table class="table">
+            <thead>
+              <tr>
+                  <th scope="col">Categorias</th>
+              </tr>
+            </thead>
+
             <tbody>
               {% for cat in categorias %}
               <tr>
@@ -45,7 +77,9 @@
               {% endfor %}
             </tbody>
           </table>
+          <a href="{% url 'adicionar_categoria' %}">Adicionar categorias</a>
         </div>
+      </div>
     </div>
 
 

@@ -4,49 +4,85 @@
 {% block main %}
 
 <style>
-.container{
-  display: flex;
-}
+  .tabelas {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .valores {
+    width: 80%;
+  }
+  
+  .categorias {
+    width: 20%;
+    margin-left: 10%;
+  }
 
+  .head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 
-.table, .categorias {
-  flex: 1;
-}
+  .botao {
+    margin-left: auto;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  
 </style>
 
     <div class="container">
-      <h1>Ganhos:</h1>
-      <a href="{% url 'controle_gastos' dado='Manutenção' %}">Gastos</a>
-      <a href="{% url 'adicionar_categoria' %}">Adicionar categorias</a>
-      <a href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
-       <div class="table">
-          <table class="table">
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>tantofaz</td>
-                  <td>fds</td>
-                  <td>Mes</td>
-                  <td>Ano</td>
-                </tr>
-              </tbody>
-            </table>
-          {%for item in caixa.linhas%}
-          nome das linhas = {{item.identificacao}} valor das linhas {{item.valor}}<br>
-          {% endfor %}
-        </div>
-        <div class="categorias">
-          <table>
-            <tbody>
-              {% for cat in categorias %}
-              <tr>
-                <td><a href="{% url 'controle_ganhos' cat %}">{{ cat }}</a></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-    </div>
+      <div class="head">
+        <h1>Ganhos:</h1>
+        <a href="{% url 'controle_gastos' dado='Manutenção' %}" class="botao">Gastos</a>
+      </div>
+
+      <div class="tabelas">
+        <div class="valores">
+           <table class="table">
+             <thead>
+               <tr>
+                   <th scope="col">Valor</th>
+                   <th scope="col">Identificação</th>
+                   <th scope="col">Data</th>
+               </tr>
+           </thead>
+               <tbody>
+                 {% for item in caixa.linhas %}
+                 <tr>
+                   <td>{{ item.valor }}</td>
+                   <td>{{ item.identificacao }}</td>
+                   <td>{{ item.data }}</td>
+                 </tr>
+                 {% endfor %}
+               </tbody>
+             </table>
+           <a href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
+         </div>
+         
+         <div style='margin-left: 2rem;' class="categorias">
+           <table class="table">
+             <thead>
+               <tr>
+                   <th scope="col">Categorias</th>
+               </tr>
+             </thead>
+ 
+             <tbody>
+               {% for cat in categorias %}
+               <tr>
+                 <td><a href="{% url 'controle_gastos' cat %}">{{ cat }}</a></td>
+               </tr>
+               {% endfor %}
+             </tbody>
+           </table>
+           <a href="{% url 'adicionar_categoria' %}">Adicionar categorias</a>
+         </div>
+       </div>
+     </div>
 
 
 {%  endblock %}

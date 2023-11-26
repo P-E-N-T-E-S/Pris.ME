@@ -66,6 +66,7 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
         justify-content: space-between;
         padding: 1rem 0;
     }
@@ -109,8 +110,7 @@
     }
 
     .continue-button button {
-        width: 40%;
-        margin-top: 2.5rem;
+        width: 40%;    
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
@@ -159,12 +159,12 @@
             <div class="input-group">
                 <div class="input-box">
                     <label class="form-label">Valor</label>
-                    <input type="text" placeholder="XX.YY" name="valor">
+                    <input type="text" placeholder="XX.YY" name="valor" id="valor">
                 </div>
 
                 <div class="input-box">
-                    <label class="form-label">Identificaçao</label>
-                    <input type="text" name="identificador">
+                    <label class="form-label">Identificação</label>
+                    <input type="text" placeholder="Descreva o valor" name="identificador" id="identificador">
                 </div>
 
                 <div class="input-box">
@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="input-box">
-                    <label class="form-label">categoria</label>
+                    <label class="form-label">Categoria</label>
                     <select id="categoria" name="categoria">
                         {% for tipo in categorias %}
                         <option value="{{ tipo }}">{{ tipo }}</option>
@@ -187,7 +187,7 @@
             <p style="color: red;">{{ erros }}</p>
             {% endif %}
             <div class="continue-button">
-                <button value="Enviar" style='color: white;'>Criar</button>
+                <button value="Enviar" style='color: white;'>Adicionar</button>
             </div>
         </form>
     </div>
