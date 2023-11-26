@@ -148,7 +148,8 @@
         <div class="form-image">
             <img src="https://i.imgur.com/W7N4Vhi.png" alt="Linhas">
         </div>
-        <form method="post">
+        <div class="form">
+            <form method="post">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
@@ -158,24 +159,23 @@
 
             <div class="input-group">
                 <div class="input-box">
-                    <label for="valor1">Valor 1:</label>
-                    <input type="text" id="valor1" name="valor1" value="{{ linha_impacto.valor1 }}">
+                  <label class="form-label">Valor 1:</label>
+                  <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}" required>
                 </div>
 
                 <div class="input-box">
                     <label class="form-label">Valor 2:</label>
-                    <input type="text" id="valor2" name="valor2" value= "{{ linha_impacto.valor2 }}">
+                  <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}" required>
                 </div>
 
             </div>
-
+            
             {% if erros %}
             <p style="color: red;">{{ erros.campos }}</p>
             {% endif %}
             <div class="continue-button">
-                <button value="Enviar" style='color: white;'>Editar Valores</button>
-                <button><a href="{% url 'visualizar_projetos' %}">Voltar</a></button>
-            </div>
+                <button value="Enviar" style='color: white;'>Salvar</button>
+            </div> 
         </form>
     </div>
 </div>

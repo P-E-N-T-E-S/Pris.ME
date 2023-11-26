@@ -79,6 +79,7 @@
     .input-box input,
     .input-box select {
         margin: 0.6rem 0;
+        width: 14rem;
         padding: 0.8rem 1.2rem;
         border: none;
         border-radius: 10px;
@@ -108,31 +109,8 @@
         color: #000000be;
     }
 
-    .gender-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 0.62rem;
-        padding: 0 .5rem;
-    }
-
-    .gender-input {
-        display: flex;
-        align-items: center;
-    }
-
-    .gender-input input {
-        margin-right: 0.35rem;
-    }
-
-    .gender-input label {
-        font-size: 0.81rem;
-        font-weight: 600;
-        color: #000000c0;
-    }
-
     .continue-button button {
         width: 100%;
-        margin-top: 2.5rem;
         border: none;
         background-color: #5eecb4;
         padding: 0.62rem;
@@ -168,10 +146,10 @@
 <div class="corpo">
   <div class="container">
       <div class="form-image">
-          <img src="https://i.imgur.com/rOzuQjh.png" alt="ONGS">
+          <img src="https://i.imgur.com/rOzuQjh.png" alt="ONG">
       </div>
       <div class="form">
-        <form method="POST">
+      <form method="POST">
           {% csrf_token %}
           <div class="form-header">
               <div class="title">
@@ -182,38 +160,13 @@
           <div class="input-group">
               <div class="input-box">
                 <label for="nome_ong" class="form-label">Nome da Ong:</label>
-                <input type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome }}" required>
+                <input placeholder="Nome da ONG" type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome }}" required>
               </div>
 
               <div class="input-box">
-                <label for="email_ong" class="form-label">Email:</label>
-                <input type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email }}"required >
-              </div>
-
-              <div class="input-box">
-                <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
-                <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
-                    <option value="" disabled selected>Selecione a área de atuação</option>
-                    {% for area in areaAtuacao %}
-                    <option value="{{ area }}" {% if area == ong.areaAtuacao %}selected{% endif %}>
-                        {{ area }}
-                    {% endfor %}
-                </select>
-              </div>
-
-              <div class="input-box">
-                <label for="descricao" class="form-label">Descrição:</label>
-                <input type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
-              </div>
-
-              <div class="input-box" style="margin-left: -5px;">
-                <label name="CEP" for="CEP" class="form-label" id="CEP" aria-describedby="CEP">CEP:</label>
-                <input placeholder="Ex: XXXXX-XXX" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
-              </div>
-
-              <div class="input-box" style="margin-left: -5px;">
                 <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
                 <input
+                  placeholder="XX.XXX.XXX/XXX" 
                   type="text"
                   class="form-control"
                   id="CNPJ"
@@ -224,7 +177,7 @@
                 />
               </div>
 
-              <div class="input-box" style="margin-left: -5px;">
+              <div class="input-box">
                 <label for="criacao" class="form-label"
                 >Selecione a data de criação da Ong</label
               >
@@ -238,19 +191,46 @@
               />
               </div>
 
+              <div class="input-box">
+                <label for="email_ong" class="form-label">Email:</label>
+                <input placeholder="ex@gmail.com" type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email }}" required >
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <input placeholder="Descrição" type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
+                <select name="areaAtuacao" class="form-select" id="areaAtuacao" value="{{ areaAtuacao }}" >
+                    <option value="" disabled selected>Selecione...</option>
+                    {% for area in areaAtuacao %}
+                    <option value="{{ area }}"required>{{ area }}</option>
+                    {% endfor %}
+                </select>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label name="CEP" for="CEP" class="form-label" aria-describedby="CEP">CEP:</label>
+                <input placeholder="XXXXX-XXX" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+              </div>
+
               <div class="input-box" style="margin-left: -5px;">
                 <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
-                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
+                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" placeholder="Digite um número" required>
               </div>
 
           </div>
 
           {% if erros %}
-          <p style="color: red;">{{ erros.campos }}</p>
+          <div class="text-center">
+              <p style="color: red;">{{ erros.campos }}</p>
+          </div>
           {% endif %}
 
           <div class="continue-button">
-              <button value="Enviar" >Salvar</button>
+              <button value="Enviar" id="cadastrar">Salvar</button>
           </div>
       </form>
   </div>

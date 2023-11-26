@@ -160,12 +160,12 @@
             <div class="input-group">
                 <div class="input-box">
                   <label class="form-label">Valor 1:</label>
-                  <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}">
+                  <input type="text" name="valor1" placeholder="Valor 1" value="{{ valor1 }}" required>
                 </div>
 
                 <div class="input-box">
                     <label class="form-label">Valor 2:</label>
-                  <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}">
+                  <input type="text" name="valor2" placeholder="Valor 2" value="{{ valor2 }}" required>
                 </div>
 
             </div>
@@ -174,8 +174,7 @@
             <p style="color: red;">{{ erros.campos }}</p>
             {% endif %}
             <div class="continue-button">
-                <button value="Enviar" style='color: white;'>Adicionar Valores</button>
-                <button><a href="{% url 'visualizar_projetos' %}">Voltar</a></button>
+                <button value="Enviar" style='color: white;'>Adicionar</button>
             </div> 
         </form>
     </div>
