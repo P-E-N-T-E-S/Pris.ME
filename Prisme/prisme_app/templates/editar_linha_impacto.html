@@ -71,14 +71,15 @@
         justify-content: space-between;
         padding: 1rem 0;
     }
-
+    
     .input-box {
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
     }
-
-    .input-box input {
+    
+    .input-box input,
+    .input-box select {
         margin: 0.6rem 0;
         padding: 0.8rem 1.2rem;
         border: none;
@@ -86,26 +87,29 @@
         box-shadow: 1px 1px 6px #0000001c;
         font-size: 0.8rem;
     }
-
-    .input-box input:hover {
+    
+    .input-box input:hover,
+    .input-box select:hover {
         background-color: #eeeeee75;
     }
-
-    .input-box input:focus-visible {
+    
+    .input-box input:focus-visible,
+    .input-box select:focus-visible {
         outline: 1px solid #9b40ff;
     }
-
+    
     .input-box label,
     .gender-title h6 {
         font-size: 0.75rem;
         font-weight: 600;
         color: #000000c0;
     }
-
-    .input-box input::placeholder {
+    
+    .input-box input::placeholder,
+    .input-box select::placeholder {
         color: #000000be;
     }
-
+    
     .continue-button button {
         width: 40%;
         margin-top: 2.5rem;
@@ -147,7 +151,6 @@
             <img src="https://i.imgur.com/W7N4Vhi.png" alt="Linhas">
         </div>
         <form method="post">
-            <form method="post">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">

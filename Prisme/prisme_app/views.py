@@ -95,10 +95,17 @@ def home(request):
             dados = projeto.dadosimpactos_set.all()
             for dado in list(dados):
                 impactados.append(dado.tipo1)
-                linha = dado.linhasimpacto_set.all().values()
-                if len(list(linha)) != 0:
+                lines = dado.linhasimpacto_set.all()
+                linha ={
+                    "valor1": [float(linha.valor1) for linha in lines],
+                    "valor2": [str(linha.valor2) for linha in lines]
+                }
+                if len(linha["valor1"]) != 0:
                     base = pd.DataFrame(linha)
-                    grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    if dado.tipo2 == 'Tempo':
+                        grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    else:
+                        grafico = barras(base, dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         try:
@@ -126,6 +133,21 @@ def home(request):
             contexto["soma_impacto"] = base_impacto['valor1'].sum()
         else:
             contexto["soma_impacto"] = 0
+
+
+        caixa = list(ong.categoria_set.all())
+        ganho = 0
+        perda = 0
+        for categoria in caixa:
+            if categoria.tipo == "Ganho":
+                for line in list(categoria.linhacaixa_set.all()):
+                    ganho += line.valor
+            elif categoria.tipo == "Gasto":
+                for line in list(categoria.linhacaixa_set.all()):
+                    perda += line.valor
+
+        contexto["ganho"] = float(ganho)
+        contexto["gasto"] = float(perda)
 
         return render(request, "home.html", context=contexto)
 
@@ -273,7 +295,6 @@ def editar_dado(request, dado_impacto_id):
     layout = EditarEstilo.objects.get(user_id=usuario)
     erros = {}
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
-    print(layout)
     if request.method == 'POST':
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
@@ -377,7 +398,7 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return render(request, 'detalhes_dado.html', {'dado_impacto_id': linha_impacto.dado_impacto.id})
+        return redirect(visualizar_linhas_impacto, linha_impacto.dado_impacto.id)
 
     contexto = {
         "erros": erros,
@@ -446,6 +467,7 @@ def controle_de_gastos(request, dado):
     categoria = ong.categoria_set.get(nome=dado)
     todas = ong.categoria_set.all()
     categorias = [item.nome for item in todas if item.tipo == "Gasto"]
+
     separador={
         "nome": categoria.nome,
         "linhas": list(categoria.linhacaixa_set.all())
@@ -596,14 +618,7 @@ def voluntariado(request):
 def add_voluntario(request):
     usuario = request.user
     layout = EditarEstilo.objects.get(user_id=usuario)
-    contexto = {}
-    
-    nome = ''
-    nascimento = ''
-    ingresso = ''
-    contato = ''
-    horas = ''
-    genero = ''
+    contexto = {"sidecor": layout.sidecor, "backcor": layout.backcor}
     
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -611,25 +626,26 @@ def add_voluntario(request):
         ingresso = request.POST['ingresso']
         contato = request.POST['contato']
         horas = request.POST['horas']
-        genero = request.POST['genero']
+        genero = request.POST['gender']
 
         
-        try:
-            Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
-                                   genero=genero)
-        finally:
-            return redirect(voluntariado)
-
-    contexto = {
-        "nome": nome,
-        "nascimento": nascimento,
-        "ingresso": ingresso,
-        "contato": contato,
-        "horas": horas,
-        "genero": genero,
-        "generos": genero,
-        "sidecor": layout.sidecor, "backcor": layout.backcor
-    }
+        #try:
+        Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
+                                   genero=genero, user=usuario)
+        #except:
+        '''contexto = {
+                "nome": nome,
+                "nascimento": nascimento,
+                "ingresso": ingresso,
+                "contato": contato,
+                "horas": horas,
+                "genero": genero,
+                "generos": genero,
+                "sidecor": layout.sidecor, "backcor": layout.backcor
+            }
+            return render(request, "add_voluntario.html", contexto)
+        else:
+            return redirect(voluntariado)'''
     return render(request, "add_voluntario.html", contexto)
 
 @login_required

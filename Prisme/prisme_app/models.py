@@ -62,16 +62,23 @@ class DadosImpactos(models.Model):
      projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
      tipo2 = [
         (None, "Selecione o tipo de dado"),
-        ("Tempo","Tempo"),
-        ("Categorico","Categorico"),
-        ("Pessoa","Pessoa"),
+         ("Tempo","Tempo"),
+         ("Pessoa","Pessoa"),
+         ("Km2","Km2"),
+         ("Bairro", "Bairro"),
+         ("Estado", "Estado")
             ]
      tipo1 = [
          (None, "Selecione o tipo de dado"),
          ("Pessoas Impactadas", "Pessoas Impactadas"),
          ("Casas Contruidas", "Casas Contruidas"),
-         ("Numérica", "Numérica"),
-         ("Valor", "Valor")
+         ("Árvores plantadas", "Árvores plantadas"),
+         ("Lixo removido (TON)", "Lixo removido (TON)"),
+         ("Médicos alocados", "Médicos alocados"),
+         ("Alunos ajudados", "Alunos ajudados"),
+         ("Merendas Disponibilizadas", "Merendas Disponibilizadas"),
+         ("Tratamentos Disponibilizadas", "Tratamentos Disponibilizadas"),
+         ("Animais ajudados","Animais ajudados")
      ]
      titulo = models.CharField(max_length=200)
      descricao = models.CharField(max_length=500)
@@ -124,7 +131,7 @@ class Voluntariado(models.Model):
     nascimento = models.DateField()
     ingresso = models.DateField()
     contato = models.CharField(max_length=50)
-    horas = models.IntegerField()
+    horas = models.CharField(max_length=50)
     genero = models.CharField(choices=generos, default=generos[0], max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
