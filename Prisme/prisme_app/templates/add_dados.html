@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -68,13 +66,14 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         padding: 1rem 0;
+        flex-direction: column;
     }
     
     .input-box {
         display: flex;
         flex-direction: column;
+        width: 20rem;
         margin-bottom: 1.1rem;
     }
     
@@ -114,6 +113,7 @@
         width: 40%;
         margin-top: 0.5rem;
         border: none;
+        color: #fff;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
@@ -157,7 +157,7 @@
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
-                    <h1>Adicionar dados de Impacto</h1>
+                    <h1>Adicionar dados de impacto</h1>
                 </div>
             </div>
 
@@ -166,6 +166,7 @@
                   <label for="titulo" class="form-label">Titulo do Dado</label>
                   <input
                     type="text"
+                    placeholder="Titulo do dado"
                     class="form-control"
                     id="titulo"
                     name="titulo"
@@ -177,6 +178,7 @@
                   <label for="descricao" class="form-label">Descrição</label>
                   <input
                     type="text"
+                    placeholder="Descrição do dado"
                     class="form-control"
                     id="descricao"
                     name="descricao"
@@ -222,7 +224,6 @@
             <p class="text-danger">{{ erros. }}</p>
             <div class="continue-button">
                 <button value="Enviar" id="cadastrar">Continuar</button>
-                <button value="Enviar" ><a href="{% url 'visualizar_projetos' %}">Cancelar</a></button>
             </div>
         </form>
     </div>

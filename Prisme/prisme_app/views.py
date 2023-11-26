@@ -629,11 +629,12 @@ def add_voluntario(request):
         genero = request.POST['gender']
 
         
-        #try:
-        Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
+        try:
+            Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
                                    genero=genero, user=usuario)
-        #except:
-        '''contexto = {
+            return redirect(voluntariado)
+        except:
+            contexto = {
                 "nome": nome,
                 "nascimento": nascimento,
                 "ingresso": ingresso,
@@ -644,13 +645,48 @@ def add_voluntario(request):
                 "sidecor": layout.sidecor, "backcor": layout.backcor
             }
             return render(request, "add_voluntario.html", contexto)
-        else:
-            return redirect(voluntariado)'''
     return render(request, "add_voluntario.html", contexto)
 
 @login_required
-def editar_voluntario(request):
-    return render(request, "editar_voluntario.html")
+def editar_voluntario(request, voluntario_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    voluntario = Voluntariado.objects.get(pk=voluntario_id)
+    contexto = {
+        'voluntario': voluntario,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
+
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        nascimento = request.POST['nascimento']
+        ingresso = request.POST['ingresso']
+        contato = request.POST['contato']
+        horas = request.POST['horas']
+        genero = request.POST['gender']
+
+        try:
+            voluntario.nome = nome
+            voluntario.nascimento = nascimento
+            voluntario.ingresso = ingresso
+            voluntario.contato = contato
+            voluntario.horas = horas
+            voluntario.genero = genero
+            voluntario.save()
+            return redirect(voluntariado)  
+        except:
+            contexto.update({
+                'nome': nome,
+                'nascimento': nascimento,
+                'ingresso': ingresso,
+                'contato': contato,
+                'horas': horas,
+                'genero': genero
+            })
+            return render(request, 'editar_voluntario.html', contexto)
+
+    return render(request, 'editar_voluntario.html', contexto)
 
 @login_required
 def baixar_impacto(request, projeto):

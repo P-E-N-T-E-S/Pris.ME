@@ -2,6 +2,28 @@
 {% block title %} Voluntariados {% endblock %} 
 
 {% block main %} 
+
+<style>
+    table {
+        margin-top: 2%;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 0.5rem;
+    }
+
+    th {
+        margin-right: 2%;
+    }
+
+    td {
+        margin-right: 2%;
+    }
+</style>
+
 <div class="container">
     <h1>Voluntariado<a class="btn btn-secondary" style='margin-left: 1%; margin-bottom: 1%; background-color:  #9b40ff;' href="{% url 'add_voluntario' %}">+</a></h1> 
 
@@ -15,6 +37,7 @@
                 <th>Contato</th>
                 <th>Horas</th>
                 <th>Gênero</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +49,9 @@
                     <td>{{ voluntario.contato }}</td>
                     <td>{{ voluntario.horas }}</td>
                     <td>{{ voluntario.genero }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'editar_voluntario' voluntario.id %}">Editar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

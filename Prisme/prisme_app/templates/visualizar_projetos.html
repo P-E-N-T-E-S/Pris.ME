@@ -18,7 +18,7 @@
     </div>
     <p class="fw-bold">Dados de impacto:</p>
     
-    <table class="table table-primary">
+    <table class="table table-no-bg">
         <thead>
             <tr>
                 <th scope="col">Nome</th>
@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             {% for dado_impacto in projeto.dadosimpactos_set.all %}
-            <tr scope="row" class="table-secondary">
+            <tr scope="row" class="table-no-bg">
                 <td><a href="{% url 'detalhes_dado' dado_impacto.id %}" id="{{dado_impacto.titulo}}">{{ dado_impacto.titulo }}</a></td>
                 <td>{{ dado_impacto.descricao }}</td>
                 <td>

@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -68,56 +66,59 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         padding: 1rem 0;
     }
-    
+
     .input-box {
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
+        margin-right: 6%;
     }
-    
-    .input-box input,
-    .input-box select {
+
+    .input-box input {
         margin: 0.6rem 0;
         padding: 0.8rem 1.2rem;
+        width: 15rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
         font-size: 0.8rem;
     }
-    
-    .input-box input:hover,
-    .input-box select:hover {
+
+    .input-box input:hover {
         background-color: #eeeeee75;
     }
-    
-    .input-box input:focus-visible,
-    .input-box select:focus-visible {
+
+    .input-box input:focus-visible {
         outline: 1px solid #9b40ff;
     }
-    
+
     .input-box label,
     .gender-title h6 {
         font-size: 0.75rem;
         font-weight: 600;
         color: #000000c0;
     }
-    
-    .input-box input::placeholder,
-    .input-box select::placeholder {
+
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-box input::placeholder {
         color: #000000be;
     }
 
     .continue-button button {
         width: 40%;
-        margin-top: 0.5rem;
+        color: #fff;
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
         cursor: pointer;
+        justify-content: flex-end;
     }
 
     .continue-button button:hover {
