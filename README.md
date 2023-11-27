@@ -136,6 +136,14 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
   </li>
 </ul>
+
+## 😊 Agradecimentos Especiais
+
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/pedrodiasfalcao/?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAEWtkW4ByFLrKrjw04WJ6m5SBt86SocSM38">Pedro Falção</a> Orientações Sobre os Gráficos
+  </li>
+</ul>
   
 <table>
   <tr>
