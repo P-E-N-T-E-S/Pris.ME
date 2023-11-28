@@ -93,9 +93,71 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
 </ul>
 
+<p>SR2</p>
+<ul>
+  <li>
+    <a  href=""
+      >ScreenCast - Uso do Sistema</a
+    >
+  </li>
+  <li>
+    <a  href=""
+      >Diagrama de atividades</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0"
+      >Protótipo de Baixa</a
+    >
+  </li>
+  <li>
+    <a  href=""
+      >ScreenCast - Protótipo de Baixa</a
+    >
+  </li>
+  <li>
+    <a  href=""
+      >ScreenCast - Protótipo de Alta</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing"
+      >Histórias</a
+    >
+  </li>
+  <li>
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85"
+      >Issue/Bug Tracker</a
+    >
+  </li>
+   <li>
+    <a  href=""
+      >ScreenCast - Testes</a
+    >
+  </li>
+   <li>
+    <a  href=""
+      >ScreenCast - Build (dos testes)</a
+    >
+  </li>
+   <li>
+    <a  href=""
+      >ScreenCast - Deployment e Build</a
+    >
+  </li>
+</ul>
+
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e9c65455-f0a2-4269-a6c0-e3e89c040e54)
-![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/1d4ba6fc-ffbc-4ae5-8c40-7ccb90f844cf)
-![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e6749da4-b5c5-4ab8-8721-7ec290021edf)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/dd26cd91-75a0-4d12-8e55-f7f5eef12a01)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/5874aac1-1124-499b-aac0-7c1786a65910)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/3bbc8fa5-72bb-4c79-b9b2-0ba70a69b778)
+
 
 ## 👩‍💻 Membros de CC
 
@@ -134,6 +196,14 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
   <li>
     <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
+  </li>
+</ul>
+
+## 😊 Agradecimentos Especiais
+
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/pedrodiasfalcao/?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAEWtkW4ByFLrKrjw04WJ6m5SBt86SocSM38">Pedro Falção</a> - Orientações Sobre os Gráficos
   </li>
 </ul>
   

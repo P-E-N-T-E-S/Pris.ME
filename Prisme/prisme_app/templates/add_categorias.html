@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Adicionar Dados {% endblock %} 
+{% block title %} Adicionar Categoria {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
@@ -66,14 +66,14 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
-        padding: 1rem 0;
+        justify-content: space-between;
         flex-direction: column;
+        padding: 1rem 0;
     }
     
     .input-box {
         display: flex;
         flex-direction: column;
-        width: 20rem;
         margin-bottom: 1.1rem;
     }
     
@@ -111,9 +111,7 @@
 
     .continue-button button {
         width: 40%;
-        margin-top: 0.5rem;
         border: none;
-        color: #fff;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
@@ -148,88 +146,41 @@
 <div class="corpo">
     <div class="container">
         <div class="form-image">
-            <img src="https://i.imgur.com/zAUewVs.png" alt="Voluntários">
+            <img src="https://i.imgur.com/21nZIxg.png" alt="Linhas">
         </div>
-        <div class="form">
-          <form
-          method="post"
-          enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
-                    <h1>Adicionar dados de impacto</h1>
+                    <h1>Adicionar Categoria</h1>
                 </div>
             </div>
 
             <div class="input-group">
                 <div class="input-box">
-                  <label for="titulo" class="form-label">Titulo do Dado</label>
-                  <input
-                    type="text"
-                    placeholder="Titulo do dado"
-                    class="form-control"
-                    id="titulo"
-                    name="titulo"
-                    value="{{ titulo }}"
-                  />
+                    <label class="form-label">Nome da categoria</label>
+                    <input type="text" placeholder="Digite o nome" name="nomecat" id="nomecat" required>
                 </div>
 
                 <div class="input-box">
-                  <label for="descricao" class="form-label">Descrição</label>
-                  <input
-                    type="text"
-                    placeholder="Descrição do dado"
-                    class="form-control"
-                    id="descricao"
-                    name="descricao"
-                    value="{{ descricao }}"
-                  />
-                </div>
-
-                <div class="input-box">
-                  <label for="tipo1" class="form-label">Selecione o eixo X</label>
-                  <select
-                    class="form-select"
-                    id="tipo1"
-                    name="tipo1"
-                    value="{{ tipo1 }}"
-                    aria-label="Default select example"
-                    >
-                    
-                    {% for tipo in tipos1 %}
-                    <option value="{{ tipo }}">{{ tipo }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-
-                <div class="input-box">
-                  <label for="tipo2" class="form-label">Selecione o eixo Y</label>
-                  <select
-                    class="form-select"
-                    id="tipo2"
-                    name="tipo2"
-                    value="{{ tipo2 }}"
-                    aria-label="Default select example"
-                    >
-                    {% for tipo in tipos2 %}
-                    <option value="{{ tipo }}">{{ tipo }}</option>
-                    {% endfor %}
-                  </select>
+                    <label class="form-label">Tipo</label>
+                    <select  id="tipo" name="Tipo">
+                        {% for tipo in escolha %}
+                        <option value="{{ tipo }}">{{ tipo }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
             </div>
 
-            <p class="text-danger">{{ erros.campos }}</p>
-            <p class="text-danger">{{ erros.url }}</p>
-            <p class="text-danger">{{ erros. }}</p>
+            {% if erros %}
+            <p style="color: red;">{{ erros }}</p>
+            {% endif %}
             <div class="continue-button">
-                <button value="Enviar" id="cadastrar">Continuar</button>
+                <button value="Enviar" style='color: white;'>Adicionar</button>
             </div>
         </form>
     </div>
 </div>
     
-{% if error_message %}
-<p>{{ error_message }}</p>
-{% endif %} 
 {% endblock %}

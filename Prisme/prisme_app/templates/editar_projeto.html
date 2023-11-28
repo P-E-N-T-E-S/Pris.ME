@@ -1,54 +1,204 @@
 {% extends "layout.html" %}
-{% block title %} Editar projeto {% endblock %} 
+{% block title %} Editar Projeto {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
-<div class="container">
-    <div class="text-center">
-        <h1>Editar Projeto - {{ projeto.nome_projeto }}</h1>
-    </div>
-    <form method="post">
-        {% csrf_token %}
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <div class="mb-3">
-                <label for="nome_projeto" class="form-label">Nome do Projeto:</label>
-                <input type="text" id="nome_projeto" class="form-control" name="nome_projeto" value="{{ projeto.nome_projeto }}">
-            </div>
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição:</label>
-                <textarea id="descricao" class="form-control" name="descricao">{{ projeto.descricao }}</textarea>
-            </div>
-        
-        <div class="mb-3">
-            <label for="metodologia" class="form-label">Metodologias Utilizadas:</label>
-            <input type="text" id="metodologia" class="form-control" name="metodologia" value="{{ projeto.metodologiasUtilizadas }}">
-        </div>
 
-        <div class="mb-3">
-            <label for="publico" class="form-label">Público-Alvo:</label>
-            <input type="text" id="publico" class="form-control" name="publico" value="{{ projeto.publicoAlvo }}">
-        </div>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-        <div class="mb-3">
-            <label for="criacao" class="form-label">Data de Criação:</label>
-            <input type="date" id="criacao" class="form-control" name="criacao" value="{{ projeto.dataDeCriacao }}">
-        </div>
-    </div>
-    <div class="text-center">
-        {% if erros %}
-        <p style="color: red;">{{ erros.campos }}</p>
-        {% endif %}
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    </div>
-    <div class="d-flex justify-content-center w-100">
-        <input type="submit" class="btn btn-primary" value="Salvar Alterações">
-        <a href="{% url 'visualizar_projetos' %}" class="btn btn-danger mx-3">Voltar</a>
-    </div>
-</div>      
-</form>
-</div>
 
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 1rem 0;
+    }
+
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+        margin-right: 6%;
+    }
+
+    .input-box input {
+        margin: 0.6rem 0;
+        padding: 0.8rem 1.2rem;
+        width: 15rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 0.8rem;
+    }
+
+    .input-box input:hover {
+        background-color: #eeeeee75;
+    }
+
+    .input-box input:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+
+    .input-box label,
+    .gender-title h6 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-box input::placeholder {
+        color: #000000be;
+    }
+
+    .continue-button button {
+        width: 40%;
+        color: #fff;
+        border: none;
+        background-color: #9b40ff;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+        justify-content: flex-end;
+    }
+
+    .continue-button button:hover {
+        background-color: #791fd8
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 1330px) {
+        .form-image {
+            display: none;
+        }
+        .container {
+            width: 50%;
+        }
+        .form {
+            width: 100%;
+        }
+    }
     
+    </style>
 
+<div class="corpo">
+    <div class="container">
+        <div class="form-image">
+            <img src="https://i.imgur.com/ukDKJrY.png" alt="Voluntários">
+        </div>
+        <div class="form">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-header">
+                <div class="title">
+                    <h1>Editar - {{ projeto.nome_projeto }}</h1>
+                </div>
+            </div>
+
+            <div class="input-group">
+
+                <div class="input-box">
+                    <label for="nome_projeto" class="form-label">Nome do Projeto:</label>
+                    <input type="text" id="nome_projeto" class="form-control" name="nome_projeto" value="{{ projeto.nome_projeto }}">
+                </div>
+
+                <div class="input-box">
+                    <label for="ong" class="form-label">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao" value="{{ projeto.descricao }}">
+                </div>
+
+                <div class="input-box">
+                    <label for="metodologia" class="form-label">Metodologias Utilizadas:</label>
+                    <input type="text" id="metodologia" class="form-control" name="metodologia" value="{{ projeto.metodologiasUtilizadas }}">
+                </div>
+
+                <div class="input-box" style="margin-left: -5px;">
+                    <label for="publico" class="form-label">Público-Alvo:</label>
+                    <input type="text" id="publico" class="form-control" name="publico" value="{{ projeto.publicoAlvo }}">
+                </div>
+
+                <div class="input-box" style="margin-left: -5px;">
+                    <label for="criacao" class="form-label">Data de Criação:</label>
+                    <input type="date" id="criacao" class="form-control" name="criacao" value="{{ projeto.dataDeCriacao|date:'Y-m-d' }}">
+                </div>
+
+            </div>
+
+            {% if erros %}
+            <p style="color: red;">{{ erros.campos }}</p>
+            {% endif %}
+
+            <div class="continue-button">
+                <button value="Enviar" style='color: white;'>Salvar Alterações</button>
+                <button value="Enviar" ><a href="{% url 'visualizar_projetos' %}">Cancelar</a></button>
+            </div>
+        </form>
+    </div>
+</div>
+    
 {% endblock %}

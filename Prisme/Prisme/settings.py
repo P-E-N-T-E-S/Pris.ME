@@ -22,7 +22,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 TARGET_ENV = os.getenv('TARGET_ENV')
-NOT_PROD = not TARGET_ENV.lower().startswith('prod')
+NOT_PROD = not TARGET_ENV
 
 if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!
@@ -73,6 +73,15 @@ INSTALLED_APPS = [
     "prisme_app.apps.PrismeAppConfig",
     "whitenoise.runserver_nostatic",
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'suporte.pris.me@gmail.com'
+EMAIL_HOST_PASSWORD = 'dniu sqxl bkll ukjw'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -143,8 +152,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = os.environ.get('DJANGO_MEDIA_URL', "/media/")
 STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
 
 STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
 

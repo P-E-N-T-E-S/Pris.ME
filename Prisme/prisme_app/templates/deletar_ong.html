@@ -1,0 +1,14 @@
+{% extends "layout_admin.html" %}
+{% block title %} Deletar ONG {% endblock %} 
+
+{% block main %} 
+<link rel="stylesheet" href="static/style.css"/>
+<div class="container">
+    <button id="delete-btn">Excluir</button>
+
+    <script>
+      document.getElementById("delete-btn").addEventListener("click", function() {
+        window.open("{% url 'item-delete' item_id=item.pk %}", "_blank", "width=400,height=300");
+      });
+    </script>
+{% endblock %}

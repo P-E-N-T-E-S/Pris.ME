@@ -1,5 +1,5 @@
-{% extends "layout.html" %}
-{% block title %} Adicionar Projeto {% endblock %} 
+{% extends "layout.html" %} 
+{% block title %} Adicionar Linhas {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
@@ -66,59 +66,56 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
         padding: 1rem 0;
     }
-
+    
     .input-box {
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
-        margin-right: 6%;
     }
-
-    .input-box input {
+    
+    .input-box input,
+    .input-box select {
         margin: 0.6rem 0;
         padding: 0.8rem 1.2rem;
-        width: 15rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
         font-size: 0.8rem;
     }
-
-    .input-box input:hover {
+    
+    .input-box input:hover,
+    .input-box select:hover {
         background-color: #eeeeee75;
     }
-
-    .input-box input:focus-visible {
+    
+    .input-box input:focus-visible,
+    .input-box select:focus-visible {
         outline: 1px solid #9b40ff;
     }
-
+    
     .input-box label,
     .gender-title h6 {
         font-size: 0.75rem;
         font-weight: 600;
         color: #000000c0;
     }
-
-    .gender-group {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .input-box input::placeholder {
+    
+    .input-box input::placeholder,
+    .input-box select::placeholder {
         color: #000000be;
     }
 
     .continue-button button {
-        width: 40%;
-        color: #fff;
+        width: 40%;    
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
         cursor: pointer;
-        justify-content: flex-end;
     }
 
     .continue-button button:hover {
@@ -149,92 +146,48 @@
 <div class="corpo">
     <div class="container">
         <div class="form-image">
-            <img src="https://i.imgur.com/ukDKJrY.png" alt="Voluntários">
+            <img src="https://i.imgur.com/h5UsF9I.png" alt="Linhas">
         </div>
-        <div class="form">
-          <form
-          action="{% url 'add_projeto' %}"
-          method="post"
-          enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
-                    <h1>Adicionar Projeto</h1>
+                    <h1>Adicionar Linha</h1>
                 </div>
             </div>
 
             <div class="input-group">
                 <div class="input-box">
-                  <label for="ong" class="form-label">Nome da ONG</label>
-                  <fieldset disabled>
-                  <input type="text" class="form-control" id="ong" placeholder="{{ ong }}">
+                    <label class="form-label">Valor</label>
+                    <input type="text" placeholder="XX.YY" name="valor" id="valor">
                 </div>
 
                 <div class="input-box">
-                  <label for="nome_projeto" class="form-label">Nome do Projeto</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="nome_projeto"
-                    placeholder="Nome do projeto"
-                    name="nome_projeto"
-                    value="{{ nome_projeto }}"
-                  />
+                    <label class="form-label">Identificação</label>
+                    <input type="text" placeholder="Descreva o valor" name="identificador" id="identificador">
                 </div>
 
                 <div class="input-box">
-                  <label for="descricao" class="form-label">Descrição</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="descricao"
-                    placeholder="Descrição do projeto"
-                    name="descricao"
-                    value="{{ descricao }}"
-                  />
+                    <label class="form-label">Data</label>
+                    <input type="date" name="data">
                 </div>
 
                 <div class="input-box">
-                  <label for="metodologia" class="form-label">Descreva a Metodologia Utilizada</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="metodologia"
-                    placeholder="Metodologia utilizada"
-                    name="metodologia"
-                    value="{{ metodologia }}"
-                  />
-                </div>
-
-                <div class="input-box">
-                  <label for="publico" class="form-label">Público Alvo</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Ex: Jovens, Idosos..."
-                    id="publico"
-                    name="publico"
-                    value="{{ publico }}"
-                  />
-                </div>
-
-                <div class="input-box">
-                  <label for="criacao" class="form-label"
-                  >Selecione a data de criação do Projeto</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="criacao"
-                    name="criacao"
-                    value="{{ criacao }}"
-                  />
+                    <label class="form-label">Categoria</label>
+                    <select id="categoria" name="categoria">
+                        {% for tipo in categorias %}
+                        <option value="{{ tipo }}">{{ tipo }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
             </div>
 
-            <p class="text-danger">{{ erros.campos }}</p>
+            {% if erros %}
+            <p style="color: red;">{{ erros }}</p>
+            {% endif %}
             <div class="continue-button">
-                <button value="Enviar" id="cadastrar">Adicionar</button>
+                <button value="Enviar" style='color: white;'>Adicionar</button>
             </div>
         </form>
     </div>

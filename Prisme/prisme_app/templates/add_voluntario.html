@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Adicionar Projeto {% endblock %} 
+{% block title %} Cadastrar voluntário {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
@@ -73,13 +73,11 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
-        margin-right: 6%;
     }
 
     .input-box input {
         margin: 0.6rem 0;
         padding: 0.8rem 1.2rem;
-        width: 15rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
@@ -112,7 +110,7 @@
 
     .continue-button button {
         width: 40%;
-        color: #fff;
+        margin-top: 5%;
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
@@ -149,92 +147,71 @@
 <div class="corpo">
     <div class="container">
         <div class="form-image">
-            <img src="https://i.imgur.com/ukDKJrY.png" alt="Voluntários">
+            <img src="https://i.imgur.com/YlcMXGX.png" alt="Voluntários">
         </div>
         <div class="form">
-          <form
-          action="{% url 'add_projeto' %}"
-          method="post"
-          enctype="multipart/form-data">
+        <form method="POST">
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
-                    <h1>Adicionar Projeto</h1>
+                    <h1>Cadastrar voluntário</h1>
                 </div>
             </div>
 
             <div class="input-group">
-                <div class="input-box">
-                  <label for="ong" class="form-label">Nome da ONG</label>
-                  <fieldset disabled>
-                  <input type="text" class="form-control" id="ong" placeholder="{{ ong }}">
+                <div class="input-box" style='width: 27.5rem;'>
+                    <label for="nascimento" class="form-label">Nome:</label>
+                    <input placeholder="Nome" type="text" id="nome" name="nome" required>
                 </div>
 
-                <div class="input-box">
-                  <label for="nome_projeto" class="form-label">Nome do Projeto</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="nome_projeto"
-                    placeholder="Nome do projeto"
-                    name="nome_projeto"
-                    value="{{ nome_projeto }}"
-                  />
+                <div class="input-box" style='width: 13.1rem;'>
+                    <label for="nascimento" class="form-label">Data de Nascimento</label>
+                    <input type="date" id="nascimento" name="nascimento" required>
                 </div>
 
-                <div class="input-box">
-                  <label for="descricao" class="form-label">Descrição</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="descricao"
-                    placeholder="Descrição do projeto"
-                    name="descricao"
-                    value="{{ descricao }}"
-                  />
+                <div class="input-box" style='width: 13.1rem; margin-left: 4.2%'>
+                    <label for="ingresso" class="form-label">Data de Ingresso:</label>
+                    <input type="date" id="ingresso" name="ingresso" required>
                 </div>
 
-                <div class="input-box">
-                  <label for="metodologia" class="form-label">Descreva a Metodologia Utilizada</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="metodologia"
-                    placeholder="Metodologia utilizada"
-                    name="metodologia"
-                    value="{{ metodologia }}"
-                  />
+                <div class="input-box" style='width: 13.1rem;'>
+                    <label for="contato" class="form-label">Contato:</label>
+                    <input placeholder="(XX)XXXXX-XXXX" type="contato" id="contato" name="contato" required>
                 </div>
 
-                <div class="input-box">
-                  <label for="publico" class="form-label">Público Alvo</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Ex: Jovens, Idosos..."
-                    id="publico"
-                    name="publico"
-                    value="{{ publico }}"
-                  />
-                </div>
-
-                <div class="input-box">
-                  <label for="criacao" class="form-label"
-                  >Selecione a data de criação do Projeto</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="criacao"
-                    name="criacao"
-                    value="{{ criacao }}"
-                  />
+                <div class="input-box" style='width: 13.1rem; margin-left: 4.2%'>
+                   <label for="horas" class="form-label">Horas/Dia:</label>
+                   <input placeholder="00:00" type="text" id="horas" name="horas" required>
                 </div>
 
             </div>
 
-            <p class="text-danger">{{ erros.campos }}</p>
+            <div class="gender-inputs" style='width: 27.5rem;'>
+                <div class="gender-title">
+                    <h6>Gênero</h6>
+                </div>
+
+                <div class="gender-group">
+                    <div class="gender-input">
+                        <input value="Feminino" id="female" type="radio" name="gender">
+                        <label for="female">Feminino</label>
+                    </div>
+
+                    <div class="gender-input">
+                        <input value="Masculino" id="male" type="radio" name="gender">
+                        <label for="male">Masculino</label>
+                    </div>
+
+                    <div class="gender-input">
+                        <input id="others" type="radio" name="gender">
+                        <label value="Outro" for="others">Outros</label>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="continue-button">
-                <button value="Enviar" id="cadastrar">Adicionar</button>
+                <button value="Enviar" style='color: white;'>Cadastrar</button>
             </div>
         </form>
     </div>

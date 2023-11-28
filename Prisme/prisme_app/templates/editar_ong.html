@@ -1,0 +1,239 @@
+{% extends "layout.html" %}
+{% block title %} Editar ONG {% endblock %} 
+
+{% block main %} 
+<link rel="stylesheet" href="static/style.css"/>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+    
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+    }
+    
+    .input-box input,
+    .input-box select {
+        margin: 0.6rem 0;
+        width: 14rem;
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 0.8rem;
+    }
+    
+    .input-box input:hover,
+    .input-box select:hover {
+        background-color: #eeeeee75;
+    }
+    
+    .input-box input:focus-visible,
+    .input-box select:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+    
+    .input-box label,
+    .gender-title h6 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+    
+    .input-box input::placeholder,
+    .input-box select::placeholder {
+        color: #000000be;
+    }
+
+    .continue-button button {
+        width: 100%;
+        border: none;
+        background-color: #5eecb4;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
+        background-color: #0d8757;
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 1330px) {
+        .form-image {
+            display: none;
+        }
+        .container {
+            width: 50%;
+        }
+        .form {
+            width: 100%;
+        }
+    }
+    
+    </style>
+
+<div class="corpo">
+  <div class="container">
+      <div class="form-image">
+          <img src="https://i.imgur.com/rOzuQjh.png" alt="ONG">
+      </div>
+      <div class="form">
+      <form method="POST">
+          {% csrf_token %}
+          <div class="form-header">
+              <div class="title">
+                  <h1>Editar ONG</h1>
+              </div>
+          </div>
+
+          <div class="input-group">
+              <div class="input-box">
+                <label for="nome_ong" class="form-label">Nome da Ong:</label>
+                <input placeholder="Nome da ONG" type="text" id="nome_ong" class="form-control" name="nome_ong" value="{{ nome }}" required>
+              </div>
+
+              <div class="input-box">
+                <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
+                <input
+                  placeholder="XX.XXX.XXX/XXX" 
+                  type="text"
+                  class="form-control"
+                  id="CNPJ"
+                  aria-describedby="CNPJ_"
+                  name="CNPJ"
+                  value="{{ CNPJ }}"
+                  required
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="criacao" class="form-label"
+                >Selecione a data de criação da Ong</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="criacao"
+                name="criacao"
+                value="{{ dataDeCriacao|date:'Y-m-d' }}"
+                required
+              />
+              </div>
+
+              <div class="input-box">
+                <label for="email_ong" class="form-label">Email:</label>
+                <input placeholder="ex@gmail.com" type="text" id="email_ong" class="form-control" name="email_ong" value="{{ email }}" required >
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <input placeholder="Descrição" type="text" id="descricao" class="form-control" name="descricao" value="{{ descricao }}" required>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
+                <select name="areaAtuacao" class="form-select" id="areaAtuacao" value="{{ areaAtuacao }}" >
+                    <option value="" disabled selected>Selecione...</option>
+                    {% for area in areaAtuacao %}
+                    <option value="{{ area }}"required>{{ area }}</option>
+                    {% endfor %}
+                </select>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label name="CEP" for="CEP" class="form-label" aria-describedby="CEP">CEP:</label>
+                <input placeholder="XXXXX-XXX" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+              </div>
+
+              <div class="input-box" style="margin-left: -5px;">
+                <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
+                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" placeholder="Digite um número" required>
+              </div>
+
+          </div>
+
+          {% if erros %}
+          <div class="text-center">
+              <p style="color: red;">{{ erros.campos }}</p>
+          </div>
+          {% endif %}
+
+          <div class="continue-button">
+              <button value="Enviar" id="cadastrar">Salvar</button>
+          </div>
+      </form>
+  </div>
+</div>
+    
+{% endblock %}

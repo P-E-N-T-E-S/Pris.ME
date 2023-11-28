@@ -1,21 +1,23 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} 
 {% block main %} 
+
+<div class='container'>
 {% if erro %}
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
-
+<h1>Resumos</h1>
 <div class="produtos">
     <div class="gastos">
         <div class="card w-100" style="width: 18rem">
             <div class="card-body">
                 <h5 class="card-title">Ganhos</h5>
-                <p class="card-text">$12.90</p>
+                <p class="card-text">R${{ganho}}</p>
             </div>
         </div>
         <div class="card w-100" style="width: 18rem">
             <div class="card-body">
-                <h5 class="card-title">Ganhos</h5>
-                <p class="card-text">$12.90</p>
+                <h5 class="card-title">Gastos</h5>
+                <p class="card-text">R${{gasto}}</p>
             </div>
         </div>
         <div class="card w-100" style="width: 18rem">
@@ -32,9 +34,9 @@
         </div>
         {% endfor %}
     </div>
-
 </div>
 {% if error_message %}
 <p>{{ error_message }}</p>
+</div>
 {% endif %} 
 {% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %} {% block title %} Preencher Relatorio {% endblock %} 
+{% block main %}
+
+<div class="container">
+    <div class="tabela" style="width: 35%; float: right;">
+        <h1>Graficos</h1>
+        <table class="table table-dark table-striped">
+            <thead>
+                <th scope="col">index</th>
+                <th scope="col">Projeto</th>
+            </thead>
+            {%for item in titulos%} 
+            <tbody>
+                <td>{{item.index}}</td>
+                <td>{{item.titulo}}</td>
+            </tbody>
+            {%endfor%}
+        
+        </table>
+
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <label for="grafindex" style="font-size: 20px;">Escolha o index do seu grafico</label> <br>
+        <input type="number" name="grafindex" id="grafindex" min="0" style="border-radius: 10px;"> <br>
+        <label for="grafindex" style="font-size: 20px;">O que voce quer escrito no seu relatorio</label> <br>
+        <input type="text" name="texto" style="margin-top: 10px; border-radius: 10px;"> <br>
+        <button type="submit" style="margin-top: 5px;">Gerar</button>
+    
+    </form>
+
+</div>
+{% endblock %}

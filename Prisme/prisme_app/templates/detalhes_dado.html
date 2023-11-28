@@ -5,13 +5,12 @@ Detalhes do {{ dado_impacto.titulo }}
 {% block main %} 
 
 <div class="container">
-    <h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
+    <h1 style="margin-bottom: 2rem;">Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
     <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
 
-<table class="table table-primary">
+<table class="table table-light">
     <thead>
         <tr>
-            <th>Descrição</th>
             <th>Valor 1</th>
             <th>Valor 2</th>
             <th>Editar</th>
@@ -20,7 +19,6 @@ Detalhes do {{ dado_impacto.titulo }}
     <tbody>
         {% for linha_impacto in linhas_impacto %}
         <tr>
-            <td>{{ linha_impacto.descricao }}</td>
             <td>{{ linha_impacto.valor1 }}</td>
             <td>{{ linha_impacto.valor2 }}</td>
             <td>

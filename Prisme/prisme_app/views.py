@@ -1,50 +1,89 @@
 import pandas as pd
 import statistics as sts
-from django.shortcuts import render, redirect
-from .utils import linhas, barras
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+import os
+import csv
+from django.conf import settings
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from .utils import linhas, barras, criador_senha_aleatoria, validar_cep, validar_cnpj, nomecategoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.signals import user_logged_in, user_logged_out
-from .models import Projeto, Ong, DadosImpactos, LinhasImpacto
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import *
+from django.core.mail import send_mail
 
 
 tipos1 = [
-         "Selecione o tipo de dado Numérico",
-         "Pessoas Impactadas",
-         "Casas Contruidas",
-         "Valor"
-     ]
+    "Selecione o tipo de dado Numérico",
+    "Pessoas Impactadas",
+    "Casas Contruidas",
+    "Árvores plantadas",
+    "Lixo removido (TON)",
+    "Médicos alocados",
+    "Alunos ajudados",
+    "Merendas Disponibilizadas",
+    "Tratamentos Disponibilizadas",
+    "Animais ajudados",
+]
 
 tipos2 = [
     "Selecione o tipo de dado Categorico",
     "Tempo",
     "Pessoas",
+    "Km2",
+    "Bairro",
+    "Estado",
 ]
 
+areaAtuacao = [
+"Esportes",
+"Direitos Humanos",
+"Educação",
+"Saúde",
+"Cultura e Arte",
+"Meio Ambiente",
+"Desenvolvimento Comunitário",
+"Ajuda Humanitária",
+"Empreendedorismo Social",
+"Alívio da Pobreza",
+"Alimentação e segurança alimentar",
+"Causa animal",
+"Desenvolvimento internacional",
+"Outro",]
 
 def Login(request):
-    if request.user != None:
-        redirect(home)
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect(home_admin)
+        else:
+            return redirect(home)
     if request.method == "POST":
         email = request.POST["email"]
         senha = request.POST["senha"]
         user = authenticate(request, username=email, password=senha)
         if user is not None:
             login(request, user)
-            return redirect(home)
+            if not user.is_staff:
+                return redirect(home)
+            else:
+                return redirect(home_admin)
         else:
-            return render(request, "login.html", {"erro": "Usuário não encontrado"})
+            return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
 
 
+@login_required
 def home(request):
     moda = True
     usuario = request.user
     graficos = []
     impactados = []
     contexto = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto["sidecor"] = layout.sidecor
+    contexto["backcor"] = layout.backcor
 
     try:
         ong = Ong.objects.get(nome=usuario.first_name)
@@ -56,14 +95,21 @@ def home(request):
             dados = projeto.dadosimpactos_set.all()
             for dado in list(dados):
                 impactados.append(dado.tipo1)
-                linha = dado.linhasimpacto_set.all().values()
-                if len(list(linha)) != 0:
+                lines = dado.linhasimpacto_set.all()
+                linha ={
+                    "valor1": [float(linha.valor1) for linha in lines],
+                    "valor2": [str(linha.valor2) for linha in lines]
+                }
+                if len(linha["valor1"]) != 0:
                     base = pd.DataFrame(linha)
-                    grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    if dado.tipo2 == 'Tempo':
+                        grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                    else:
+                        grafico = barras(base, dado.titulo, dado.tipo2, dado.tipo1)
                     graficos.append(grafico)
         contexto["grafico"] = graficos
         try:
-            moda_impacto = sts.mode(impactados) #nome da moda
+            moda_impacto = sts.mode(impactados)
         except:
             moda_impacto = "Sem dados suficientes"
             moda = False
@@ -89,14 +135,29 @@ def home(request):
             contexto["soma_impacto"] = 0
 
 
+        caixa = list(ong.categoria_set.all())
+        ganho = 0
+        perda = 0
+        for categoria in caixa:
+            if categoria.tipo == "Ganho":
+                for line in list(categoria.linhacaixa_set.all()):
+                    ganho += line.valor
+            elif categoria.tipo == "Gasto":
+                for line in list(categoria.linhacaixa_set.all()):
+                    perda += line.valor
+
+        contexto["ganho"] = float(ganho)
+        contexto["gasto"] = float(perda)
+
         return render(request, "home.html", context=contexto)
 
 
+@login_required
 def Logout(request):
     logout(request)
     if "usuario" in request.session:
         del request.session["usuario"]
-    return redirect(home)
+    return redirect(Login)
 
 
 @login_required
@@ -104,6 +165,8 @@ def add_projeto(request):
     erros = {}
     usuario = request.user
     ong_logada = Ong.objects.get(nome=usuario.first_name) 
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     nome_projeto = ""
     descricao = ""
@@ -136,6 +199,7 @@ def add_projeto(request):
         try:
             Projeto.objects.create(ong=ong_logada, nome_projeto=nome_projeto, descricao=descricao, metodologiasUtilizadas=metodologiasUtilizadas, publicoAlvo=publicoAlvo,
                                    dataDeCriacao=dataDeCriacao)
+            Categoria.objects.create(ong=ong_logada, nome=nome_projeto, tipo="Gasto")
         finally:
             return redirect(visualizar_projetos)
 
@@ -146,6 +210,7 @@ def add_projeto(request):
         "descricao": descricao,
         "metodologiasUtilizadas": metodologiasUtilizadas,
         "publicoAlvo": publicoAlvo,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     return render(request, 'add_projeto.html', contexto)
 
@@ -154,6 +219,8 @@ def add_projeto(request):
 def editar_projeto(request, projeto_id):
     usuario = request.user
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
 
     projeto = Projeto.objects.get(pk=projeto_id)
 
@@ -178,6 +245,7 @@ def editar_projeto(request, projeto_id):
     contexto = {
         "erros": erros,
         "projeto": projeto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_projeto.html', contexto)
@@ -186,12 +254,11 @@ def editar_projeto(request, projeto_id):
 @login_required
 def add_dados(request, projeto_id):
     usuario = request.user
-    
     projeto = Projeto.objects.get(pk=projeto_id)
-    
     ong_logada = Ong.objects.get(nome=usuario.first_name)
-    #projeto = list(ong_logada.projeto_set.all())
     erros = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -217,19 +284,17 @@ def add_dados(request, projeto_id):
                 }
                 return render(request, "add_dados.html", contexto)
         
-
         DadosImpactos.objects.create(projeto=projeto,titulo=titulo,descricao=descricao,tipo1=tipo1,tipo2=tipo2)
         return redirect(visualizar_projetos)
-    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2})
+    return render(request,'add_dados.html',{"tipos1": tipos1, "tipos2": tipos2, "sidecor": layout.sidecor, "backcor": layout.backcor})
 
 
 @login_required
 def editar_dado(request, dado_impacto_id):
     usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     erros = {}
-
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
-
     if request.method == 'POST':
         titulo = request.POST['titulo']
         descricao = request.POST['descricao']
@@ -251,6 +316,8 @@ def editar_dado(request, dado_impacto_id):
         "dado_impacto": dado_impacto,
         "tipos1": tipos1,
         "tipos2": tipos2,
+        "sidecor": layout.sidecor, 
+        "backcor": layout.backcor
     }
 
     return render(request, 'editar_dado.html', contexto)
@@ -260,8 +327,10 @@ def editar_dado(request, dado_impacto_id):
 def add_linhas(request, dado_impacto_id):
     usuario = request.user
     erros = {}
-    
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
+
 
     if request.method == 'POST':
         errado = False
@@ -287,7 +356,8 @@ def add_linhas(request, dado_impacto_id):
         
     contexto = {
     "erros": erros,
-    "dado_impacto": dado_impacto
+    "dado_impacto": dado_impacto,
+    "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request,'add_linhas.html', contexto)
@@ -297,9 +367,10 @@ def add_linhas(request, dado_impacto_id):
 def editar_linha_impacto(request, linha_impacto_id):
     usuario = request.user
     erros = {}
-
     linha_impacto = LinhasImpacto.objects.get(pk=linha_impacto_id)
     valor1 = linha_impacto.valor1
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {}
     
     if request.method == 'POST':
         errado = False
@@ -314,7 +385,6 @@ def editar_linha_impacto(request, linha_impacto_id):
         else:
             valor1 = valor1_input 
 
-
         if errado:
             contexto = {
                 "erros": erros,
@@ -328,35 +398,447 @@ def editar_linha_impacto(request, linha_impacto_id):
         linha_impacto.valor2 = valor2
         linha_impacto.save()
 
-        return render(request, 'detalhes_dado.html', dado_impacto_id=linha_impacto.dado_impacto.id)
+        return redirect(visualizar_linhas_impacto, linha_impacto.dado_impacto.id)
 
     contexto = {
         "erros": erros,
         "linha_impacto": linha_impacto,
         "valor1": valor1,
         "valor2": linha_impacto.valor2, 
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
 
     return render(request, 'editar_linha_impacto.html', contexto)
 
+
 @login_required
 def visualizar_projetos(request):
     usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
     ong_logada = Ong.objects.get(email=usuario.username)
     projetos = list(ong_logada.projeto_set.all())
-    context = {'projetos': projetos}
+    context = {'projetos': projetos, "sidecor": layout.sidecor, "backcor": layout.backcor}
     return render(request, 'visualizar_projetos.html', context)   
 
 
 @login_required
 def visualizar_linhas_impacto(request, dado_impacto_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     dado_impacto = DadosImpactos.objects.get(pk=dado_impacto_id)
     linhas_impacto = LinhasImpacto.objects.filter(dado_impacto=dado_impacto)
     
     context = {
         'dado_impacto': dado_impacto,
         'linhas_impacto': linhas_impacto,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
     }
     
     return render(request, 'detalhes_dado.html', context)
     
+    
+@login_required
+def editar_estilo(request):
+    usuario = request.user
+    context = {}
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    context["sidecor"] = layout.sidecor
+    context["backcor"] = layout.backcor
+    
+    if request.method == 'POST':
+        layout = EditarEstilo.objects.get(user_id=usuario)
+        layout.sidecor = request.POST.get("sidecor")
+        layout.backcor = request.POST.get("backcor")
+
+        layout.save()
+        
+        context = {
+            'sidecor' : layout.sidecor,
+            'backcor' : layout.backcor,
+        }
+
+    return render(request, 'editar_estilo.html', context)
+
+@login_required
+def controle_de_gastos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Gasto"]
+
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_gastos.html", contexto)
+
+@login_required
+def controle_de_ganhos(request, dado):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = ong.categoria_set.get(nome=dado)
+    todas = ong.categoria_set.all()
+    categorias = [item.nome for item in todas if item.tipo == "Ganho"]
+    separador={
+        "nome": categoria.nome,
+        "linhas": list(categoria.linhacaixa_set.all())
+    }
+    contexto={
+        "caixa": separador,
+        "categorias": categorias
+    }
+    return render(request, "controle_ganhos.html", contexto)
+
+
+@login_required
+def add_linha_caixa(request):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    categoria = list(ong.categoria_set.all())
+    contexto={
+        "categorias": [X.nome for X in categoria]
+    }
+
+    if request.method == "POST":
+        identificacao = request.POST.get("identificador")
+        valor = float(request.POST.get("valor").replace(",", "."))
+        data = request.POST.get("data")
+        nomecategoria = request.POST['categoria']
+        esccategoria = ong.categoria_set.filter(nome=nomecategoria)[0]
+
+        try:
+            LinhaCaixa.objects.create(valor=valor, identificacao=identificacao, categoria=esccategoria, data=data)
+        except:
+            contexto["erros"] = "Erro ao criar linha"
+            return render(request, "add_linha_caixa.html", contexto)
+        else:
+            if esccategoria.tipo == "Ganho":
+                return redirect(controle_de_ganhos, dado=nomecategoria)
+            elif esccategoria.tipo == "Gasto":
+                return redirect(controle_de_gastos, dado=nomecategoria)
+
+    return render(request, "add_linha_caixa.html", contexto)
+
+
+@login_required
+def add_categoria_caixa(request):
+    escolhas = ["Ganho", "Gasto"]
+    contexto={
+        'escolha': escolhas
+    }
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    if request.method == 'POST':
+        nomecat = request.POST.get("nomecat")
+        tipocat = request.POST.get("Tipo")
+
+        if nomecategoria(nomecat):
+            contexto["erros"] = "Ja existe uma categoria com esse nome"
+            return render(request, "add_categorias.html", contexto)
+        else:
+            try:
+                Categoria.objects.create(nome=nomecat, tipo=tipocat, ong=ong)
+            except:
+                contexto["erros"] = "Erro ao criar categoria"
+                return render(request, "add_categorias.html", contexto)
+            else:
+                if tipocat == "Ganho":
+                    return redirect(controle_de_ganhos, dado=nomecat)
+                elif tipocat == "Gasto":
+                    return redirect(controle_de_gastos, dado=nomecat)
+
+    return render(request, "add_categorias.html", contexto)
+
+@login_required
+def render_pdf_view(request):
+    template_path = 'teste-pdf.html'
+    context = {'myvar': request.session['relatorio']['texto'], 'grafico': request.session['relatorio']['graficos'][request.session['relatorio']['index']]}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def gerar_relatorio(request):
+    usuario = request.user
+    graficos = []
+    titulos = []
+    contexto = {}
+    indice = 0
+
+    ong = Ong.objects.get(nome=usuario.first_name)
+    projetos = ong.projeto_set.all()
+    for projeto in list(projetos):
+        dados = projeto.dadosimpactos_set.all()
+        for dado in list(dados):
+            linha = dado.linhasimpacto_set.all().values()
+            if len(list(linha)) != 0:
+                base = pd.DataFrame(linha)
+                grafico = linhas(base["valor2"], base["valor1"], dado.titulo, dado.tipo2, dado.tipo1)
+                graficos.append(grafico)
+                titulos.append({'titulo': f"{projeto.nome_projeto} - {dado.titulo}",
+                                'index': indice})
+                indice+=1
+    contexto["titulos"] = titulos
+    if request.method == 'POST':
+        texto = request.POST['texto']
+        graph = int(request.POST['grafindex'])
+        request.session['relatorio'] = {'texto': texto, 'graficos': graficos, "index": graph}
+        return redirect(render_pdf_view)
+
+    return render(request, "preencher_relatorio.html", contexto)
+
+
+@login_required
+def voluntariado(request):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    
+    voluntarios = list(usuario.voluntariado_set.all())
+    contexto = {
+        "voluntarios": voluntarios,
+        "sidecor": layout.sidecor, "backcor": layout.backcor
+    }
+    return render(request, "voluntariado.html", contexto)
+
+
+@login_required
+def add_voluntario(request):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    contexto = {"sidecor": layout.sidecor, "backcor": layout.backcor}
+    
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        nascimento = request.POST['nascimento']
+        ingresso = request.POST['ingresso']
+        contato = request.POST['contato']
+        horas = request.POST['horas']
+        genero = request.POST['gender']
+
+        
+        try:
+            Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
+                                   genero=genero, user=usuario)
+            return redirect(voluntariado)
+        except:
+            contexto = {
+                "nome": nome,
+                "nascimento": nascimento,
+                "ingresso": ingresso,
+                "contato": contato,
+                "horas": horas,
+                "genero": genero,
+                "generos": genero,
+                "sidecor": layout.sidecor, "backcor": layout.backcor
+            }
+            return render(request, "add_voluntario.html", contexto)
+    return render(request, "add_voluntario.html", contexto)
+
+@login_required
+def editar_voluntario(request, voluntario_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    voluntario = Voluntariado.objects.get(pk=voluntario_id)
+    contexto = {
+        'voluntario': voluntario,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
+
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        nascimento = request.POST['nascimento']
+        ingresso = request.POST['ingresso']
+        contato = request.POST['contato']
+        horas = request.POST['horas']
+        genero = request.POST['gender']
+
+        try:
+            voluntario.nome = nome
+            voluntario.nascimento = nascimento
+            voluntario.ingresso = ingresso
+            voluntario.contato = contato
+            voluntario.horas = horas
+            voluntario.genero = genero
+            voluntario.save()
+            return redirect(voluntariado)  
+        except:
+            contexto.update({
+                'nome': nome,
+                'nascimento': nascimento,
+                'ingresso': ingresso,
+                'contato': contato,
+                'horas': horas,
+                'genero': genero
+            })
+            return render(request, 'editar_voluntario.html', contexto)
+
+    return render(request, 'editar_voluntario.html', contexto)
+
+@login_required
+def baixar_impacto(request, projeto):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    projeto = list(ong.projeto_set.filter(nome_projeto=projeto))
+    dados = list(projeto[0].dadosimpactos_set.all())
+    contexto = {
+        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
+    }
+    if request.method == "POST":
+
+        index = int(request.POST["dado_impacto"])
+
+        dados = list(projeto[0].dadosimpactos_set.all())
+        dado = dados[index]
+        lista = [[dado.tipo1, dado.tipo2]]
+        linhas = list(dado.linhasimpacto_set.all())
+        for linha in linhas:
+            lista.append([linha.valor1, linha.valor2])
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
+        csv_writer = csv.writer(response, delimiter=';')
+        for linha in lista:
+            csv_writer.writerow(linha)
+        return response
+    return render(request, "baixardados.html", contexto)
+
+
+
+# Views de admin
+def is_admin(user):
+    return not user.groups.filter(name__startswith='OngGroup_').exists()
+
+
+def Login_Admin(request):
+    if request.user != None:
+        redirect(home)
+    if request.method == "POST":
+        user = request.POST["user"]
+        senha = request.POST["senha"]
+        user = authenticate(request, username=user, password=senha)
+        if user is not None and is_admin:
+            login(request, user)
+            return redirect(home_admin)
+        else:
+            return render(request, "login_admin.html", {"erro": "Usuário não encontrado."})
+    return render(request, "login_admin.html")
+    
+    
+@login_required
+@user_passes_test(is_admin)
+def home_admin(request):
+    contexto = {}
+    
+    ongs = Ong.objects.all() 
+    
+    usuario = request.user
+    
+    layout = EditarEstilo.objects.get(user_id=usuario)
+
+    contexto = {
+        'ongs': ongs,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
+    
+    return render(request, "home_admin.html", context=contexto)
+
+
+@login_required
+@user_passes_test(is_admin)
+def cadastrar_ong(request):
+    context = {'areaAtuacao': areaAtuacao}
+
+    if request.method == 'POST':
+        errado = False
+        erros = {}
+        
+        nome_ong = request.POST['nome_ong']
+        email_ong = request.POST['email_ong']
+        area = request.POST['areaAtuacao']
+        descricao = request.POST['descricao']
+        CEP = request.POST['CEP']
+        CNPJ = request.POST['CNPJ']
+        dataDeCriacao = request.POST['criacao']
+        numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+
+        if request.method == 'POST':
+            send_mail(
+                    (f"Bem vindo(a) ao Pris.me, { nome_ong }: !"),
+                    (f"Bem vindo(a) ao Pris.me\nSeu login é: { email_ong }\nSua senha é: Senha Inicial"),
+                    "suporte.pris.me@gmail.com",
+                    [f"{email_ong}"],
+                    fail_silently=False,
+                )
+            
+
+        ong = Ong(
+            nome=nome_ong,
+            email=email_ong,
+            areaAtuacao=area,
+            descricao=descricao,
+            CEP=CEP,
+            CNPJ=CNPJ,
+            dataDeCriacao=dataDeCriacao,
+            numeroDeVoluntarios=numeroDeVoluntarios)
+        ong.save()
+        Categoria.objects.create(ong = ong, nome = "Doações", tipo = "Ganho")
+        Categoria.objects.create(ong = ong, nome = "Manutenção", tipo = "Gasto")
+        Categoria.objects.create(ong = ong, nome = "Pessoal", tipo = "Gasto")
+        return redirect(home_admin)
+    else:
+        return render(request, 'cadastrar_ong.html', context=context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def editar_ong(request, ong_id):
+    ong = Ong.objects.get(id=ong_id)
+    contexto = {
+        "nome": ong.nome,
+        "email": ong.email,
+        "areaAtuacao": ong.areaAtuacao,
+        "descricao": ong.descricao,
+        "CEP": ong.CEP,
+        "CNPJ": ong.CNPJ,
+        "dataDeCriacao": ong.dataDeCriacao,
+        "numeroDeVoluntarios": ong.numeroDeVoluntarios,
+        'areaAtuacao': areaAtuacao,
+        'ong': ong,
+    }
+    
+    if request.method == 'POST':
+        ong.nome = request.POST['nome_ong']
+        ong.email = request.POST['email_ong']
+        ong.areaAtuacao = request.POST['areaAtuacao']
+        ong.descricao = request.POST['descricao']
+        ong.CEP = request.POST['CEP']
+        ong.CNPJ = request.POST['CNPJ']
+        ong.dataDeCriacao = request.POST['criacao']
+        ong.numeroDeVoluntarios = request.POST['numeroDeVoluntarios']
+        ong.save()
+
+        return redirect('home_admin')
+
+    return render(request, 'editar_ong.html', context=contexto)
+
+
+@login_required
+@user_passes_test(is_admin)
+def deletar_ong(request, ong_id):
+    Ong.objects.delete(id=ong_id)
+    return redirect(home_admin)
+
