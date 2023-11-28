@@ -1,33 +1,183 @@
 {% extends "layout.html" %} {% block title %} Preencher Relatorio {% endblock %} 
 {% block main %}
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-<div class="container">
-    <div class="tabela" style="width: 35%; float: right;">
-        <h1>Graficos</h1>
-        <table class="table table-dark table-striped">
-            <thead>
-                <th scope="col">index</th>
-                <th scope="col">Projeto</th>
-            </thead>
-            {%for item in titulos%} 
-            <tbody>
-                <td>{{item.index}}</td>
-                <td>{{item.titulo}}</td>
-            </tbody>
-            {%endfor%}
-        
-        </table>
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    </div>
-    <form method="post">
-        {% csrf_token %}
-        <label for="grafindex" style="font-size: 20px;">Escolha o index do seu grafico</label> <br>
-        <input type="number" name="grafindex" id="grafindex" min="0" style="border-radius: 10px;"> <br>
-        <label for="grafindex" style="font-size: 20px;">O que voce quer escrito no seu relatorio</label> <br>
-        <input type="text" name="texto" style="margin-top: 10px; border-radius: 10px;"> <br>
-        <button type="submit" style="margin-top: 5px;">Gerar</button>
+
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .tabela {
+        justify-content: center;
+        align-items: right;
+        padding: 1rem;
+        margin-left: auto;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
     
-    </form>
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+    }
+    
+    .input-box input,
+    .input-box select {
+        margin: 0.6rem 0;
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 1rem;
+    }
+    
+    .input-box input:hover,
+    .input-box select:hover {
+        background-color: #eeeeee75;
+    }
+    
+    .input-box input:focus-visible,
+    .input-box select:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+    
+    .input-box label,
+    .gender-title h6 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+    
+    .input-box input::placeholder,
+    .input-box select::placeholder {
+        color: #000000be;
+    }
+    
+    .continue-button button {
+        width: 40%;
+        margin-top: 1.5rem;
+        border: none;
+        background-color: #9b40ff;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
+    .continue-button button:hover {
+        background-color: #791fd8
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 1330px) {
+        .form-image {
+            display: none;
+        }
+        .container {
+            width: 50%;
+        }
+        .form {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="corpo">
+    <div class="container">
+        <div class="form">
+            <form method="post">
+            {% csrf_token %}
+            <div class="form-header">
+                <div class="title">
+                    <h1>Gerar relatório</h1>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-box">
+                <label class="form-label">Escolha o index do projeto</label>
+                <input type="number" name="grafindex" id="grafindex" min="0" placeholder="Ex: 0" required>
+                </div>
+
+                <div class="input-box">
+                    <label class="form-label">Escreva no relatório</label>
+                <input type="text" name="texto" placeholder="Escreva...">
+                </div>
+            </div>
+
+            <div class="continue-button">
+                <button value="Enviar" style='color: white;'>Gerar</button>
+            </div> 
+
+            </form>
+        </div>
+
+            <div class="tabela">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <th scope="col">index</th>
+                        <th scope="col">Projeto</th>
+                    </thead>
+                    {%for item in titulos%} 
+                    <tbody>
+                        <td>{{item.index}}</td>
+                        <td>{{item.titulo}}</td>
+                    </tbody>
+                    {%endfor%}
+                </table>
+            </div>
+    </div>
 </div>
 {% endblock %}
