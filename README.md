@@ -87,7 +87,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85"
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/issues"
       >Issue/Bug Tracker</a
     >
   </li>
@@ -131,7 +131,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e5d13618-3501-49b8-af8c-0467de214a85"
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/issues"
       >Issue/Bug Tracker</a
     >
   </li>
