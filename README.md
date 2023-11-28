@@ -106,43 +106,18 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href=""
-      >Diagrama de atividades</a
-    >
-  </li>
-  <li>
-    <a  href="https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0"
-      >Protótipo de Baixa</a
-    >
-  </li>
-  <li>
     <a  href="https://youtu.be/HKL7g6ikly4"
       >ScreenCast - Protótipo de Baixa (Usuário)</a
     >
   </li>
   <li>
-    <a  href="https://youtu.be/HKL7g6ikly4"
+    <a  href="https://youtu.be/SmnXfHa7lFA"
       >ScreenCast - Protótipo de Baixa (Tech do Bem)</a
     >
   </li>
   <li>
     <a  href=""
       >ScreenCast - Protótipo de Alta</a
-    >
-  </li>
-  <li>
-    <a  href="https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing"
-      >Programação em par</a
-    >
-  </li>
-  <li>
-    <a  href="https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing"
-      >Histórias</a
-    >
-  </li>
-  <li>
-    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/issues"
-      >Issue/Bug Tracker</a
     >
   </li>
    <li>
@@ -158,6 +133,31 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
    <li>
     <a  href=""
       >ScreenCast - Deployment e Build</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/ehowufTUz5Sg4mg2masjF1/Prisme?type=design&node-id=0-1&mode=design&t=OAn8YZO056gLmV1V-0"
+      >Protótipo de Baixa</a
+    >
+  </li>
+  <li>
+    <a  href=""
+      >Diagrama de atividades</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1uZJiRaoUQdAlYjUM7m2XICWPBa_vKEbbz8SDrHWMa_8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1vjCia_IBUBho_FyzylWsSR1c8YJB38FYgEZ8zyqE3Ko/edit?usp=sharing"
+      >Histórias</a
+    >
+  </li>
+  <li>
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/issues"
+      >Issue/Bug Tracker</a
     >
   </li>
 </ul>
