@@ -1,11 +1,37 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} 
 {% block main %} 
 
+<style>
+    .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0%;
+    }
+
+    .produtos {
+        margin-top: 5%;
+    }
+
+    .card-body {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .card-title {
+        font-weight: bold;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 <div class='container'>
 {% if erro %}
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
-<h1>Resumos</h1>
+<div class="header">
+    <h1>Resumos</h1>
+    <a href="{% url 'relatorio' %}" class="btn btn-secondary" style="margin-left: auto; background-color: #9b40ff;">Exportar         <i class="fa-solid fa-download"></i></a>
+</div>
+
 <div class="produtos">
     <div class="gastos">
         <div class="card w-100" style="width: 18rem">
