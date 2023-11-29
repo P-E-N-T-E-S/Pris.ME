@@ -19,7 +19,7 @@ class Historia1(LiveServerTestCase):
 
 
     def test_000_setup(self):
-        driver = setup_selenium()
+        driver = setup_selenium()s
         usuario = driver.find_element(by=By.ID, value="usuario")
         senha = driver.find_element(by=By.ID, value="senha")
         botao = driver.find_element(by=By.ID, value="Logar")
