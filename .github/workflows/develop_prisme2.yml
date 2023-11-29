@@ -16,7 +16,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
@@ -29,7 +34,6 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt install libcairo2-dev pkg-config python3-dev
           python -m pip install --upgrade pip
           pip install -r Prisme/requirements.txt
         
