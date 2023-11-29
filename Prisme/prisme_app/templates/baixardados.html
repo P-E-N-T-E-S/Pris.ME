@@ -2,19 +2,165 @@
 {% block title %} Baixar Dado {% endblock %}
 
 {% block main %}
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-<div class="container">
-    <form method="post">
-        {% csrf_token %}
-        <select class="form-select"
-        id="dado_impacto"
-        name="dado_impacto">
-            {%for linha in listdados %}
-                <option value="{{linha.index}}">{{linha.nome}}</option>
-            {%endfor%}
-        </select>
-        <input type="submit" class="btn btn-primary" value="Baixar dado">
-    </form>
+    .corpo {
+        margin-top: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+    }
+
+    .form-image {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .form-image img {
+        width: 31rem;
+    }
+
+    .form {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .form-header {
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-header h1::after {
+        content: '';
+        display: block;
+        width: 5rem;
+        height: 0.3rem;
+        background-color: #9b40ff;
+        margin: 0 auto;
+        position: absolute;
+        border-radius: 10px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+    
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.1rem;
+    }
+    
+    .input-box input,
+    .input-box select {
+        margin: 0.6rem 0;
+        width: 14rem;
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 6px #0000001c;
+        font-size: 1rem;
+    }
+    
+    .input-box input:hover,
+    .input-box select:hover {
+        background-color: #eeeeee75;
+    }
+    
+    .input-box input:focus-visible,
+    .input-box select:focus-visible {
+        outline: 1px solid #9b40ff;
+    }
+    
+    .input-box label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000000c0;
+    }
+    
+    .input-box input::placeholder,
+    .input-box select::placeholder {
+        color: #000000be;
+    }
+
+    .continue-button button {
+        width: 10rem;
+        margin-top: 0.5rem;
+        border: none;
+        color: #fff;
+        background-color: #9b40ff;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
+        background-color: #791fd8
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
+
+</style>
+
+<div class="corpo">
+    <div class="container">
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Exportar dado de impacto</h1>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                <div class="input-box">
+                    <label for="Área de Atuação:" class="form-label">Selecione o dado:</label>
+                    <select class="form-select"
+                    id="dado_impacto"
+                    class="form-select"
+                    name="dado_impacto">
+                        {%for linha in listdados %}
+                            <option value="{{linha.index}}">{{linha.nome}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                </div>
+                
+                <div class="continue-button">
+                    <button type="submit">Exportar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

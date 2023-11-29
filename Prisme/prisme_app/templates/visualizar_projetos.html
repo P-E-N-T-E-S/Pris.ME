@@ -3,21 +3,41 @@
 
 {% block main %} 
 
+<style>
+    h1,h2 {
+        font-weight: bold;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .card-projeto {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        background-color: white;
+        padding: 0.50rem;
+        border: 0.02rem solid #CCCCCC;
+        border-radius: 10px;
+        margin-bottom: 3%;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 <div class="container">
-    <div class="text-start">
+    <div class="text-start" style="margin-bottom: 3%;">
         <h1>Projetos <a class="btn btn-secondary" style="margin-left: 1%; margin-bottom: 1%; background-color: #9b40ff;" href="{% url 'add_projeto' %}">+</a></h1> 
     </div>
 
     {% for projeto in projetos %}
-    <div style="margin-top: 30px;">
-        <h2 id="{{projeto.id}}">{{ projeto.nome_projeto }}
-            <a class="btn btn-primary" style="background-color: #9b40ff;" href="{% url 'editar_projeto' projeto.id %}">Editar</a>
-            <a class="btn btn-primary" style="background-color: #9b40ff;" href="{% url 'baixar_impacto' projeto.nome_projeto %}">Baixar CSV</a>
-        </h2>
-        <p>{{ projeto.descricao }} <br> {{ projeto.dataDeCriacao }}</p>
+    <div class="card-projeto">
+    <div>
+        <h2 id="{{projeto.id}}">{{ projeto.nome_projeto }}</h2>
+        <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'editar_projeto' projeto.id %}">Editar</a>
+        <a class="btn btn-secondary" style="background-color: #9b40ff; margin-left: auto;" href="{% url 'baixar_impacto' projeto.nome_projeto %}">Exportar         <i class="fa-solid fa-download"></i></a>
+        <p style="margin-top: 1%;">{{ projeto.descricao }} <br> {{ projeto.dataDeCriacao }}</p>
     </div>
     <p class="fw-bold">Dados de impacto:</p>
-    
     <table class="table table-no-bg">
         <thead>
             <tr>
@@ -32,16 +52,19 @@
                 <td><a href="{% url 'detalhes_dado' dado_impacto.id %}" id="{{dado_impacto.titulo}}">{{ dado_impacto.titulo }}</a></td>
                 <td>{{ dado_impacto.descricao }}</td>
                 <td>
-                    <a class="btn btn-primary" href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
+                    <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'editar_dado' dado_impacto.id %}">Editar</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-        <a class="btn btn-primary me-md-2" href="{% url 'add_dados' projeto.id %}">Adicionar D.I.</a>
+        <a class="btn btn-secondary me-md-2" style="background-color: #9b40ff;" href="{% url 'add_dados' projeto.id %}">Adicionar D.I.</a>
+    </div>
     </div>
     {% endfor %}
+    
+    
 </div>
 
 {% endblock %}

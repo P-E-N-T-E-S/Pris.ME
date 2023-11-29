@@ -9,7 +9,7 @@
     }
 
     .produtos {
-        margin-top: 5%;
+        margin-top: 3%;
     }
 
     .card-body {
@@ -17,6 +17,14 @@
     }
 
     .card-title {
+        font-weight: 600;
+    }
+
+    .relatorios {
+        margin-top: 3%;
+    }
+
+    h1 {
         font-weight: bold;
     }
 </style>
@@ -29,7 +37,6 @@
 {% endif %}
 <div class="header">
     <h1>Resumos</h1>
-    <a href="{% url 'relatorio' %}" class="btn btn-secondary" style="margin-left: auto; background-color: #9b40ff;">Exportar         <i class="fa-solid fa-download"></i></a>
 </div>
 
 <div class="produtos">
@@ -59,6 +66,11 @@
             <img class="img-fluid" src="data:image/png;base64, {{item|safe}}">
         </div>
         {% endfor %}
+    </div>
+
+    <div class="relatorios">
+        <h1>Relatórios</h1> 
+        <a href="{% url 'relatorio' %}" class="btn btn-secondary" style="margin-left: auto; background-color: #9b40ff;">Gerar         <i class="fa-solid fa-file-export"></i></a>
     </div>
 </div>
 {% if error_message %}
