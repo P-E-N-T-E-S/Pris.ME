@@ -28,7 +28,7 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r Prisme/requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -40,7 +40,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            Prisme
             !venv/
 
   deploy:
@@ -52,13 +52,10 @@ jobs:
     
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: python-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-
+          
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
