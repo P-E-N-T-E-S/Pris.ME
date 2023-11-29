@@ -55,6 +55,9 @@ jobs:
           name: python-app
           path: .
           
+      - name: Configure Lib
+        run: |
+          apt install libcairo2-dev pkg-config python3-dev
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
