@@ -3,7 +3,6 @@ from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-import time
 
 intervalo_do_teste = 5
 
@@ -19,7 +18,7 @@ class Historia1(LiveServerTestCase):
 
 
     def test_000_setup(self):
-        driver = setup_selenium()s
+        driver = setup_selenium()
         usuario = driver.find_element(by=By.ID, value="usuario")
         senha = driver.find_element(by=By.ID, value="senha")
         botao = driver.find_element(by=By.ID, value="Logar")
