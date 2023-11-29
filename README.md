@@ -162,9 +162,8 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
 </ul>
 
-![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/0f222e06-1229-4e24-9fa8-5b7b9531e731)
-![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/e6749da4-b5c5-4ab8-8721-7ec290021edf)
-![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/dd26cd91-75a0-4d12-8e55-f7f5eef12a01)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/3b12892d-a446-4ce2-bd14-4cdbc803eaf1)
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/1b0796fd-34de-4e4d-9eef-47162336fed4)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/5874aac1-1124-499b-aac0-7c1786a65910)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/3bbc8fa5-72bb-4c79-b9b2-0ba70a69b778)
 
