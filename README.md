@@ -38,7 +38,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 <p>Links Importantes</p>
 <ul>
   <li>
-    <a  href="https://prisme.azurewebsites.net"
+    <a  href="https://prisme2.azurewebsites.net/"
       >Link do Site</a
     >
   </li>
