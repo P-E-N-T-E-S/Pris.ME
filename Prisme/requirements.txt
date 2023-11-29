@@ -44,4 +44,3 @@ whitenoise==6.5.0
 wsproto==1.2.0
 xhtml2pdf==0.2.13
 zxcvbn==4.4.28
-pycairo==1.15.10
