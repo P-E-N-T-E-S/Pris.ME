@@ -2,7 +2,7 @@ import pandas as pd
 import statistics as sts
 import csv
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+#from xhtml2pdf import pisa
 from django.shortcuts import render, redirect, HttpResponse
 from .utils import linhas, barras,nomecategoria
 from django.contrib.auth import login, authenticate, logout
@@ -560,10 +560,10 @@ def render_pdf_view(request):
     template = get_template(template_path)
     html = template.render(context)
 
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-    if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    #pisa_status = pisa.CreatePDF(
+    #   html, dest=response)
+    #if pisa_status.err:
+    #   return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
 @login_required
