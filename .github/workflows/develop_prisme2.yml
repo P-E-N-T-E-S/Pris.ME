@@ -57,7 +57,8 @@ jobs:
           
       - name: Configure Lib
         run: |
-          apt install libcairo2-dev pkg-config python3-dev
+          source venv/bin/activate
+           python -m pip install pycairo
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
