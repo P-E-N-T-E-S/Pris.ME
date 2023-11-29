@@ -21,7 +21,8 @@
   .head {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
   }
 
   .botao {
@@ -31,13 +32,17 @@
   a {
     text-decoration: none;
   }
+
+  h1 {
+    font-weight:bold;
+  }
   
 </style>
 
     <div class="container">
       <div class="head">
         <h1>Ganhos:</h1>
-        <a href="{% url 'controle_gastos' dado='Manutenção' %}" class="botao">Gastos</a>
+        <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'controle_gastos' dado='Manutenção' %}" class="botao">Gastos</a>
       </div>
 
       <div class="tabelas">
@@ -60,7 +65,7 @@
                  {% endfor %}
                </tbody>
              </table>
-           <a href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
+           <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'adicionar_linha_caixa' %}">Adicionar linha</a>
          </div>
          
          <div style='margin-left: 2rem;' class="categorias">
@@ -79,7 +84,7 @@
                {% endfor %}
              </tbody>
            </table>
-           <a href="{% url 'adicionar_categoria' %}">Adicionar categorias</a>
+           <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'adicionar_categoria' %}">Adicionar categoria</a>
          </div>
        </div>
      </div>
