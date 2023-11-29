@@ -7,7 +7,7 @@ body{
     background-color: #f5f7fa;
     margin: 0;
     font-family: 'Poppins';
-    margin: 0 auto;
+    height: 100vh;
 }
 
 .border{
@@ -87,12 +87,10 @@ body{
     margin-left: 250px;
     margin-right: 6px;
     overflow: hidden;
-    margin: 0 auto;
 }
 
 .container{
     margin-top: 20px;
-    margin: 0 auto;
 }
 
 @media (width < 920px){

@@ -838,7 +838,8 @@ def editar_ong(request, ong_id):
 
 @login_required
 @user_passes_test(is_admin)
-def deletar_ong(request, ong_id):
-    Ong.objects.delete(id=ong_id)
+def deletar_ong(ong_id):
+    ong = Ong.objects.get(id=ong_id)
+    ong.delete()
     return redirect(home_admin)
 

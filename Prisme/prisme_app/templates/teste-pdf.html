@@ -2,16 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Relatório</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .texto, .image {
+            flex: 1;
+            margin: 10px; 
+        }
+
+        p {
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 
-{{myvar}}
-
-<br/>
-
-<div class="image">
-    <img class="img-fluid" src="data:image/png;base64, {{grafico|safe}}">
+<div class="container">
+    <div class="texto">
+        <p>{{myvar}}</p>
+    </div>
+    <div class="image">
+        <img class="img-fluid" src="data:image/png;base64, {{grafico|safe}}">
+    </div>
 </div>
 </body>
 </html>
