@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -81,6 +79,7 @@
     .input-box input,
     .input-box select {
         margin: 0.6rem 0;
+        width: 14rem;
         padding: 0.8rem 1.2rem;
         border: none;
         border-radius: 10px;
@@ -108,28 +107,6 @@
     .input-box input::placeholder,
     .input-box select::placeholder {
         color: #000000be;
-    }
-
-    .gender-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 0.62rem;
-        padding: 0 .5rem;
-    }
-
-    .gender-input {
-        display: flex;
-        align-items: center;
-    }
-
-    .gender-input input {
-        margin-right: 0.35rem;
-    }
-
-    .gender-input label {
-        font-size: 0.81rem;
-        font-weight: 600;
-        color: #000000c0;
     }
 
     .continue-button button {
@@ -190,7 +167,7 @@
               <div class="input-box">
                 <label for="CNPJ" class="form-label">Informe o seu CNPJ</label>
                 <input
-                placeholder="CNPJ da ONG" 
+                placeholder="XX.XXX.XXX/XXX" 
                   type="text"
                   class="form-control"
                   id="CNPJ"
@@ -227,8 +204,8 @@
 
               <div class="input-box" style="margin-left: -5px;">
                 <label for="Área de Atuação:" class="form-label">Área de Atuação:</label>
-                <select name="areaAtuacao" class="form-select" id="areaAtuacao"value="{{ areaAtuacao }}" >
-                    <option value="" disabled selected>Categoria</option>
+                <select name="areaAtuacao" class="form-select" id="areaAtuacao" value="{{ areaAtuacao }}" >
+                    <option value="" disabled selected>Selecione...</option>
                     {% for area in areaAtuacao %}
                     <option value="{{ area }}"required>{{ area }}</option>
                     {% endfor %}
@@ -237,12 +214,12 @@
 
               <div class="input-box" style="margin-left: -5px;">
                 <label name="CEP" for="CEP" class="form-label" aria-describedby="CEP">CEP:</label>
-                <input placeholder="CEP" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
+                <input placeholder="XXXXX-XXX" type="text" id="CEP" class="form-control" name="CEP" value="{{ CEP }}" required>
               </div>
 
               <div class="input-box" style="margin-left: -5px;">
                 <label for="numeroDeVoluntarios" class="form-label">Número de Voluntários:</label>
-                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" required>
+                <input type="number" id="numeroDeVoluntarios" class="form-control" name="numeroDeVoluntarios" value="{{ numeroDeVoluntarios }}" placeholder="Digite um número" required>
               </div>
 
           </div>
@@ -254,7 +231,7 @@
           {% endif %}
 
           <div class="continue-button">
-              <button value="Enviar" id="cadastrar" >Continuar</button>
+              <button value="Enviar" id="cadastrar">Cadastrar</button>
           </div>
       </form>
   </div>

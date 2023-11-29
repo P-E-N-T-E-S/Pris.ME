@@ -3,74 +3,67 @@
 {% block main %}
 
 <style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+    h1 {
+        font-weight: bold;
     }
-    corpo{
-        height: 100vh;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-
-    label{
-        font-family: "Poppins", sans-serif;
-        font-size: 20px;
-    }
-
+    
     #estilo {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-color: transparent;
-    width: 100px;
-    height: 100px;
+    width: 2rem;
+    height: 2rem;
     border: none;
     cursor: pointer;
     }
     #estilo::-webkit-color-swatch {
     border-radius: 50%;
-    border: 7px solid #000000;
+    border: 3px solid #000000;
     }
     #estilo::-moz-color-swatch {
     border-radius: 50%;
-    border: 7px solid #000000;
+    border: 3px solid #000000;
     }
 
+    .continue-button button {
+        width: 6rem;
+        margin-top: 1.5rem;
+        border: none;
+        background-color: #9b40ff;
+        padding: 0.62rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .continue-button button:hover {
+        background-color: #791fd8
+    }
+
+    .continue-button button a {
+        text-decoration: none;
+        font-size: 0.93rem;
+        font-weight: 500;
+        color: #fff;
+    }
 </style>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
-rel="stylesheet"
-/>
-
-<div class="corpo">
-    <div class="text-center">
-        <h1>Editar Estilo</h1>
-    </div>
-    <form method="POST">
+<div class="container">
+    <h1>Editar Estilo</h1>
+    <form method="POST" style="margin-top: 5%;">
         {% csrf_token %}
-
-        <div class="container">
             <div>
-                <input type="color" id="estilo" name="sidecor" value="{{ sidecor }}">
-                <label>Selecione a cor da Sidebar </label>
+                <label>Selecione a cor da barra lateral:</label>
+                <input type="color" id="estilo" name="sidecor" value="#FFFFFF">
             </div>
             <div>
-                <input type="color" id="estilo" name="backcor" value="{{ backcor }}">
-                <label>Selecione a cor da Fundo </label>
+                <label>Selecione a cor de fundo:</label>
+                <input type="color" id="estilo" name="backcor" value="#f5f7fa">
             </div>
             
-            <button type="submit" style="margin-top: 15px; height: 20px; padding: 15px; height: 35%; width: 35%; border-radius: 20px; border: none; background-color:  blueviolet; color: white;">Alterar</button>
+            <div class="continue-button">
+                <button value="Enviar" style='color: white;'>Alterar</button>
+            </div> 
         </div>
 
     </form>

@@ -3,7 +3,7 @@
 
 {% block main %} 
 <div class="container">
-    <h1>ONGs<a class="btn btn-secondary" style='margin-left: 1%; margin-bottom: 1%; background-color:  #9b40ff;' href="{% url 'cadastrar_ong' %}">+</a></h1>
+    <h1 style="font-weight: bold;">ONGs<a class="btn btn-secondary" style='margin-left: 1%; margin-bottom: 1%; background-color:  #9b40ff;' href="{% url 'cadastrar_ong' %}">+</a></h1>
 
     <table class="table mt-3">
         <thead>
@@ -30,7 +30,7 @@
                 <td>{{ ong.CNPJ }}</td>
                 <td>{{ ong.dataDeCriacao }}</td>
                 <td>{{ ong.numeroDeVoluntarios }}</td>
-                <td><a href="{% url 'editar_ong' ong.id %}" class="btn btn-primary btn-sm">Editar</a></td>
+                <td><a href="{% url 'editar_ong' ong.id %}" class="btn btn-secondary btn-sm" style="background-color: #9b40ff;">Editar</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,16 +1,14 @@
 {% extends "layout.html" %}
-{% block title %} Adicionar voluntário {% endblock %} 
+{% block title %} Cadastrar voluntário {% endblock %} 
 
 {% block main %} 
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -68,7 +66,6 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         padding: 1rem 0;
     }
 
@@ -102,18 +99,24 @@
         color: #000000c0;
     }
 
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .input-box input::placeholder {
         color: #000000be;
     }
 
     .continue-button button {
         width: 40%;
-        margin-top: 0.5rem;
+        margin-top: 5%;
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
         cursor: pointer;
+        justify-content: flex-end;
     }
 
     .continue-button button:hover {
@@ -151,7 +154,7 @@
             {% csrf_token %}
             <div class="form-header">
                 <div class="title">
-                    <h1>Voluntariado</h1>
+                    <h1>Cadastrar voluntário</h1>
                 </div>
             </div>
 
@@ -171,12 +174,12 @@
                     <input type="date" id="ingresso" name="ingresso" required>
                 </div>
 
-                <div class="input-box">
+                <div class="input-box" style='width: 13.1rem;'>
                     <label for="contato" class="form-label">Contato:</label>
                     <input placeholder="(XX)XXXXX-XXXX" type="contato" id="contato" name="contato" required>
                 </div>
 
-                <div class="input-box" style="margin-left: 4.2%;">
+                <div class="input-box" style='width: 13.1rem; margin-left: 4.2%'>
                    <label for="horas" class="form-label">Horas/Dia:</label>
                    <input placeholder="00:00" type="text" id="horas" name="horas" required>
                 </div>
@@ -207,8 +210,8 @@
                 </div>
             </div>
 
-            <div class="continue-button" style='width: 27.5rem;'>
-                <button value="Enviar" style='color: white;'>Continuar</button>
+            <div class="continue-button">
+                <button value="Enviar" style='color: white;'>Cadastrar</button>
             </div>
         </form>
     </div>

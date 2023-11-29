@@ -3,33 +3,41 @@
 Detalhes do {{ dado_impacto.titulo }} 
 {% endblock %} 
 {% block main %} 
+<style>
+    .container {
+        flex-direction: column;
+    }
+</style>
 
 <div class="container">
-    <h1>Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
-    <a class="btn btn-primary" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
+    <h1 style="margin-bottom: 2rem; font-weight: bold;">Linhas de Impacto para "{{ dado_impacto.titulo }}"</h1>
 
-<table class="table table-primary">
-    <thead>
-        <tr>
-            <th>Valor 1</th>
-            <th>Valor 2</th>
-            <th>Editar</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for linha_impacto in linhas_impacto %}
-        <tr>
-            <td>{{ linha_impacto.valor1 }}</td>
-            <td>{{ linha_impacto.valor2 }}</td>
-            <td>
-                <a class="btn btn-primary" href="{% url 'editar_linha_impacto' linha_impacto.id %}">Editar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="tabela">
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th>Valor 1</th>
+                <th>Valor 2</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linha_impacto in linhas_impacto %}
+            <tr>
+                <td>{{ linha_impacto.valor1 }}</td>
+                <td>{{ linha_impacto.valor2 }}</td>
+                <td>
+                    <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'editar_linha_impacto' linha_impacto.id %}">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'add_linhas' dado_impacto.id %}">Adicionar Valores</a>
+    </div>
 
-<a href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
+    <div style="margin-top: 2%;">
+    <a class="btn btn-secondary" style="background-color: grey;" href="{% url 'visualizar_projetos' %}">Voltar para a lista de Projetos</a>
+    </div>
 </div>
-
 {% endblock %}

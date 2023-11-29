@@ -87,10 +87,12 @@ body{
     margin-left: 250px;
     margin-right: 6px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .container{
     margin-top: 20px;
+    margin: 0 auto;
 }
 
 @media (width < 920px){

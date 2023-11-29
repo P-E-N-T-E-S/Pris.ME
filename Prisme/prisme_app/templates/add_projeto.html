@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -68,7 +66,6 @@
     .input-group {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         padding: 1rem 0;
     }
 
@@ -76,11 +73,13 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 1.1rem;
+        margin-right: 6%;
     }
 
     .input-box input {
         margin: 0.6rem 0;
         padding: 0.8rem 1.2rem;
+        width: 15rem;
         border: none;
         border-radius: 10px;
         box-shadow: 1px 1px 6px #0000001c;
@@ -102,18 +101,24 @@
         color: #000000c0;
     }
 
+    .gender-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .input-box input::placeholder {
         color: #000000be;
     }
 
     .continue-button button {
-        width: 100%;
-        margin-top: 2.5rem;
+        width: 40%;
+        color: #fff;
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
         border-radius: 5px;
         cursor: pointer;
+        justify-content: flex-end;
     }
 
     .continue-button button:hover {
@@ -171,6 +176,7 @@
                     type="text"
                     class="form-control"
                     id="nome_projeto"
+                    placeholder="Nome do projeto"
                     name="nome_projeto"
                     value="{{ nome_projeto }}"
                   />
@@ -182,6 +188,7 @@
                     type="text"
                     class="form-control"
                     id="descricao"
+                    placeholder="Descrição do projeto"
                     name="descricao"
                     value="{{ descricao }}"
                   />
@@ -193,23 +200,25 @@
                     type="text"
                     class="form-control"
                     id="metodologia"
+                    placeholder="Metodologia utilizada"
                     name="metodologia"
                     value="{{ metodologia }}"
                   />
                 </div>
 
-                <div class="input-box" style="margin-left: -5px;">
+                <div class="input-box">
                   <label for="publico" class="form-label">Público Alvo</label>
                   <input
                     type="text"
                     class="form-control"
+                    placeholder="Ex: Jovens, Idosos..."
                     id="publico"
                     name="publico"
                     value="{{ publico }}"
                   />
                 </div>
 
-                <div class="input-box" style="margin-left: -5px;">
+                <div class="input-box">
                   <label for="criacao" class="form-label"
                   >Selecione a data de criação do Projeto</label>
                   <input
@@ -225,7 +234,7 @@
 
             <p class="text-danger">{{ erros.campos }}</p>
             <div class="continue-button">
-                <button value="Enviar" id="cadastrar">Continuar</button>
+                <button value="Enviar" id="cadastrar">Adicionar</button>
             </div>
         </form>
     </div>

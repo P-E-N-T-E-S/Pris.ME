@@ -629,11 +629,12 @@ def add_voluntario(request):
         genero = request.POST['gender']
 
         
-        #try:
-        Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
+        try:
+            Voluntariado.objects.create(nome=nome, nascimento=nascimento, ingresso=ingresso, contato=contato, horas=horas,
                                    genero=genero, user=usuario)
-        #except:
-        '''contexto = {
+            return redirect(voluntariado)
+        except:
+            contexto = {
                 "nome": nome,
                 "nascimento": nascimento,
                 "ingresso": ingresso,
@@ -644,15 +645,79 @@ def add_voluntario(request):
                 "sidecor": layout.sidecor, "backcor": layout.backcor
             }
             return render(request, "add_voluntario.html", contexto)
-        else:
-            return redirect(voluntariado)'''
     return render(request, "add_voluntario.html", contexto)
 
 @login_required
-def editar_voluntario(request):
-    return render(request, "editar_voluntario.html")
+def editar_voluntario(request, voluntario_id):
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    voluntario = Voluntariado.objects.get(pk=voluntario_id)
+    contexto = {
+        'voluntario': voluntario,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
+
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        nascimento = request.POST['nascimento']
+        ingresso = request.POST['ingresso']
+        contato = request.POST['contato']
+        horas = request.POST['horas']
+        genero = request.POST['gender']
+
+        try:
+            voluntario.nome = nome
+            voluntario.nascimento = nascimento
+            voluntario.ingresso = ingresso
+            voluntario.contato = contato
+            voluntario.horas = horas
+            voluntario.genero = genero
+            voluntario.save()
+            return redirect(voluntariado)  
+        except:
+            contexto.update({
+                'nome': nome,
+                'nascimento': nascimento,
+                'ingresso': ingresso,
+                'contato': contato,
+                'horas': horas,
+                'genero': genero
+            })
+            return render(request, 'editar_voluntario.html', contexto)
+
+    return render(request, 'editar_voluntario.html', contexto)
+
+@login_required
+def baixar_impacto(request, projeto):
+    usuario = request.user
+    ong = Ong.objects.get(nome=usuario.first_name)
+    projeto = list(ong.projeto_set.filter(nome_projeto=projeto))
+    dados = list(projeto[0].dadosimpactos_set.all())
+    contexto = {
+        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
+    }
+    if request.method == "POST":
+
+        index = int(request.POST["dado_impacto"])
+
+        dados = list(projeto[0].dadosimpactos_set.all())
+        dado = dados[index]
+        lista = [[dado.tipo1, dado.tipo2]]
+        linhas = list(dado.linhasimpacto_set.all())
+        for linha in linhas:
+            lista.append([linha.valor1, linha.valor2])
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
+        csv_writer = csv.writer(response, delimiter=';')
+        for linha in lista:
+            csv_writer.writerow(linha)
+        return response
+    return render(request, "baixardados.html", contexto)
 
 
+
+# Views de admin
 def is_admin(user):
     return not user.groups.filter(name__startswith='OngGroup_').exists()
 
@@ -777,29 +842,3 @@ def deletar_ong(request, ong_id):
     Ong.objects.delete(id=ong_id)
     return redirect(home_admin)
 
-
-def baixar_impacto(request, projeto):
-    usuario = request.user
-    ong = Ong.objects.get(nome=usuario.first_name)
-    projeto = list(ong.projeto_set.filter(nome_projeto=projeto))
-    dados = list(projeto[0].dadosimpactos_set.all())
-    contexto = {
-        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
-    }
-    if request.method == "POST":
-
-        index = int(request.POST["dado_impacto"])
-
-        dados = list(projeto[0].dadosimpactos_set.all())
-        dado = dados[index]
-        lista = [[dado.tipo1, dado.tipo2]]
-        linhas = list(dado.linhasimpacto_set.all())
-        for linha in linhas:
-            lista.append([linha.valor1, linha.valor2])
-        response = HttpResponse(content_type="text/csv")
-        response["Content-Disposition"] = f"attachment: filename={dado.titulo}.csv"
-        csv_writer = csv.writer(response, delimiter=';')
-        for linha in lista:
-            csv_writer.writerow(linha)
-        return response
-    return render(request, "baixardados.html", contexto)

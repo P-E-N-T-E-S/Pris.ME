@@ -5,12 +5,10 @@
 <link rel="stylesheet" href="static/style.css"/>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
     }
 
     .corpo {
@@ -69,6 +67,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        flex-direction: column;
         padding: 1rem 0;
     }
     
@@ -112,7 +111,6 @@
 
     .continue-button button {
         width: 40%;
-        margin-top: 2.5rem;
         border: none;
         background-color: #9b40ff;
         padding: 0.62rem;
@@ -161,11 +159,11 @@
             <div class="input-group">
                 <div class="input-box">
                     <label class="form-label">Nome da categoria</label>
-                    <input type="text" name="nomecat">
+                    <input type="text" placeholder="Digite o nome" name="nomecat" id="nomecat" required>
                 </div>
 
                 <div class="input-box">
-                    <label class="form-label">tipo</label>
+                    <label class="form-label">Tipo</label>
                     <select  id="tipo" name="Tipo">
                         {% for tipo in escolha %}
                         <option value="{{ tipo }}">{{ tipo }}</option>
@@ -179,7 +177,7 @@
             <p style="color: red;">{{ erros }}</p>
             {% endif %}
             <div class="continue-button">
-                <button value="Enviar" style='color: white;'>Criar</button>
+                <button value="Enviar" style='color: white;'>Adicionar</button>
             </div>
         </form>
     </div>
