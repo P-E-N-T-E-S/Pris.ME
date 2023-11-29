@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import base64
 from io import BytesIO
-import pandas as pd
 import random
 import array
 from .models import Categoria

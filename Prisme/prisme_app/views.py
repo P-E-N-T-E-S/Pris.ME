@@ -1,15 +1,11 @@
 import pandas as pd
 import statistics as sts
-import os
 import csv
-from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-from django.contrib.staticfiles import finders
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .utils import linhas, barras, criador_senha_aleatoria, validar_cep, validar_cnpj, nomecategoria
+from django.shortcuts import render, redirect, HttpResponse
+from .utils import linhas, barras,nomecategoria
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 from django.core.mail import send_mail
