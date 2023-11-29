@@ -7,7 +7,7 @@ body{
     margin: 0;
     font-family: sans-serif;
     background-color: #ebeaea;
-margin: 0 auto;
+    height: 100vh;
 }
 
 .border{
@@ -110,7 +110,7 @@ margin: 0 auto;
 }
 
 .container{
-    margin-top: 90px;
+    margin-top: 20px;
 }
 
 @media (width < 920px){
