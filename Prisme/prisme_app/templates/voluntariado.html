@@ -22,6 +22,10 @@
     td {
         margin-right: 2%;
     }
+
+    h1 {
+        font-weight: bold;
+    }
 </style>
 
 <div class="container">
@@ -50,7 +54,7 @@
                     <td>{{ voluntario.horas }}</td>
                     <td>{{ voluntario.genero }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{% url 'editar_voluntario' voluntario.id %}">Editar</a>
+                        <a class="btn btn-secondary" style="background-color: #9b40ff;" href="{% url 'editar_voluntario' voluntario.id %}">Editar</a>
                     </td>
                 </tr>
             {% endfor %}

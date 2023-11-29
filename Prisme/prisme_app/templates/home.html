@@ -1,11 +1,44 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} 
 {% block main %} 
 
+<style>
+    .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0%;
+    }
+
+    .produtos {
+        margin-top: 3%;
+    }
+
+    .card-body {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .card-title {
+        font-weight: 600;
+    }
+
+    .relatorios {
+        margin-top: 3%;
+    }
+
+    h1 {
+        font-weight: bold;
+    }
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 <div class='container'>
 {% if erro %}
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
-<h1>Resumos</h1>
+<div class="header">
+    <h1>Resumos</h1>
+</div>
+
 <div class="produtos">
     <div class="gastos">
         <div class="card w-100" style="width: 18rem">
@@ -33,6 +66,11 @@
             <img class="img-fluid" src="data:image/png;base64, {{item|safe}}">
         </div>
         {% endfor %}
+    </div>
+
+    <div class="relatorios">
+        <h1>Relatórios</h1> 
+        <a href="{% url 'relatorio' %}" class="btn btn-secondary" style="margin-left: auto; background-color: #9b40ff;">Gerar         <i class="fa-solid fa-file-export"></i></a>
     </div>
 </div>
 {% if error_message %}
