@@ -687,11 +687,14 @@ def editar_voluntario(request, voluntario_id):
 @login_required
 def baixar_impacto(request, projeto):
     usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
     ong = Ong.objects.get(nome=usuario.first_name)
     projeto = list(ong.projeto_set.filter(nome_projeto=projeto))
     dados = list(projeto[0].dadosimpactos_set.all())
     contexto = {
-        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))]
+        'listdados': [{'nome': dados[i].titulo, 'index': i} for i in range(len(dados))],
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
     }
     if request.method == "POST":
 
@@ -757,7 +760,12 @@ def home_admin(request):
 @user_passes_test(is_admin)
 def cadastrar_ong(request):
     context = {'areaAtuacao': areaAtuacao}
-
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+    context = {
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
+    }
     if request.method == 'POST':
         errado = False
         erros = {}
@@ -803,6 +811,9 @@ def cadastrar_ong(request):
 @user_passes_test(is_admin)
 def editar_ong(request, ong_id):
     ong = Ong.objects.get(id=ong_id)
+    usuario = request.user
+    layout = EditarEstilo.objects.get(user_id=usuario)
+
     contexto = {
         "nome": ong.nome,
         "email": ong.email,
@@ -814,6 +825,8 @@ def editar_ong(request, ong_id):
         "numeroDeVoluntarios": ong.numeroDeVoluntarios,
         'areaAtuacao': areaAtuacao,
         'ong': ong,
+        'sidecor': layout.sidecor,
+        'backcor': layout.backcor
     }
     
     if request.method == 'POST':
