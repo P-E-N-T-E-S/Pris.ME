@@ -551,7 +551,7 @@ def add_categoria_caixa(request):
 
     return render(request, "add_categorias.html", contexto)
 
-@login_required
+'''@login_required
 def render_pdf_view(request):
     template_path = 'teste-pdf.html'
     context = {'myvar': request.session['relatorio']['texto'], 'grafico': request.session['relatorio']['graficos'][request.session['relatorio']['index']]}
@@ -559,12 +559,12 @@ def render_pdf_view(request):
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
-    #pisa_status = pisa.CreatePDF(
-    #   html, dest=response)
-    #if pisa_status.err:
-    #   return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response'''
 
 @login_required
 def gerar_relatorio(request):
