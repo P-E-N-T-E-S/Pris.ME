@@ -124,7 +124,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     <a  href="https://youtu.be/RgHZ8U9Cc8Y"
       >ScreenCast - Protótipo de Alta (Tech do Bem)</a
     >
-  </li
+  </li>
    <li>
     <a  href=""
       >ScreenCast - Testes</a
