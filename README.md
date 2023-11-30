@@ -131,12 +131,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
    <li>
-    <a  href=""
-      >ScreenCast - Build (dos testes)</a
-    >
-  </li>
-   <li>
-    <a  href=""
+    <a  href="https://youtu.be/bWza3DQ6z_s"
       >ScreenCast - Deployment e Build</a
     >
   </li>
