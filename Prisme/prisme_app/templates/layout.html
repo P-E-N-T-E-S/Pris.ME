@@ -31,7 +31,8 @@
     </header>
 
     <nav style='margin-top: 20%;'>
-
+    
+    {% if not user.is_staff %}
     <a href="{% url 'home' %}">
       <button>
         <span>
@@ -69,6 +70,7 @@
     </a>
     
     <div><img src='https://imgur.com/M7i7ZQq.png' style="margin-left: 10%; width: 80%;"></div>
+    {% endif %}
     
     {% if user.is_staff %}
     <a href="{% url 'home_admin' %}">

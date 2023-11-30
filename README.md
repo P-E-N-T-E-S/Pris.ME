@@ -101,7 +101,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href=""
+    <a  href="https://youtu.be/JDjGR83F-tI"
       >ScreenCast - Uso do Sistema (Tech do Bem)</a
     >
   </li>
@@ -116,8 +116,13 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href=""
-      >ScreenCast - Protótipo de Alta</a
+    <a  href="https://youtu.be/O3nOn3MrQUY"
+      >ScreenCast - Protótipo de Alta - Design (Usuário)</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/RgHZ8U9Cc8Y"
+      >ScreenCast - Protótipo de Alta (Tech do Bem)</a
     >
   </li>
    <li>
@@ -126,12 +131,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
    <li>
-    <a  href=""
-      >ScreenCast - Build (dos testes)</a
-    >
-  </li>
-   <li>
-    <a  href=""
+    <a  href="https://youtu.be/bWza3DQ6z_s"
       >ScreenCast - Deployment e Build</a
     >
   </li>
@@ -162,6 +162,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
 </ul>
 
+![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/0f222e06-1229-4e24-9fa8-5b7b9531e731)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/3b12892d-a446-4ce2-bd14-4cdbc803eaf1)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/1b0796fd-34de-4e4d-9eef-47162336fed4)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/5874aac1-1124-499b-aac0-7c1786a65910)
