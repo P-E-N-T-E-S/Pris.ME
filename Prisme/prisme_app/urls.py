@@ -31,4 +31,5 @@ urlpatterns =[
     path("baixar_impacto/<str:projeto>", views.baixar_impacto, name="baixar_impacto"),
     path("adicionar_categoria", views.add_categoria_caixa, name="adicionar_categoria"),
     path("adicionar_linha_caixa", views.add_linha_caixa, name="adicionar_linha_caixa"),
+    path("mudar_senha", views.mudar_senha, name="mudar_senha"),
     ]

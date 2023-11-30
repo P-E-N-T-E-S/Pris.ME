@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.shortcuts import render, redirect, HttpResponse
 from .utils import linhas, barras,nomecategoria
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 from django.core.mail import send_mail
@@ -61,10 +62,13 @@ def Login(request):
         user = authenticate(request, username=email, password=senha)
         if user is not None:
             login(request, user)
-            if not user.is_staff:
-                return redirect(home)
+            if check_password('senha_inicial', user.password):
+                return redirect(mudar_senha)
             else:
-                return redirect(home_admin)
+                if not user.is_staff:
+                    return redirect(home)
+                else:
+                    return redirect(home_admin)
         else:
             return render(request, "login.html", {"erro": "Usuário não encontrado."})
     return render(request, "login.html")
@@ -714,7 +718,24 @@ def baixar_impacto(request, projeto):
         return response
     return render(request, "baixardados.html", contexto)
 
+@login_required
+def mudar_senha(request):
+    if request.method == 'POST':
+        usuario = request.user
+        
+        nova_senha = request.POST['nova_senha']
+        confirmar_senha = request.POST['confirmar_senha']
 
+        if nova_senha != confirmar_senha:
+            return render(request, "mudar_senha.html", {'erro': 'As senhas não coincidem'})
+        
+        usuario.set_password(nova_senha)
+        usuario.save()
+
+        logout(request)
+        return redirect(Login)
+
+    return render(request, "mudar_senha.html")
 
 # Views de admin
 def is_admin(user):
@@ -759,12 +780,12 @@ def home_admin(request):
 @login_required
 @user_passes_test(is_admin)
 def cadastrar_ong(request):
-    context = {'areaAtuacao': areaAtuacao}
     usuario = request.user
     layout = EditarEstilo.objects.get(user_id=usuario)
     context = {
         'sidecor': layout.sidecor,
-        'backcor': layout.backcor
+        'backcor': layout.backcor,
+        'areaAtuacao': areaAtuacao
     }
     if request.method == 'POST':
         errado = False
@@ -782,7 +803,7 @@ def cadastrar_ong(request):
         if request.method == 'POST':
             send_mail(
                     (f"Bem vindo(a) ao Pris.me, { nome_ong }: !"),
-                    (f"Bem vindo(a) ao Pris.me\nSeu login é: { email_ong }\nSua senha é: Senha Inicial"),
+                    (f"Bem vindo(a) ao Pris.me\nSeu login é: { email_ong }\nSua senha é: senha_inicial"),
                     "suporte.pris.me@gmail.com",
                     [f"{email_ong}"],
                     fail_silently=False,
