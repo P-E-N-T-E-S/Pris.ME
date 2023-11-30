@@ -27,7 +27,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
    Perfil de ONG:
    Login: professor@ong.com
-   Senha: senha_inicial
+   Senha: senha1234
 
    Perfil de Admin:
    Login: professor
@@ -96,7 +96,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 <p>SR2</p>
 <ul>
   <li>
-    <a  href=""
+    <a  href="https://youtu.be/84osnVNN33U"
       >ScreenCast - Uso do Sistema (ONG)</a
     >
   </li>
@@ -123,11 +123,6 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   <li>
     <a  href="https://youtu.be/RgHZ8U9Cc8Y"
       >ScreenCast - Protótipo de Alta (Tech do Bem)</a
-    >
-  </li>
-   <li>
-    <a  href=""
-      >ScreenCast - Testes</a
     >
   </li>
    <li>
