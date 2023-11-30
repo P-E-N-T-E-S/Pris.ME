@@ -96,7 +96,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 <p>SR2</p>
 <ul>
   <li>
-    <a  href="https://youtu.be/84osnVNN33U"
+    <a  href="https://youtu.be/0WRLodwsFWM"
       >ScreenCast - Uso do Sistema (ONG)</a
     >
   </li>
