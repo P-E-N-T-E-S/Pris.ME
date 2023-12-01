@@ -23,8 +23,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 ## 📪 Entregas
 
-   Para a utilização do site foram gerados 2 perfis para os professores terem a possibilidade de testar, como explicado na apresentação, o cadastro será feito pela Tec-do-Bem, e temporariamente estamos usando o ADMIN do Django para isso, tendo isso em mente aqui estão os perfis do usuário e do administrados, respectivamente.
-
+   Para a utilização do site foram gerados 2 perfis para os professores terem a possibilidade de testar, como explicado na apresentação, o cadastro será feito pela Tec-do-Bem.
    Perfil de ONG:
    Login: professor@ong.com
    Senha: senha1234
@@ -48,7 +47,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/9d1f816d-0649-4ca4-8fb9-5e8ca52b5f1f"
       >Diagrama de atividades</a
     >
   </li>
@@ -62,7 +61,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     >
   </li>
   <li>
-    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+    <a  href="https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/9d1f816d-0649-4ca4-8fb9-5e8ca52b5f1f"
       >Diagrama de atividades</a
     >
   </li>
