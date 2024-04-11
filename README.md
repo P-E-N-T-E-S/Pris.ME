@@ -1,13 +1,37 @@
+<p align="center">
+  <img
+    src="https://img.shields.io/badge/Status-Em%20desenvolvimento-green?style=flat-square"
+    alt="Status"
+  />
+</p>
+
+<p align="center">
+  <img
+    src="https://img.shields.io/github/repo-size/P-E-N-T-E-S/Pris.ME?style=flat"
+    alt="Repository Size"
+  />
+  <img
+    src="https://img.shields.io/github/languages/count/P-E-N-T-E-S/Pris.ME?style=flat&logo=python"
+    alt="Language Count"
+  />
+  <img
+    src="https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Pris.ME?style=flat&logo=github"
+    alt="Commit Activity"
+  />
+  <a href="LICENSE.md"
+    ><img
+      src="https://img.shields.io/github/license/P-E-N-T-E-S/Pris.ME"
+      alt="License"
+  /></a>
+</p>
+
 # Pris.ME - Organização de ONGs
 
-![GitHub repo size](https://img.shields.io/github/repo-size/P-E-N-T-E-S/Pris.me?style=flat)
-![GitHub language count](https://img.shields.io/github/languages/count/P-E-N-T-E-S/Pris.me?style=flat&logo=python)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Pris.me?style=flat&logo=github)
-![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Pris.me?style=flat&logo=github)
-[![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Pris.me)](LICENSE.md)
-[![CI](https://github.com/P-E-N-T-E-S/Pris.me/actions/workflows/main_prisme.yml/badge.svg)](https://github.com/P-E-N-T-E-S/Pris.me/actions/workflows/main_prisme.yml)
-
 ## 📄 Descrição do Projeto
+
+<p float="left">
+
+<img align="right" width="120" src="https://i.imgur.com/fbLGSGs.png" />
 
 Pris.ME é uma plataforma web white label projetada para auxiliar as Organizações Não Governamentais (ONGs) a gerenciar suas operações e atividades de forma mais eficiente. O Pris.ME foi pensado para atender às suas necessidades específicas de organização, permitindo que foquem em suas missões e causas sem se preocupar com a complexidade da gestão.
 
@@ -23,18 +47,33 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 
 ## 📪 Entregas
 
+<details>
+
+<summary>Links Importantes</summary>
+
+   <br>
    Para a utilização do site foram gerados 2 perfis para os professores terem a possibilidade de testar, como explicado na apresentação, o cadastro será feito pela Tec-do-Bem.
+   <br>
+   <br>
    Perfil de ONG:
+   <br>
    Login: professor@ong.com
+   <br>
    Senha: senha1234
-
+   <br>
+   <br>
    Perfil de Admin:
+   <br>
    Login: professor
+   <br>
    Senha: senha1234
-      
-   
+   <br>
 
-<p>Links Importantes</p>
+</details>
+
+<details>
+
+<summary>SR1</summary>
 <ul>
   <li>
     <a  href="https://prisme2.azurewebsites.net/"
@@ -92,7 +131,10 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
 </ul>
 
-<p>SR2</p>
+</details>
+<details>
+
+<summary>SR2</summary>
 <ul>
   <li>
     <a  href="https://youtu.be/0WRLodwsFWM"
@@ -162,6 +204,24 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/5874aac1-1124-499b-aac0-7c1786a65910)
 ![image](https://github.com/P-E-N-T-E-S/Pris.ME/assets/126795323/3bbc8fa5-72bb-4c79-b9b2-0ba70a69b778)
 
+</details>
+
+## 👨‍🎨 Membros de Design
+
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/clara-batista-sobral-de-oliveira-351947265/">Clara Sobral</a> - cbso@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://emillysaobento.carrd.co/?fbclid=PAAabKO9AleSjDVm8NMYDXGLUNwpeUD4miwivqiBgTNcZ-TlBikS4EclilYdA">Emilly São Bento</a> - eccsb@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://linktr.ee/DylanVieira?utm_source=linktree_admin_share">Dylan Vieira</a> - dvma@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
+  </li>
+</ul>
 
 ## 👩‍💻 Membros de CC
 
@@ -186,22 +246,11 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
   </li>
 </ul>
 
-## 👨‍🎨 Membros de Design
+<br>
 
-<ul>
-  <li>
-    <a href="https://www.linkedin.com/in/clara-batista-sobral-de-oliveira-351947265/">Clara Sobral</a> - cbso@cesar.school 📩
-  </li>
-  <li>
-    <a href="https://emillysaobento.carrd.co/?fbclid=PAAabKO9AleSjDVm8NMYDXGLUNwpeUD4miwivqiBgTNcZ-TlBikS4EclilYdA">Emilly São Bento</a> - eccsb@cesar.school 📩
-  </li>
-  <li>
-    <a href="https://linktr.ee/DylanVieira?utm_source=linktree_admin_share">Dylan Vieira</a> - dvma@cesar.school 📩
-  </li>
-  <li>
-    <a href="https://www.linkedin.com/in/jo%C3%A3ofilipemafraalmeida/">João Almeida</a> - jfma2@cesar.school 📩
-  </li>
-</ul>
+<a href="https://github.com/P-E-N-T-E-S/Pris.ME/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=P-E-N-T-E-S/Pris.ME" />
+</a>
 
 ## 😊 Agradecimentos Especiais
 
@@ -210,109 +259,7 @@ Pris.ME é uma plataforma web white label projetada para auxiliar as Organizaç�
     <a href="https://www.linkedin.com/in/pedrodiasfalcao/?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAEWtkW4ByFLrKrjw04WJ6m5SBt86SocSM38">Pedro Falção</a> - Orientações Sobre os Gráficos
   </li>
 </ul>
-  
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Thomazrlima">
-        <img src="https://avatars3.githubusercontent.com/Thomazrlima" width="100px;" alt="Foto de Thomaz"/><br>
-        <sub>
-          <b>Thomaz R. Lima</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/evaldocunhaf">
-        <img src="https://avatars3.githubusercontent.com/evaldocunhaf" width="100px;" alt="Foto de Evaldo"/><br>
-        <sub>
-          <b>Evaldo G. Filho</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/hsspedro">
-        <img src="https://avatars.githubusercontent.com/hsspedro" width="100px;" alt="Foto de Pedro"/><br>
-        <sub>
-          <b>Pedro S. Souza</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Luiz-Edu0202">
-        <img src="https://avatars.githubusercontent.com/Luiz-Edu0202" width="100px;" alt="Foto de Dustin"/><br>
-        <sub>
-          <b>Luiz Eduardo Brayner</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Nerebo">
-        <img src="https://avatars.githubusercontent.com/Nerebo" width="100px;" alt="Foto de André"/><br>
-        <sub>
-          <b>André Fonseca</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Sofia-Saraiva">
-        <img src="https://avatars.githubusercontent.com/Sofia-Saraiva" width="100px;" alt="Foto de Sofia"/><br>
-        <sub>
-          <b>Sofia Saraiva</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
 
 ## License
 
 [MIT](https://github.com/P-E-N-T-E-S/Pris.ME/blob/master/LICENSE.md)
-
-<!--
-Atualizações para o Futuro
-
-## 💻 Pré-requisitos
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-
-* Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
-* Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-* Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
-
-## 🚀 Instalando <nome_do_projeto>
-
-Para instalar o <nome_do_projeto>, siga estas etapas:
-
-Linux e macOS:
-```
-<comando_de_instalação>
-```
-
-Windows:
-```
-<comando_de_instalação>
-```
-## ☕ Usando <nome_do_projeto>
-
-Para usar <nome_do_projeto>, siga estas etapas:
-
-```
-<exemplo_de_uso>
-```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
-
-## 📫 Contribuindo para <nome_do_projeto>
-
-Para contribuir com <nome_do_projeto>, siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin <nome_do_projeto> / <local>`
-5. Crie a solicitação de pull.
-
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-
--->
